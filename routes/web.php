@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('login', 'LoginController@redirectToGoogle')->name('login');
+Route::get('login/callback', 'LoginController@handleGoogleCallback');
+Route::get('logout', 'LoginController@logout');
