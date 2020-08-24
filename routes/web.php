@@ -14,11 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/home', function () {
-    return view('home');
-});
-Route::get('/test', function () {
-    return view('simple');
+
+Route::group([], function () {
+    Route::get('/home', 'DashboardController@home');
+    Route::get('/seo_audit', 'DashboardController@seo_audit');
+    Route::get('/audit', 'DashboardController@audit');
+    Route::get('/analysis', 'DashboardController@seo_analysis');
 });
 
 Route::get('login', 'LoginController@redirectToGoogle')->name('login');
