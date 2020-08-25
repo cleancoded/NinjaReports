@@ -12,9 +12,9 @@
 				<li class="nav-item">
 					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href=""><span><img src="{{asset('images/black.jpg')}}"></span>Site Audit</a>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="/test"><span><img src="{{asset('images/black.jpg')}}"></span>OverView</a>
-						<a class="dropdown-item" href="#"><span><img src="{{asset('images/black.jpg')}}"></span>Errors</a>
-						<a class="dropdown-item" href="#"><span><img src="{{asset('images/black.jpg')}}"></span>Warnings</a>
+						<a class="dropdown-item" href="/seo_audit"><span><img src="{{asset('images/black.jpg')}}"></span>OverView</a>
+						<a class="dropdown-item" href="#errors"><span><img src="{{asset('images/black.jpg')}}"></span>Errors</a>
+						<a class="dropdown-item" href="/audit"><span><img src="{{asset('images/black.jpg')}}"></span>Warnings</a>
 						<a class="dropdown-item" href="#"><span><img src="{{asset('images/black.jpg')}}"></span>Notices</a>
 					</div>
 				</li>
@@ -22,8 +22,8 @@
 				<li class="nav-item">
 					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="analysis.html"><span><img src="{{asset('images/black.jpg')}}"></span>Seo Analysis</a>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="#"><span><img src="{{asset('images/black.jpg')}}"></span>Header</a>
-						<a class="dropdown-item" href="#"><span><img src="{{asset('images/black.jpg')}}"></span>Technical</a>
+						<a class="dropdown-item" href="/analysis"><span><img src="{{asset('images/black.jpg')}}"></span>Header</a>
+						<a class="dropdown-item" href="#technical"><span><img src="{{asset('images/black.jpg')}}"></span>Technical</a>
 						<a class="dropdown-item" href="#"><span><img src="{{asset('images/black.jpg')}}"></span>Content</a>
 						<a class="dropdown-item" href="#"><span><img src="{{asset('images/black.jpg')}}"></span>Performance</a>
 						<a class="dropdown-item" href="#"><span><img src="{{asset('images/black.jpg')}}"></span>Links</a>
@@ -69,6 +69,34 @@
 						<button type="button" class="btn btn-warning" href="#">View Plans</button>
 					</div>
 
+				</div>
+			</div>
+		</div>
+		<!-- Modal -->
+		<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="loginModalLabel"></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<hr>
+				<div class="modal-body">
+					<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+
+					<div class="google-btn" style="margin-right: 157px; margin-top: -20px;">
+						<div class="google-icon-wrapper">
+							<img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
+						</div>
+						<a class="btn-text" href="/login" style="text-decoration : none"><b>Sign in with google</b></a>
+					</div>
+				</div>
+				<hr>
+				<div class="modal-footer">
+
+				</div>
 				</div>
 			</div>
 		</div>
