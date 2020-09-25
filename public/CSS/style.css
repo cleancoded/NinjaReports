@@ -155,7 +155,9 @@
 }
 
 .overview .four-cols .link-div {
-    margin-top: 40%;
+    position: absolute;
+    bottom: 4px;
+    right: 10px;
 }
 
 .overview .errors-table {
@@ -513,4 +515,3 @@ input:checked+.slider:before {
     color: #aaa;
     margin-top: 12px;
 }
-
