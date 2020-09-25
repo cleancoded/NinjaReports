@@ -274,8 +274,13 @@ class analysisController extends Controller
         $meta_length = strlen($meta);
 
         //iframe
-        foreach ($crawler->filter('iframe') as $frame) {
-            $iframe = $frame->getAttribute('src');
+        try {
+            foreach ($crawler->filter('iframe') as $frame) {
+                $iframe = $frame->getAttribute('src');
+            }
+
+        } catch (Exception $e) {
+
         }
 
         $h1 = $crawler->filter('h1')->each(function ($node) {
@@ -738,7 +743,7 @@ class analysisController extends Controller
                             $long_meta_description[] = $val;
                         }
                         $page_link_description[] = $val;
-                    }else{
+                    } else {
                         $page_miss_meta[] = $val;
                     }
                 }
