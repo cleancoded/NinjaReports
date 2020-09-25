@@ -6,6 +6,7 @@ use App\User;
 use Auth;
 use Exception;
 use Illuminate\Http\Request;
+use Session;
 use Socialite;
 
 class LoginController extends Controller
@@ -15,9 +16,25 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function redirectToGoogle()
+    public function redirectToGoogle(Request $request)
     {
+        
+        $intended = $request->request->get('page');
+        $url = $request->request->get('url');
+
+        //dd($request);
+        if ($intended) {
+            Session::put('page_url', $intended);
+        }
+        if($url){
+            Session::put('url', $url);
+        }
+
         return Socialite::driver('google')->redirect();
+
+        // $intended = url()->previous();
+        // Session::put('page_url', $intended);
+
     }
 
     /**
@@ -28,15 +45,24 @@ class LoginController extends Controller
     public function handleGoogleCallback()
     {
         try {
+            $redirect = Session::get('page_url');
+            $url = Session::get('url');
 
             $user = Socialite::driver('google')->user();
             $finduser = User::where('google_id', $user->id)->first();
 
-            if ($finduser) {
+            if ($finduser){
 
                 Auth::login($finduser);
+                if($redirect != null && $url != null){
+                    return redirect($redirect.'?url='.$url);
+                }
+                elseif ($redirect != null && $url == null) {
+                    return redirect($redirect);
+                }else{
+                    return redirect('/home');
 
-                return redirect('/home');
+                }
 
             } else {
                 if ($user->user['verified_email']) {
@@ -49,7 +75,15 @@ class LoginController extends Controller
                     ]);
 
                     Auth::login($newUser);
-                    return redirect('/home');
+                    if ($redirect != null && $url != null) {
+                        return redirect($redirect . '?url=' . $url);
+                    } elseif ($redirect != null && $url == null) {
+                        return redirect($redirect);
+                    } else {
+                        return redirect('/home');
+
+                    }
+
                 } else {
                     $err = "Email is not verified";
                     dd($err);

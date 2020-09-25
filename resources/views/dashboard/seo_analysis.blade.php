@@ -2,239 +2,262 @@
 @section('title', 'SEO Analysis')
 @section('content')
 <div class="col-md-10  overview">
-    <div class="row Analyze">
-                <div class="col-md-10">
-                    <input type="text" class="form-control" placeholder="Analyze">
-                </div>
-                <div class="col-md-2">
-                    <button class="btn">Analyze</button>
-                </div>
-    </div>
+    <form id='analyse_form'>
+        <div class="row Analyze">
+            <div class="col-md-10">
+
+                <input type="text" id='analyze' class="form-control" value="{{$_GET['url'] ?? ''}}"  placeholder="Analyze">
+
+            </div>
+            <div class="col-md-2">
+                <button class="btn" id='analyse'>Analyze</button>
+            </div>
+        </div>
+    </form>
+
     <div class="row progressbar">
-                <div class="col-md-12">
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70"
-                        aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                        Crawling Pages...
-                        </div>
-                    </div>
+        <div class="col-md-12" id="progress_bar">
+            <div class="progress">
+                <div class="progress-bar progress-bar-danger" id="progressBar" role="progressbar" aria-valuenow="0"
+                aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                Crawling Pages...
                 </div>
-    </div>
-    <div class="row audit-text pt-3 pb-3">
-            <div class="col-md-5">
-                <h5><STRONG>SEO Analysis:</STRONG>ninjareports.com</h5>
             </div>
-            <div class="col-md-2">
-
-            </div>
-            <div class="col-md-5 text-right">
-                <h5>June 6,2020 10:01AM</h5>
-            </div>
+        </div>
     </div>
 
-    <section id="analysis">
-        <div class="row Analysis-details" style="border:1px solid #f4f4f4;padding: 6px;">
-            <div class="col-md-2">
-                <img src="images/desktop.jpg" style="height:140px;margin-top:15%;margin-left:5%;">
-            </div>
-            <div class="col-md-6" style="padding-top: 1%;padding-left: 5%;">
-                <h5><a href="#">ninjareports.com</a></h5>
-                <h6 style="width: 17%;float: left;margin-right: 20px;">
-                    <span><img src="images/green.png"></span>
-                    Passed
-                </h6>
-                <div class="progress" style="margin-bottom:5px;width: 70%;float: left;">
-                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-                        aria-valuemin="0" aria-valuemax="100" style="width:40%;background-color: green;">
-                        </div>
-                </div>
-                <div class="clear"></div>
-                <h6 style="width: 17%;float: left;margin-right: 20px;">
-                    <span><img src="images/orange.png"></span>
-                    Warning
-                </h6>
-                <div class="progress" style="margin-bottom:5px;width: 70%;float: left;">
-                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50"
-                        aria-valuemin="0" aria-valuemax="100" style="width:50%;background-color: orange;">
-                        </div>
-                </div>
-                <div class="clear"></div>
-                <h6 style="width: 17%;float: left;margin-right: 20px;">
-                    <span><img src="images/red.png"></span>
-                    Errors
-                </h6>
-                <div class="progress" style="margin-bottom:5px;width: 70%;float: left;">
-                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
-                        aria-valuemin="0" aria-valuemax="100" style="width:60%;background-color: red;">
-                        </div>
-                </div>
-                <div class="clear"></div>
-                <h6 style="width: 17%;float: left;margin-right: 20px;">
-                    <span><img src="images/blue.jpg"></span>
-                    Notices
-                </h6>
-                <div class="progress" style="margin-bottom:5px;width: 70%;float: left;">
-                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70"
-                        aria-valuemin="0" aria-valuemax="100" style="width:70%;background-color: blue;">
-                        </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <div class="col-md-4" style="margin-bottom:5px;">
-                <div class="blue" style="margin-left: 12%;">
-                    <div class="Progress" data-animate="false">
-                    <div class="circle" data-percent="58" style="margin-left: 20%;">
-                        <div></div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div id="text-container"></div>
 
-    <section id='header'>
-        <h2 style="margin-bottom: 30px;margin-top: 30px;">Header</h2>
-        <div class="heading-section">
-
-            <div class="row">
-                <div class="col-md-3">
-                    <h6><span><img src="images/green.png"></span>Title Tag</h6>
-                </div>
-                <div class="col-md-9">
-                    <h6>Ninja Report Meta Title - Ninja Reports</h6>
-                    <p>Length: 67 Characters (recommended: 60 characters)</p>
-                </div>
-            </div>
-                <hr>
-            <div class="row">
-                <div class="col-md-3">
-                    <h6><span><img src="images/green.png"></span>Meta Description</h6>
-                </div>
-                <div class="col-md-9">
-                    <p>Ninja Reports sends automated SEO reports,PPC Reports and Facebook Ads reports.Signup for a free trial today and try it now!</p>
-                    <p>Length: 67 Characters (recommended: 60 characters)</p>
-                </div>
-            </div>
-                <hr>
-            <div class="row">
-                <div class="col-md-3">
-                    <h6><span><img src="images/green.png"></span>Canonical</h6>
-                </div>
-                <div class="col-md-9">
-                    <p>https://www.ninjareports.com</p>
-                </div>
-            </div>
-                <hr>
-            <div class="row">
-                <div class="col-md-3">
-                    <h6><span><img src="images/gray.jpg"></span>Google Preview</h6>
-                </div>
-                <div class="col-md-9">
-
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section id='technical'>
-        <h2 style="margin-bottom: 30px;margin-top: 30px;">Technical</h2>
-        <div class="Technical-section">
-
-            <div class="row">
-                <div class="col-md-3">
-                    <h6><span><img src="images/green.png"></span>Schema Tags</h6>
-                </div>
-                <div class="col-md-9">
-                    <h6>Organisation, Service</h6>
-                    <p>No Schema Errors</p>
-                </div>
-            </div>
-                <hr>
-            <div class="row">
-                <div class="col-md-3">
-                    <h6><span><img src="images/orange.png"></span>Alt Tags</h6>
-                </div>
-                <div class="col-md-9">
-                    <p>7 images are missing alt tags.(56 images passed)</p>
-                    <p style="margin-bottom: 0;">https://www.ninjareports.com/images/altness.png</p>
-                    <p style="margin-bottom: 0;">https://www.ninjareports.com/images/altness.png</p>
-                    <p style="margin-bottom: 0;">https://www.ninjareports.com/images/altness.png</p>
-                    <p style="margin-bottom: 0;">https://www.ninjareports.com/images/altness.png</p>
-                    <p style="margin-bottom: 0;">https://www.ninjareports.com/images/altness.png</p>
-                </div>
-            </div>
-                <hr>
-            <div class="row">
-                <div class="col-md-3">
-                    <h6><span><img src="images/green.png"></span>SEO Friendly URL</h6>
-                </div>
-                <div class="col-md-9">
-                    <p>https://www.ninjareports.com</p>
-                </div>
-            </div>
-                <hr>
-            <div class="row">
-                <div class="col-md-3">
-                    <h6><span><img src="images/red.png"></span>Flash/Iframes</h6>
-                </div>
-                <div class="col-md-9">
-                    <p>You are using an Iframe on your page.Iframes can't be crawled by search engnies and aren't good for SEO, in General</p>
-                </div>
-            </div>
-            </div>
-        </div>
-    </section>
 
 
     <!------------------------------------------Animation Script ProgressBarStart----------------------------------------------------->
 
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-            <script src="https://rawgit.com/kottenator/jquery-circle-progress/1.2.1/dist/circle-progress.js"></script>
-            <script src="scripts/index.js"></script>
-            <Script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script src="https://rawgit.com/kottenator/jquery-circle-progress/1.2.1/dist/circle-progress.js"></script>
+        <!-- <script src="scripts/index.js"></script> -->
+        <script>
             /**
                 * index.js
                 * - All our useful JS goes here, awesome!
                 Maruf-Al Bashir Reza
                 */
+            function insertParam(key, value) {
+                key = encodeURIComponent(key);
+                value = encodeURIComponent(value);
 
-            console.log("JavaScript is amazing!");
-            $(document).ready(function($) {
-                function animateElements() {
-                $('.Progress').each(function() {
-                    var elementPos = $(this).offset().top;
-                    var topOfWindow = $(window).scrollTop();
-                    var percent = $(this).find('.circle').attr('data-percent');
-                    var percentage = parseInt(percent, 10) / parseInt(100, 10);
-                    var animate = $(this).data('animate');
-                    if (elementPos < topOfWindow + $(window).height() - 30 && !animate) {
-                    $(this).data('animate', true);
-                    $(this).find('.circle').circleProgress({
-                        startAngle: -Math.PI / 2,
-                        value: percent / 100,
-                        thickness: 14,
-                        fill: {
-                        color: '#1B58B8'
-                        }
-                    }).on('circle-animation-progress', function(event, progress, stepValue) {
-                        $(this).find('div').text((stepValue * 100).toFixed(1) + "%");
-                    }).stop();
+                // kvp looks like ['key1=value1', 'key2=value2', ...]
+                var kvp = document.location.search.substr(1).split('&');
+                let i=0;
+
+                for(; i<kvp.length; i++){
+                    if (kvp[i].startsWith(key + '=')) {
+                        let pair = kvp[i].split('=');
+                        pair[1] = value;
+                        kvp[i] = pair.join('=');
+                        break;
                     }
-                });
+                }
+
+                if(i >= kvp.length){
+                    kvp[kvp.length] = [key,value].join('=');
+                }
+
+                // can return this or...
+                let params = kvp.join('&');
+
+                // reload page with new params
+                document.location.search = params;
+            }
+
+            $(document).ready(function($) {
+
+                function animateElements() {
+                    $('.Progress').each(function() {
+                        var elementPos = $(this).offset().top;
+                        var topOfWindow = $(window).scrollTop();
+                        var percent = $(this).find('.circle').attr('data-percent');
+                        var percentage = parseInt(percent, 10) / parseInt(100, 10);
+                        var animate = $(this).data('animate');
+                        if (elementPos < topOfWindow + $(window).height() - 30 && !animate) {
+                        $(this).data('animate', true);
+                        $(this).find('.circle').circleProgress({
+                            startAngle: -Math.PI / 2,
+                            value: percent / 100,
+                            thickness: 14,
+                            fill: {
+                            color: '#1B58B8'
+                            }
+                        }).on('circle-animation-progress', function(event, progress, stepValue) {
+                            $(this).find('div').text((stepValue * 100).toFixed(1) + "%");
+                        }).stop();
+                        }
+                    });
                 }
 
                 // Show animated elements
                 animateElements();
-                $(window).scroll(animateElements);
-            });
+               // $(window).scroll(animateElements);
 
-            </Script>
-
+            // <!------------------------------------------Animation Script ProgressBar End----------------------------------------------------->
 
 
-            <!------------------------------------------Animation Script ProgressBar End----------------------------------------------------->
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
 
+                var loggedIn = {{ auth()->check() ? 'true' : 'false' }};
+                var analyze_url =  $("#analyze").val();
 
+                if(analyze_url && loggedIn){
+                    analyzeURL();
+                }
+
+                $(".btn").click(function(e){
+                    e . preventDefault();
+                    if(loggedIn){
+                        var url =  $("#analyze").val();
+                        !!url && insertParam('url', url);
+                        analyzeURL();
+                    }else{
+                        var j$ = jQuery.noConflict();
+                        j$("#loginModal").modal("show");
+                        $("#login_btn").click(function(e){
+                            var analyze_url = $("#analyze").val();
+                            if(analyze_url){
+                                window.location ="/login?page="+document.location.href+"&url="+analyze_url;
+                            }else{
+                                window.location ="/login?page="+document.location.href;
+                            }
+                        });
+                    }
+                });
+
+                function analyzeURL(){
+                    var url =  $("#analyze").val();
+                    if(url != null){
+                        $.ajax({
+                            xhr : function() {
+                                var xhr = new window.XMLHttpRequest();
+                                xhr.upload.addEventListener('progress', function(e) {
+                                    if (e.lengthComputable) {
+                                        var percent = Math.round((e.loaded / e.total) * 100)-60;
+                                        console.log(percent);
+                                        $('#progressBar').attr('aria-valuenow', percent).css('width', percent + '%');
+                                    }
+                                });
+                                return xhr;
+                            },
+                            
+                            type:'POST',
+                            url:'/seo',
+                            data:{url:url},
+                            success:function(data){
+                                //console.log(data);
+                                //console.log(data.lighthouseResult.categories.performance['score']);
+                                $('div#text-container').append(data);
+                                $('.analysis_section').show();
+                                $('#progressBar').css('width', 80 + '%');
+                                runPagespeed();
+                                
+                                
+                            }
+                        });
+                    }else{
+                        alert('add url');
+                    }
+                }
+
+                function setUpQuery() {
+                    const api = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed';
+                    const url =  $("#analyze").val();
+                    const parameters = {
+                        url: encodeURIComponent(url)
+                    };
+                    let query = `${api}?`;
+                    for (key in parameters) {
+                        query += `${key}=${parameters[key]}`;
+                    }
+                    return query;
+                }
+
+                function runPagespeed() {
+                    const url = setUpQuery();
+                    fetch(url)
+                        .then(response => response.json())
+                        .then(json => {
+                            // See https://developers.google.com/speed/docs/insights/v5/reference/pagespeedapi/runpagespeed#response
+                            // to learn more about each of the properties in the response object.
+                            //showInitialContent(json.id);
+                            //showCruxContent(cruxMetrics);
+                            const lighthouse = json.lighthouseResult;
+                            console.log(lighthouse);
+                            var score = Math.trunc(lighthouse.categories.performance['score'] * 100);
+                            //console.log(lighthouse.audits['unminified-css']['numericValue']);
+                            var unminified_css = lighthouse.audits['unminified-css']['numericValue'];
+                            var unminified_js = lighthouse.audits['unminified-javascript']['numericValue'];
+                            //console.log(unminified_js);
+
+                            try {
+                                var wastBytes_css = lighthouse.audits['unminified-css']['details']['items'][1]['wastedBytes'];
+                                if(wastBytes_css){
+                                    $("#css_minified").append("CSS is not Minified");
+                                    var get_passed = document.getElementById("warning").style.width;
+                                    var add_vale = parseFloat(get_passed) + 3.7;
+                                    $("#warning").css("width", add_vale + "%");
+                                }
+                            }
+                            catch(err) {
+                                $("#css_minified").append("CSS is Minified");
+                                var get_passed = document.getElementById("passed_progress").style.width;
+                                var add_vale = parseFloat(get_passed) + 3.7;
+                                $("#passed_progress").css("width", add_vale + "%");
+
+                            }
+
+                            try {
+                                var wastBytes_js = lighthouse.audits['unminified-javascript']['details']['items'][1]['wastedBytes'];
+                                if(wastBytes_js){
+                                    $("#js_minified").append("JS is not Minified");
+                                    var get_passed = document.getElementById("warning").style.width;
+                                    var add_vale = parseFloat(get_passed) + 3.7;
+                                    $("#warning").css("width", add_vale + "%");
+                                    
+                                }
+                            }
+                            catch(err) {
+                                $("#js_minified").append("JS is Minified");
+                                var get_passed = document.getElementById("passed_progress").style.width;
+                                var add_vale = parseFloat(get_passed) + 3.7;
+                                $("#passed_progress").css("width", add_vale + "%");
+                            }
+
+                            try {
+                                var wastBytes_js = lighthouse.audits['uses-text-compression']['details']['items'][1]['wastedBytes'];
+                                if(wastBytes_js){
+                                    $("#gzip_compression").append("Gzip is not Enabled");
+                                    var get_passed = document.getElementById("warning").style.width;
+                                    var add_vale = parseFloat(get_passed) + 3.7;
+                                    $("#warning").css("width", add_vale + "%");
+                                }
+                            }
+                            catch(err) {
+                                $("#gzip_compression").append("Gzip is Enabled");
+                                var get_passed = document.getElementById("passed_progress").style.width;
+                                var add_vale = parseFloat(get_passed) + 3.7;
+                                $("#passed_progress").css("width", add_vale + "%");
+                            }
+                            $('.circle').attr('data-percent', score);
+                            $(window).scroll(animateElements);
+                            $('#progressBar').css('width', 100 + '%');
+                            //console.log();
+                        });
+                }
+
+                });
+
+        </script>
 
 
 </div>

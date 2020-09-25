@@ -10,26 +10,28 @@
 				</li>
 
 				<li class="nav-item">
-					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href=""><span><img src="{{asset('images/black.jpg')}}"></span>Site Audit</a>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="/seo_audit"><span><img src="{{asset('images/black.jpg')}}"></span>OverView</a>
+					<a class="nav-link"  href="{{route('seo_audit')}}"><span><img src="{{asset('images/black.jpg')}}"></span>Site Audit</a>
+					<div class="audit-item" style="display:none;">
+						<a class="dropdown-item" href="#overview"><span><img src="{{asset('images/black.jpg')}}"></span>OverView</a>
 						<a class="dropdown-item" href="#errors"><span><img src="{{asset('images/black.jpg')}}"></span>Errors</a>
-						<a class="dropdown-item" href="/audit"><span><img src="{{asset('images/black.jpg')}}"></span>Warnings</a>
-						<a class="dropdown-item" href="#"><span><img src="{{asset('images/black.jpg')}}"></span>Notices</a>
+						<a class="dropdown-item" href="#warnings"><span><img src="{{asset('images/black.jpg')}}"></span>Warnings</a>
+						<a class="dropdown-item" href="#notices"><span><img src="{{asset('images/black.jpg')}}"></span>Notices</a>
 					</div>
 				</li>
 
 				<li class="nav-item">
-					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="analysis.html"><span><img src="{{asset('images/black.jpg')}}"></span>Seo Analysis</a>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="/analysis"><span><img src="{{asset('images/black.jpg')}}"></span>Header</a>
-						<a class="dropdown-item" href="#technical"><span><img src="{{asset('images/black.jpg')}}"></span>Technical</a>
-						<a class="dropdown-item" href="#"><span><img src="{{asset('images/black.jpg')}}"></span>Content</a>
-						<a class="dropdown-item" href="#"><span><img src="{{asset('images/black.jpg')}}"></span>Performance</a>
-						<a class="dropdown-item" href="#"><span><img src="{{asset('images/black.jpg')}}"></span>Links</a>
-						<a class="dropdown-item" href="#"><span><img src="{{asset('images/black.jpg')}}"></span>Security</a>
-						<a class="dropdown-item" href="#"><span><img src="{{asset('images/black.jpg')}}"></span>Social</a>
-						<a class="dropdown-item" href="#"><span><img src="{{asset('images/black.jpg')}}"></span>Other</a>
+					<a class="nav-link" href="{{ route('analysis') }}"><span><img src="{{asset('images/black.jpg')}}"></span>Seo Analysis</a>
+					<div class="analysis_section" style="display:none;">
+						<div class="">
+							<a class="dropdown-item" href="#header"><span><img src="{{asset('images/black.jpg')}}"></span>Header</a>
+							<a class="dropdown-item" href="#technical"><span><img src="{{asset('images/black.jpg')}}"></span>Technical</a>
+							<a class="dropdown-item" href="#Content"><span><img src="{{asset('images/black.jpg')}}"></span>Content</a>
+							<a class="dropdown-item" href="#performance"><span><img src="{{asset('images/black.jpg')}}"></span>Performance</a>
+							<a class="dropdown-item" href="#links"><span><img src="{{asset('images/black.jpg')}}"></span>Links</a>
+							<a class="dropdown-item" href="#security"><span><img src="{{asset('images/black.jpg')}}"></span>Security</a>
+							<a class="dropdown-item" href="#social"><span><img src="{{asset('images/black.jpg')}}"></span>Social</a>
+							<a class="dropdown-item" href="#other"><span><img src="{{asset('images/black.jpg')}}"></span>Other</a>
+						</div>
 					</div>
 				</li>
 
@@ -90,10 +92,11 @@
 						<div class="google-icon-wrapper">
 							<img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
 						</div>
-						<a class="btn-text" href="/login" style="text-decoration : none"><b>Sign in with google</b></a>
+						<a class="btn-text " href="javascript:0;" id="login_btn" style="text-decoration:none"><b>Sign in with google</b></a>
 					</div>
 				</div>
 				<hr>
+				<!-- <button class="btn-text" href="" id="login_btn"  style="text-decoration : none"><b>google</b></button> -->
 				<div class="modal-footer">
 
 				</div>
