@@ -31,12 +31,13 @@
             <div class="col-md-3">
                 <h5 style="color: red;">ERRORS</h5>
                 <h5 class="number-error">{{$errors}}</h5>
-                <p>@if(!empty($status404))  <span class="icon"><i class="fa fa-chain-broken" aria-hidden="true"></i></span> @endif  {{!empty($status404) ? 'Broken links found':''}}</p>
-                <p>@if(!empty($status500))  <span class="icon"><i class="fa fa-chain-broken" aria-hidden="true"></i></span> @endif  {{!empty($status500) ? '500 error found':''}}</p>
-                <p>@if(!empty($page_miss_title))        <span class="icon"><img src="{{asset('images/title.png')}}"></span> @endif  {{!empty($page_miss_title)? 'Title messing found':''}}</p>
-                <p>@if(!empty($page_without_canonical)) <span class="icon"><i class="fa fa-link" aria-hidden="true"></i></span> @endif  {{!empty($page_without_canonical) ? 'Canonical missing on some pages':''}}</p>
-                <p>@if(!empty($duplicate_meta_description))     <span class="icon"><img src="{{asset('images/description.png')}}"></span> @endif    {{!empty($duplicate_meta_description) ? 'Duplicate meta discription found' : ''}}</p>
-                <p>@if(!empty($duplicate_title))    <span class="icon"><img src="{{asset('images/title.png')}}"></span> @endif  {{!empty($duplicate_title) ? 'Duplicate title found' : ''}}</p>
+                <p>Errors are SEO issues that have the highest impact on your website's SEO performance.</p>
+                <p>@if(!empty($status404))  @endif  {{!empty($status404) ? 'Broken links found':''}}</p>
+                <p>@if(!empty($status500))   @endif  {{!empty($status500) ? '500 error found':''}}</p>
+                <p>@if(!empty($page_miss_title))      @endif  {{!empty($page_miss_title)? 'Title tag missing':''}}</p>
+                <p>@if(!empty($page_without_canonical))  @endif  {{!empty($page_without_canonical) ? 'Canonical tag missing on some pages':''}}</p>
+                <p>@if(!empty($duplicate_meta_description))  @endif    {{!empty($duplicate_meta_description) ? 'Duplicate meta discriptions found' : ''}}</p>
+                <p>@if(!empty($duplicate_title))     @endif  {{!empty($duplicate_title) ? 'Duplicate title tags found' : ''}}</p>
                 <div class="link-div text-right">
                    <p> <a href="#">View errors</a></p>
                 </div>
@@ -45,6 +46,7 @@
             <div class="col-md-3">
                 <h5 style="color:orange;">WARNINGS</h5>
                 <h5 class="number-error">{{$warning}}</h5>
+                      <p>Warnings have less impact on your SEO performance but should not be overlooked.</p>
                 <p>@if(!empty($less_page_words))    <span class="icon"><i class="fa fa-calculator" aria-hidden="true"></i></span>@endif {{!empty($less_page_words)   ? 'Low word count found':''}}</p>
                 <p>@if(!empty($links_empty_h1))     <span class="icon"><i class="fa fa-header" aria-hidden="true"></i></span> @endif    {{!empty($links_empty_h1)    ? 'H1 missing found':''}}</p>
                 <p>@if(!empty($duplicate_h1))       <span class="icon"><i class="fa fa-header" aria-hidden="true"></i></span> @endif    {{!empty($duplicate_h1) ? 'H1 duplicate found':''}}</p>
@@ -61,6 +63,7 @@
             <div class="col-md-3">
                 <h5 style="color:lightblue;">NOTICES</h5>
                 <h5 class="number-error">{{$notices}}</h5>
+                  <p>Notices are not critical to your SEO performance but should be corrected.</p>
                 <p>@if(!empty($page_h1_less))     <span class="icon"><i class="fa fa-header" aria-hidden="true"></i></span> @endif      {{!empty($page_h1_less)    ? 'H1 too short found'   :''}}</p>
                 <p>@if(!empty($page_h1_greater))     <span class="icon"><i class="fa fa-header" aria-hidden="true"></i></span> @endif   {{!empty($page_h1_greater)  ? 'H1 too long found'    :''}}</p>
                 <p>@if(!empty($links_more_h1))     <span class="icon"><i class="fa fa-header" aria-hidden="true"></i></span> @endif     {{!empty($links_more_h1) ? 'H1 two time found on page':''}}</p>
@@ -102,7 +105,7 @@
                             <tr>
                                 <td><a href="{{$val}}" target="_blank">{{$val}}</a></td>
                                 <td>Your canonical tag is missing. Canonical tags are important because they tell search engines what the correct URL of the page should be.</td>
-                                <td>Add a canonical tag to your page.</td>
+                                <td>Add a canonical tag to your website pages.</td>
                             </tr>
                         @endforeach    
                     @endif
@@ -111,8 +114,8 @@
                         @foreach($duplicate_title as $key => $val)
                             <tr>
                                 <td><a href="{{$key}}" target="_blank">{{$key}}</a></td>
-                                <td>One or more pages have identical titles.</td>
-                                <td>make sure to rewrite duplicate titles where needed so that every page on your site has a unique title that accurately describes its content.</td>
+                                <td>One or more pages have identical title tags.</td>
+                                <td>Make sure to rewrite duplicate title tags where needed so that every page on your site has a unique title tag.</td>
                             </tr>
                         @endforeach    
                     @endif
@@ -121,8 +124,8 @@
                         @foreach($duplicate_meta_description as $key => $val)
                             <tr>
                                 <td><a href="{{$key}}" target="_blank">{{$key}}</a></td>
-                                <td>One or more pages have identical description.</td>
-                                <td>make sure to rewrite duplicate description where needed</td>
+                                <td>One or more pages have identical meta description tags.</td>
+                                <td>Each URL/page should have a unique meta description tag.</td>
                             </tr>
                         @endforeach    
                     @endif
@@ -131,7 +134,7 @@
                         @foreach($link_500 as  $val)
                             <tr>
                                 <td><a href="{{$val}}" target="_blank">{{$val}}</a></td>
-                                <td>your page have 500 error</td>
+                                <td>your page has 500 error</td>
                                 <td>Find the link or links that are broken and change it to the correct page or take the link off.</td>
                             </tr>
                         @endforeach    
@@ -169,7 +172,7 @@
                             @foreach($links_empty_h1 as $link)
                                 <tr>
                                     <td><a href="{{$link}}" target="_blank">{{$link}}</a></td>
-                                    <td>Your page is not using header tags appropriately. Header tags are the section titles of your content. They should be structured correctly.</td>
+                                    <td>Your page is not using heading tags appropriately. Heading tags are the section titles of your content. They should be structured correctly.</td>
                                     <td>Make sure the page has one H1 tag to signal the most important topic of the page and descending tags to show other topics.</td>
                                 </tr>
                             @endforeach    
@@ -200,7 +203,7 @@
                                 <tr>
                                     <td><a href="{{$val}}" target="_blank">{{$val}}</a></td>
                                     <td>302 redirects</td>
-                                    <td>Lorem IpsumLorem IpsumLorem Ipsum</td>
+                                    <td>Your page has a 302 redirect. Link directly to the redirected page or remove the 302 redirect.</td>
                                 </tr>
                             @endforeach    
                         @endif
@@ -210,7 +213,7 @@
                                 <tr>
                                     <td><a href="{{$val}}" target="_blank">{{$val}}</a></td>
                                     <td>301 redirects</td>
-                                    <td>Lorem IpsumLorem IpsumLorem Ipsum</td>
+                                    <td>Your page has a 301 redirect. Link directly to the redirected page or remove the 301 redirect.</td>
                                 </tr>
                             @endforeach    
                         @endif
@@ -261,8 +264,8 @@
                             @foreach($links_more_h1 as $link)
                                 <tr>
                                     <td><a href="{{$link}}" target="_blank">{{$link}}</a></td>
-                                    <td>H1 more thin one time found on page</td>
-                                    <td>Make sure you leave only one h1 tag - the simplest way to do this might be to convert h1’s into h2’s.</td>
+                                    <td>Multiple h1 tags found on your page.</td>
+                                    <td>Make sure you have only one h1 tag on each page and it includes the main keywords for that page.</td>
                                 </tr>
                             @endforeach
                         @endif
@@ -301,8 +304,8 @@
                             @foreach($short_title as $short)
                                 <tr>
                                     <td><a href="{{$short}}" target="_blank">{{$short}}</a></td>
-                                    <td>Title too short found</td>
-                                    <td>The length should be between 50 and 60 characters.</td>
+                                    <td>Title tag too short</td>
+                                    <td>The title tag length should be between 50 and 60 characters.</td>
                                 </tr>
                             @endforeach
                         @endif
@@ -331,7 +334,7 @@
                             @foreach($short_meta_description as $short_meta)
                                 <tr>
                                     <td><a href="{{$short_meta}}" target="_blank">{{$short_meta}}</a></td>
-                                    <td>The meta description is shorter than 70 characters.</td>
+                                    <td>The meta description is not the optimal length.</td>
                                     <td>Create a unique meta description of 150 to 160 characters in length.</td>
                                 </tr>
                             @endforeach
@@ -342,7 +345,7 @@
                                 <tr>
                                     <td><a href="{{$val}}" target="_blank">{{$val}}</a></td>
                                     <td>Twitter card missing</td>
-                                    <td>Add Twitter card to your page</td>
+                                    <td>Add Twitter card to your page headers.</td>
                                 </tr>
                             @endforeach
                         @endif
@@ -362,7 +365,7 @@
                                 <tr>
                                     <td><a href="{{$val}}" target="_blank">{{$val}}</a></td>
                                     <td>Longs URL found</td>
-                                    <td>A site's URL structure should be as simple as possible.</td>
+                                    <td>A site's URL structure should be as simple as possible and include the pages keyword.</td>
                                 </tr>
                             @endforeach
                         @endif
