@@ -1,6 +1,6 @@
 	<div class="row top-bar">
 		<div class="col-md-6 text-left">
-			<span class="logo"><img src="{{asset('images/logo.png')}}" alt=""></span>
+			<span class="logo"><img src="{{asset('images/ninja reports white.png')}}" alt=""></span>
 			<!-- <span><img src="{{asset('images/logo1.png')}}" alt=""></span>	<h5>NINJA REPORTS</h5> -->
 		</div>
         @if (auth()->check())

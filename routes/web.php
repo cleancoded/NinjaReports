@@ -6,6 +6,7 @@ Route::get('/', function () {
 
 Route::group([], function () {
     Route::get('/home', 'DashboardController@home');
+    Route::get('/pricing', 'DashboardController@pricing');
     Route::get('/audit', 'DashboardController@seo_audit')->name('audit');
     //Route::get('/audit', 'DashboardController@audit');
     Route::get('/analysis', 'DashboardController@seo_analysis')->name('analysis');

@@ -4,7 +4,7 @@
 <div class="col-md-10  overview">
     <div class="row Analyze">
         <div class="col-md-10">
-            <input type="text" id="seo_audit" class="form-control" value="{{$_GET['url'] ?? ''}}" placeholder="Analyze">
+            <input type="text" id="seo_audit" class="form-control" value="{{$_GET['url'] ?? ''}}" placeholder="Enter URL">
         </div>
         <div class="col-md-2">
             <button class="btn">Analyze</button>
@@ -21,6 +21,13 @@
                 Crawling Pages...
                 </div>
             </div> -->
+        </div>
+    </div>
+        <div id="waiting" style="display:none;">
+        <div class="loading-box">
+            <img src="{{asset('images/806.gif')}}" alt="loading"/>
+            <h4>Crawling...</h4>
+            <p>Please wait while we crawl your pages. This process can take a few minutes.</p>
         </div>
     </div>
     <div id="text-container"></div>
@@ -117,6 +124,7 @@
                                             if (e.lengthComputable) {
                                                 var percent = Math.round((e.loaded / e.total) * 100)-60;
                                                 //console.log(percent);
+                                                $('#waiting').show();
                                                 $('#progress').attr('aria-valuenow', percent).css('width', percent + '%').text(percent + '%');
                                             }
                                         });
@@ -129,6 +137,7 @@
                                     success:function(data){
                                         $('#progress').css('width', 100 + '%').text(100 + '%'); 
                                         $('div#text-container').append(data);
+                                        $('#waiting').hide();
                                         $('.audit-item').show();
                                         animateElements();
                                         $(".progress-bar1").css("animation-play-state", "paused");
