@@ -14,15 +14,18 @@
             </div>
         </div>
     </form>
-
+    
     <div class="row progressbar">
         <div class="col-md-12" id="progress_bar">
             <div class="progress">
+                <div class="progress-bar1" style="width: 100%;"></div>
+            </div>
+            <!-- <div class="progress">
                 <div class="progress-bar progress-bar-danger" id="progressBar" role="progressbar" aria-valuenow="0"
                 aria-valuemin="0" aria-valuemax="100" style="width:0%">
-                Crawling Pages...
+                
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -70,25 +73,28 @@
             }
 
             $(document).ready(function($) {
-
+                $(".progress-bar1").css("animation-play-state", "paused");
+               
                 function animateElements() {
                     $('.Progress').each(function() {
                         var elementPos = $(this).offset().top;
                         var topOfWindow = $(window).scrollTop();
                         var percent = $(this).find('.circle').attr('data-percent');
+                        
                         var percentage = parseInt(percent, 10) / parseInt(100, 10);
+                        
                         var animate = $(this).data('animate');
                         if (elementPos < topOfWindow + $(window).height() - 30 && !animate) {
                         $(this).data('animate', true);
                         $(this).find('.circle').circleProgress({
                             startAngle: -Math.PI / 2,
                             value: percent / 100,
-                            thickness: 14,
+                            thickness: 10,
                             fill: {
                             color: '#1B58B8'
                             }
-                        }).on('circle-animation-progress', function(event, progress, stepValue) {
-                            $(this).find('div').text((stepValue * 100).toFixed(1) + "%");
+                        }).on('circle-animation-progress', function(event, progress, stepValue){
+                            $(this).find('div').text((stepValue * 100).toFixed(0) + "%");
                         }).stop();
                         }
                     });
@@ -98,7 +104,7 @@
                 animateElements();
                // $(window).scroll(animateElements);
 
-            // <!------------------------------------------Animation Script ProgressBar End----------------------------------------------------->
+               // <!------------------------------------------Animation Script ProgressBar End----------------------------------------------------->
 
 
                 $.ajaxSetup({
@@ -109,17 +115,27 @@
 
                 var loggedIn = {{ auth()->check() ? 'true' : 'false' }};
                 var analyze_url =  $("#analyze").val();
-
-                if(analyze_url && loggedIn){
-                    analyzeURL();
-                }
+                
+                    if(analyze_url && loggedIn){
+                        if(isUrl(analyze_url) != false){
+                            $(".progress-bar1").css("animation-play-state", "running");
+                            analyzeURL();
+                        }else{
+                            //alert("The link doesn't have http or https");
+                        }
+                    }
+               
 
                 $(".btn").click(function(e){
                     e . preventDefault();
+                    
                     if(loggedIn){
                         var url =  $("#analyze").val();
                         !!url && insertParam('url', url);
-                        analyzeURL();
+                        
+                            analyzeURL();
+                        
+                        
                     }else{
                         var j$ = jQuery.noConflict();
                         j$("#loginModal").modal("show");
@@ -136,34 +152,43 @@
 
                 function analyzeURL(){
                     var url =  $("#analyze").val();
-                    if(url != null){
-                        $.ajax({
-                            xhr : function() {
-                                var xhr = new window.XMLHttpRequest();
-                                xhr.upload.addEventListener('progress', function(e) {
-                                    if (e.lengthComputable) {
-                                        var percent = Math.round((e.loaded / e.total) * 100)-60;
-                                        console.log(percent);
-                                        $('#progressBar').attr('aria-valuenow', percent).css('width', percent + '%');
+                    if(url.length != 0){
+                    if(isUrl(url) != false){
+                        
+                            $(".progress-bar1").css("animation-play-state", "running");
+                            $.ajax({
+                                xhr : function() {
+                                    var xhr = new window.XMLHttpRequest();
+                                    
+                                    xhr.upload.addEventListener('progress', function(e) {
+                                        if (e.lengthComputable) {
+                                            var percent = Math.round((e.loaded / e.total) * 100)-60;
+                                            //console.log(percent);
+                                            $('#progressBar').attr('aria-valuenow', percent).css('width', percent + '%').text(percent + '%');
+                                        }
+                                    });
+                                    return xhr;
+                                },
+                                
+                                type:'POST',
+                                url:'/seo',
+                                data:{url:url},
+                                success:function(data){
+                                    //console.log(data);
+                                    if(data == 'unsuccessfull'){
+                                        $('#upgradeModel').show();
+                                    }else{
+                                        $('div#text-container').append(data);
+                                        $('.analysis_section').show();
+                                        $('#progressBar').css('width', 80 + '%').text(80 + '%');
+                                        runPagespeed();
                                     }
-                                });
-                                return xhr;
-                            },
-                            
-                            type:'POST',
-                            url:'/seo',
-                            data:{url:url},
-                            success:function(data){
-                                //console.log(data);
-                                //console.log(data.lighthouseResult.categories.performance['score']);
-                                $('div#text-container').append(data);
-                                $('.analysis_section').show();
-                                $('#progressBar').css('width', 80 + '%');
-                                runPagespeed();
-                                
-                                
-                            }
-                        });
+                                    
+                                }
+                            });
+                        }else{
+                            alert("The link doesn't have http or https");
+                        }
                     }else{
                         alert('add url');
                     }
@@ -192,8 +217,9 @@
                             //showInitialContent(json.id);
                             //showCruxContent(cruxMetrics);
                             const lighthouse = json.lighthouseResult;
-                            console.log(lighthouse);
-                            var score = Math.trunc(lighthouse.categories.performance['score'] * 100);
+                            //console.log(lighthouse);
+                            var score = Math.round(lighthouse.categories.performance['score'] * 100);
+                            console.log(score);
                             //console.log(lighthouse.audits['unminified-css']['numericValue']);
                             var unminified_css = lighthouse.audits['unminified-css']['numericValue'];
                             var unminified_js = lighthouse.audits['unminified-javascript']['numericValue'];
@@ -202,10 +228,12 @@
                             try {
                                 var wastBytes_css = lighthouse.audits['unminified-css']['details']['items'][1]['wastedBytes'];
                                 if(wastBytes_css){
-                                    $("#css_minified").append("CSS is not Minified");
+                                    $("#css_minified").append("Your CSS is not minified. Minifying your files and code can help speed up your website which will improve SEO and user experience.");
                                     var get_passed = document.getElementById("warning").style.width;
                                     var add_vale = parseFloat(get_passed) + 3.7;
                                     $("#warning").css("width", add_vale + "%");
+                                    $("#img_err").attr("class", "fa fa-exclamation-triangle");
+                                    $("#img_color").css('color','orange');
                                 }
                             }
                             catch(err) {
@@ -219,10 +247,12 @@
                             try {
                                 var wastBytes_js = lighthouse.audits['unminified-javascript']['details']['items'][1]['wastedBytes'];
                                 if(wastBytes_js){
-                                    $("#js_minified").append("JS is not Minified");
+                                    $("#js_minified").append("Your JS is not minified. Minifying your files and code can help speed up your website which will improve SEO and user experience.");
                                     var get_passed = document.getElementById("warning").style.width;
                                     var add_vale = parseFloat(get_passed) + 3.7;
                                     $("#warning").css("width", add_vale + "%");
+                                    $("#img_err").attr("class", "fa fa-exclamation-triangle");
+                                    $("#img_color").css('color','orange');
                                     
                                 }
                             }
@@ -236,10 +266,12 @@
                             try {
                                 var wastBytes_js = lighthouse.audits['uses-text-compression']['details']['items'][1]['wastedBytes'];
                                 if(wastBytes_js){
-                                    $("#gzip_compression").append("Gzip is not Enabled");
+                                    $("#gzip_compression").append("Your page is not being GZIP compressed. This can impact how quickly your page takes to load.");
                                     var get_passed = document.getElementById("warning").style.width;
                                     var add_vale = parseFloat(get_passed) + 3.7;
                                     $("#warning").css("width", add_vale + "%");
+                                    $("#img_gzip").attr("class", "fa fa-exclamation-triangle");
+                                    $("#gzip_color").css('color','orange');
                                 }
                             }
                             catch(err) {
@@ -247,13 +279,20 @@
                                 var get_passed = document.getElementById("passed_progress").style.width;
                                 var add_vale = parseFloat(get_passed) + 3.7;
                                 $("#passed_progress").css("width", add_vale + "%");
+                                $("#img_gzip").attr("class", "fa fa-check");
                             }
                             $('.circle').attr('data-percent', score);
-                            $(window).scroll(animateElements);
-                            $('#progressBar').css('width', 100 + '%');
-                            //console.log();
+                            animateElements();
+                            //$(window).scroll(animateElements);
+                            $('#progressBar').css('width', 100 + '%').text(100 + '%');
+                            $(".progress-bar1").css("animation-play-state", "paused");
                         });
                 }
+
+                function isUrl(s) {
+                    var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+                            return regexp.test(s);
+                    }
 
                 });
 

@@ -67,6 +67,7 @@
 
 .overview {
     padding: 30px !important;
+    margin-top: 20px !important;
 }
 
 .Welcome-two-cols .Quick-col,
@@ -492,12 +493,12 @@ input:checked+.slider:before {
 
 .circle canvas {
     vertical-align: middle;
+
 }
 
 .circle div {
     position: absolute;
     top: 30px;
-    left: 0;
     width: 100%;
     text-align: center;
     line-height: 40px;
