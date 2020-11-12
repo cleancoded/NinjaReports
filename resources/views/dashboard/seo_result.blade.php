@@ -9,15 +9,30 @@
             <h5>{{$time}}</h5>
         </div>
     </div>
+    
     <section id="analysis">
         <div class="row Analysis-details" style="border:1px solid #f4f4f4;padding: 6px;">
-            <div class="col-md-2">
-                <img src="images/desktop.jpg" style="height:140px;margin-top:15%;margin-left:5%;">
+            <div class="col-md-4">
+                <!-- <img src="images/desktop.jpg" style="height:140px;margin-top:15%;margin-left:5%;"> -->
+                <div class="screen-container">
+                    <div class="screen monitor">
+                        <div class="content">
+                        <img src="images/screenshot.png" style="width:100%" />
+                       
+                        </div>
+                        <div class="basee">
+                            <div class="grey-shadow"></div>
+                            <div class="foot top"></div>
+                            <div class="foot bottom"></div>
+                            <div class="shadow"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-6" style="padding-top: 1%;padding-left: 5%;">
-                <h5><a href="#">{{$url}}</a></h5>
-                <h6 style="width: 17%;float: left;margin-right: 20px;">
-                    <span><img src="images/green.png"></span>
+            <div class="col-md-5">
+                <h5 class="meta"><a href="#">{{$url}}</a></h5>
+                
+                <h6 class="pass"><span><img src="images/green.png" class="hero"></span>
                     Passed
                 </h6>
                 <div class="progress" style="margin-bottom:5px;width: 70%;float: left;">
@@ -26,8 +41,7 @@
                         </div>
                 </div>
                 <div class="clear"></div>
-                <h6 style="width: 17%;float: left;margin-right: 20px;">
-                    <span><img src="images/orange.png"></span>
+                <h6 class="cta"><span><img src="images/orange.png" class="hero"></span>
                     Warning
                 </h6>
                 <div class="progress" style="margin-bottom:5px;width: 70%;float: left;">
@@ -36,8 +50,7 @@
                         </div>
                 </div>
                 <div class="clear"></div>
-                <h6 style="width: 17%;float: left;margin-right: 20px;">
-                    <span><img src="images/red.png"></span>
+                <h6 class="mca"><span><img src="images/red.png" class="hero"></span>
                     Errors
                 </h6>
                 <div class="progress" style="margin-bottom:5px;width: 70%;float: left;">
@@ -46,19 +59,18 @@
                         </div>
                 </div>
                 <div class="clear"></div>
-                <h6 style="width: 17%;float: left;margin-right: 20px;">
-                    <span><img src="images/blue.jpg"></span>
+                <h6 class="pta"><span><img src="images/blue.jpg" class="hero"></span>
                     Notices
                 </h6>
                 <div class="progress" style="margin-bottom:5px;width: 70%;float: left;">
                         <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70"
-                        aria-valuemin="0" aria-valuemax="100" style="width:%;background-color: blue;">
+                        aria-valuemin="0" aria-valuemax="100" style="width:{{$notice_score ?? ''}}%;background-color: blue;">
                         </div>
                 </div>
                 <div class="clear"></div>
             </div>
-            <div class="col-md-4"  style="margin-bottom:5px;">
-                <div class="blue" style="margin-left: 12%;">
+            <div class="col-md-3">
+                <div class="blue">
                     <div class="Progress" id="score" data-animate="false">
                         <div class="circle" data-percent="58" style="margin-left: 20%;">
                             <div></div>
@@ -76,11 +88,11 @@
             <div class="row">
                 <div class="col-md-3">
                 @if($title_length > 30 && $title_length < 70)
-                    <h6><span><img src="images/green.png"></span>Title Tag</h6>
+                    <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Title Tag</h6>
                 @elseif($title_length <= 30)
-                    <h6><span><img src="images/orange.png"></span>Title Tag</h6>
+                    <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Title Tag</h6>
                 @elseif($title_length > 60)
-                    <h6><span><img src="images/orange.png"></span>Title Tag</h6>
+                    <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Title Tag</h6>
                 @endif
                 </div>
                 <div class="col-md-9">
@@ -93,9 +105,9 @@
                 <div class="col-md-3">
                 @if($meta_length > 50 && $meta_length < 160)
 
-                    <h6><span><img src="images/green.png"></span>Meta Description</h6>
+                    <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Meta Description</h6>
                 @else
-                <h6><span><img src="images/orange.png"></span>Meta Description</h6>
+                <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Meta Description</h6>
                 @endif
                 </div>
                 <div class="col-md-9">
@@ -107,13 +119,13 @@
             <div class="row">
                 <div class="col-md-3">
                     @if(!empty($canonical))
-                        <h6><span><img src="images/green.png"></span>Canonical</h6>
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Canonical</h6>
                     @else
-                        <h6><span><img src="images/orange.png"></span>Canonical</h6>
+                        <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Canonical</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
-                    <p>{{$canonical ?? 'No canonical URL on Page'}}</p>
+                    <p>{{$canonical ?? 'Your canonical tag is missing. Canonical tags are important because they tell search engines what the correct URL of the page should be.'}}</p>
                 </div>
             </div>
                 <hr>
@@ -127,6 +139,40 @@
                     <p>{{$meta}}</p>
                 </div>
             </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-3">
+                    @if(!empty($favicon))
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Favicon</h6>
+                    @else
+                        <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Favicon</h6>
+                    @endif
+                </div>
+                <div class="col-md-9 favicon">
+                    @if(!empty($favicon))
+                       <img src="{{$favicon}}" alt="" class="fav-icon"> <p>Your site using favicon</p>
+                    @else
+                        <p>Your site is missing it's favicon. Favicons are important for brand visability and SEO.</p>
+                    @endif
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-3">
+                    @if($mobile_friendly === 'MOBILE_FRIENDLY')
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Mobile Friendly</h6>
+                    @elseif($mobile_friendly === 'NOT_MOBILE_FRIENDLY')
+                        <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Mobile Friendly</h6>
+                    @endif
+                </div>
+                <div class="col-md-9">
+                    @if($mobile_friendly === 'MOBILE_FRIENDLY')
+                        <p>Your site is Mobile Friendly</p>
+                    @elseif($mobile_friendly === 'NOT_MOBILE_FRIENDLY')
+                        <p>Your site is not mobile responsive. With a mobile responsive website, you will rank better in the mobile index.</p>
+                    @endif
+                </div>
+            </div>
         </div>
     </section>
 
@@ -136,19 +182,17 @@
 
             <div class="row">
                 <div class="col-md-3">
-                    @if(!empty($schema_tags))
-                        <h6><span><img src="images/green.png"></span>Schema Tags</h6>
+                    @if(!empty($schema))
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Schema Tags</h6>
                     @else
-
-
-                        <h6><span><img src="images/orange.png"></span>Schema Tags</h6>
+                        <h6><span style="margin-right: 9px;color:blue;"><i class="fa fa-sticky-note" aria-hidden="true"></i></span>Schema Tags</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
-                    @if(!empty($schema_tags))
+                    @if(!empty($schema))
                         <p>Schema tags found on your page</p>
                     @else
-                        <p>Schema tags not found on your page</p>
+                        <p>Your page is missing it's schema tag. Schema tags help crawlers determine certain information about a website, business, product or video. </p>
                     @endif
                     <!-- <h6>Organisation, Service</h6>
                     <p>No Schema Errors</p> -->
@@ -158,9 +202,9 @@
             <div class="row">
                 <div class="col-md-3">
                 @if(empty($img_miss_alt))
-                <h6><span><img src="images/green.png"></span>Alt Tags</h6>
+                <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Alt Tags</h6>
                 @else
-                <h6><span><img src="images/orange.png"></span>Alt Tags</h6>
+                <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Alt Tags</h6>
                 @endif
 
                 </div>
@@ -185,9 +229,9 @@
             <div class="row">
                 <div class="col-md-3">
                     @if($url_seo_friendly == "Seo Friendly")
-                        <h6><span><img src="images/green.png"></span>SEO Friendly URL</h6>
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>SEO Friendly URL</h6>
                     @elseif($url_seo_friendly == "not seo friendly")
-                        <h6><span><img src="images/red.png"></span>SEO Friendly URL</h6>
+                        <h6><span style="margin-right: 9px;color: red;"><i class="fa fa-times" aria-hidden="true"></i></span>SEO Friendly URL</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -198,9 +242,9 @@
             <div class="row">
                 <div class="col-md-3">
                 @if(!empty($iframe))
-                    <h6><span><img src="images/orange.png"></span>Flash/Iframes</h6>
+                    <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Flash/Iframes</h6>
                 @else
-                    <h6><span><img src="images/green.png"></span>Flash/Iframes</h6>
+                    <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Flash/Iframes</h6>
                 @endif
                 </div>
                 <div class="col-md-9">
@@ -221,9 +265,9 @@
             <div class="row">
                 <div class="col-md-3">
                     @if($h1_tags > 0)
-                        <h6><span><img src="images/green.png"></span>H1</h6>
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>H1</h6>
                     @else
-                        <h6><span><img src="images/orange.png"></span>H1</h6>
+                        <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>H1</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -239,9 +283,9 @@
             <div class="row">
                 <div class="col-md-3">
                     @if($h2_tags > 0)
-                        <h6><span><img src="images/green.png"></span>H2</h6>
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>H2</h6>
                     @else
-                        <h6><span><img src="images/orange.png"></span>H2</h6>
+                        <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>H2</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -258,9 +302,9 @@
             <div class="row">
                 <div class="col-md-3">
                     @if($h3_tags > 0)
-                        <h6><span><img src="images/green.png"></span>H3</h6>
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>H3</h6>
                     @else
-                        <h6><span><img src="images/orange.png"></span>H3</h6>
+                        <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>H3</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -276,9 +320,9 @@
             <div class="row">
                 <div class="col-md-3">
                     @if(!empty($word_count))
-                        <h6><span><img src="images/green.png"></span>Keyword Density </h6>
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Keyword Density </h6>
                     @else
-                        <h6><span><img src="images/orange.png"></span>Keyword Density </h6>
+                        <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Keyword Density </h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -286,24 +330,24 @@
                         <table class="table">
                             <thead class="thead-light">
                                 <tr>
-                                <th>Keyword</th>
-                                <th>SHOWN</th>
-                                <th>DENSiTY</th>
-                                <th>TITLE</th>
-                                <th>DESC</th>
-                                <th>H1</th>
-                                <th>H2</th>
-                                <th>H3</th>
+                                    <th>Keyword</th>
+                                    <th>SHOWN</th>
+                                    <th>DENSiTY</th>
+                                    <th>TITLE</th>
+                                    <th>DESC</th>
+                                    <th>H1</th>
+                                    <th>H2</th>
+                                    <th>H3</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $i = 1;?>
                                     @foreach ($word_count as $key => $val)
-                                        @if($i < 11)
+                                        @if($i < 11 && strlen($key)>3)
                                             <tr>
                                                 <th>{{$key}}</th>
                                                 <td>{{$val}}</td>
-                                                <td>{{number_format(($val / $numWords) * 100)}}%</td>
+                                                <td>{{number_format(($val / $page_words) * 100)}}%</td>
                                                 @if(stripos($title, $key) !== false)
                                                     <td style="color:green;"><i class="fa fa-check" aria-hidden="true"></i></td>
                                                 @else
@@ -343,21 +387,25 @@
             <hr>
             <div class="row">
                 <div class="col-md-3">
-                    @if($page_words)
-                        <h6><span><img src="images/green.png"></span>Thin Content</h6>
+                    @if($page_words < 300)
+                        <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Thin Content</h6>
                     @else
-                        <h6><span><img src="images/orange.png"></span>Thin Content</h6>
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Thin Content</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
-                    Page contain {{$page_words}} words
+                        Page contain {{$page_words}} words
                     </p>
                 </div>
             </div>
             <hr>
             <div class="row">
                 <div class="col-md-3">
-                    <h6><span><img src="images/green.png"></span>Text-HTML ratio</h6>
+                @if($page_text_ratio > 10)
+                    <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Text-HTML ratio</h6>
+                @else
+                    <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Text-HTML ratio</h6>
+                @endif
                 </div>
                 <div class="col-md-9">
                     <table class="table">
@@ -386,7 +434,7 @@
         <div class="Technical-section">
             <div class="row">
                 <div class="col-md-3">
-                    <h6><span><img src="images/green.png"></span>HTTP Request & Content Breakdown</h6>
+                    <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>HTTP Request & Content Breakdown</h6>
                 </div>
                 <div class="col-md-9">
                     @foreach($http as $https)
@@ -397,7 +445,7 @@
             <hr>
             <div class="row">
                 <div class="col-md-3">
-                    <h6><span><img src="images/green.png"></span>JS/CSS Minification</h6>
+                    <h6><span style="margin-right: 9px;color: green;" id="img_color"><i class="fa fa-check" aria-hidden="true" id="img_err"></i></span>JS/CSS Minification</h6>
                 </div>
                 <div class="col-md-9">
                     <p id='css_minified'></p>
@@ -408,9 +456,9 @@
             <div class="row">
                 <div class="col-md-3">
                     @if(!empty($img_data))
-                        <h6><span><img src="images/green.png"></span>Image Size Analysis </h6>
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Image Size Analysis </h6>
                     @else
-                        <h6><span><img src="images/red.png"></span>Image Size Analysis </h6>
+                        <h6><span style="margin-right: 9px;color:blue;"><i class="fa fa-sticky-note" aria-hidden="true"></i></span>Image Size Analysis </h6>
                     @endif    
                 </div>
                 <div class="col-md-9">
@@ -439,7 +487,8 @@
             <hr>
             <div class="row">
                 <div class="col-md-3">
-                    <h6><span><img src="images/green.png"></span>GZIP Compression</h6>
+                    
+                    <h6><span style="margin-right: 9px;color: green;" id="gzip_color"><i class="fa fa-check" aria-hidden="true" id="img_gzip"></i></span>GZIP Compression</h6>
                 </div>
                 <div class="col-md-9">
                     <p id='gzip_compression'></p>
@@ -449,9 +498,9 @@
             <div class="row">
                 <div class="col-md-3">
                     @if(!empty($cache))
-                        <h6><span><img src="images/green.png"></span>Browser Cacheing</h6>
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Browser Cacheing</h6>
                     @else
-                        <h6><span><img src="images/orange.png"></span>Browser Cacheing</h6>
+                        <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Browser Cacheing</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -470,7 +519,11 @@
         <div class="Technical-section">
             <div class="row">
                 <div class="col-md-3">
-                    <h6><span><img src="images/green.png"></span>Internal Linking</h6>
+                @if(!empty($internal_link))
+                    <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Internal Linking</h6>
+                @else
+                    <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Internal Linking</h6>
+                @endif
                 </div>
                 <div class="col-md-9">
                     @if(!empty($internal_link))
@@ -483,7 +536,7 @@
             <hr>
             <div class="row">
                 <div class="col-md-3">
-                    <h6><span><img src="images/green.png"></span>Referring Domains</h6>
+                    <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Referring Domains</h6>
                 </div>
                 <div class="col-md-9">
 
@@ -492,7 +545,7 @@
             <hr>
             <div class="row">
                 <div class="col-md-3">
-                    <h6><span><img src="images/green.png"></span>Referring URLs </h6>
+                    <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Referring URLs </h6>
                 </div>
                 <div class="col-md-9">
                     
@@ -502,14 +555,14 @@
             <div class="row">
                 <div class="col-md-3">
                     @if(!empty($status404))
-                        <h6><span><img src="images/red.png"></span>Broken Links</h6>
+                        <h6><span style="margin-right: 9px;color: red;"><i class="fa fa-times" aria-hidden="true"></i></span>Broken Links</h6>
                     @else
-                        <h6><span><img src="images/green.png"></span>Broken Links</h6>
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Broken Links</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
                     @if(!empty($status404))
-                        <p>Broken links found</p>
+                        <p>You have broken links on your page. Those links are sending users to a page that does not exist.</p>
                     @else
                         <p>No Broken link found</p>
                     @endif
@@ -524,49 +577,34 @@
             <div class="row">
                 <div class="col-md-3">
                     @if($page_https == "Page use HTTPS")
-                        <h6><span><img src="images/green.png"></span>HTTPS</h6>
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>HTTPS</h6>
                     @else
-                        <h6><span><img src="images/red.png"></span>HTTPS</h6>
+                        <h6><span style="margin-right: 9px;color: red;"><i class="fa fa-times" aria-hidden="true"></i></span>HTTPS</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
                    @if(!empty($page_https))
                         <p>{{$page_https}}</p><br>
-                        <h5>SSL Certificate</h5>
-                        <div style="display:flex;">
-                            <h6>Issuer :</h6><p style="margin-left: 107px;">{{$ssl_issuer ?? 'Not Found'}}</p>
-                        </div>
-                        <div style="display:flex;">
-                            <h6>Common Name :</h6><p style="margin-left: 35px;">{{$com_name ?? 'Not Found'}} </p>
-                        </div>
-                        <div style="display:flex;">
-                            <h6>Alternative Names:</h6> <p style="margin-left: 78px;">{{str_replace('DNS:', '', $alt_name) ?? 'Not Found'}}</p>
-                        </div>
-                        <div style="display:flex;">
-                            <h6>Valid From :</h6><p style="margin-left: 72px;">{{$date_formate_from ?? 'Not Found'}}</p>
-                        </div>
-                        <div style="display:flex;">
-                            <h6>Valid To :</h6><p style="margin-left: 93px;">{{$date_formate_to ?? 'Not Found'}}</p>
-                        </div>
-                        <div style="display:flex;">
-                            <h6>Signature Algorithm:</h6><p style="margin-left: 8px;">{{$ssl_signature ?? 'Not Found'}}</p>
-                        </div>
-                   @endif
+                    @endif    
+                    @if(!empty($ssl_certificate))
+                        <h5>SSL Certificate Found</h5>
+                    @else
+                        <h5>SSL Certificate not found</h5>
+                    @endif
+                    
                 </div>
             </div>
             <hr>
             <div class="row">
                 <div class="col-md-3">
-
-                        @if($a_https !== null && $link_https !== null && $script_https !== null )
-                            <h6><span><img src="images/red.png"></span>Mixed Content Issues</h6>
-                        @else
-                            <h6><span><img src="images/green.png"></span>Mixed Content Issues</h6>
-                        @endif
-
+                    @if(!empty($a_https) && !empty($link_https) && !empty($script_https))
+                        <h6><span style="margin-right: 9px;color: red;"><i class="fa fa-times" aria-hidden="true"></i></span>Mixed Content Issues</h6>
+                    @else
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Mixed Content Issues</h6>
+                    @endif
                 </div>
                 <div class="col-md-9">
-                    @if($a_https !== null && $link_https !== null && $script_https !== null )
+                    @if(!empty($a_https) && !empty($link_https)  && !empty($script_https))
                         <p>links pointing to non-https pages found</p>
                     @else
                         <p>links pointing to non-https pages not found</p>
@@ -582,9 +620,9 @@
             <div class="row">
                 <div class="col-md-3">
                     @if(!empty($social_media_link))
-                        <h6><span><img src="images/green.png"></span>Links to Social Media Pages</h6>
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Links to Social Media Pages</h6>
                     @else
-                        <h6><span><img src="images/orange.png"></span>Links to Social Media Pages</h6>
+                        <h6><span style="margin-right: 9px;color:blue;"><i class="fa fa-sticky-note" aria-hidden="true"></i></span>Links to Social Media Pages</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -595,9 +633,9 @@
             <div class="row">
                 <div class="col-md-3">
                     @if(!empty($social_schema))
-                        <h6><span><img src="images/green.png"></span>Schema for social media profiles</h6>
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Schema for social media profiles</h6>
                     @else
-                        <h6><span><img src="images/orange.png"></span>Schema for social media profiles</h6>
+                    <h6><span style="margin-right: 9px;color:blue;"><i class="fa fa-sticky-note" aria-hidden="true"></i></span>Schema for social media profiles</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -612,50 +650,48 @@
         </div>
     </section>
     
-     <section id='other'>
+    <section id='other'>
         <h2 style="margin-bottom: 30px;margin-top: 30px;">Other</h2>
         <div class="Technical-section">
             <div class="row">
                 <div class="col-md-3">
-                    @if(!empty($robot))
-                        <h6><span><img src="images/green.png"></span>Robots.txt</h6>
+                    @if(!empty($robot) && $robot[0] !== '<!doctype')
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Robots.txt</h6>
                     @else
-                        <h6><span><img src="images/orange.png"></span>Robots.txt</h6>
+                        <h6><span style="margin-right: 9px;color:blue;"><i class="fa fa-sticky-note" aria-hidden="true"></i></span>Robots.txt</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
-                    @if(!empty($robot))
-                        <p>Robot.txt found</p>
-                        @foreach($robot as $i => $val)
-                            @if ($i % 2 == 0)
-                                <p style="display: inline-block;">{{$val}}</p>
-                            @else
-                                <p style="display: inline-block;">{{$val}}</p> <br>
-                            @endif
-                        @endforeach
+                    @if(!empty($robot) && $robot[0] !== '<!doctype')
+                        <p>Your site using robots.txt</p>
                     @else
-                        <p>Robot.txt not found</p>
+                        <p>Your site is missing its robots.txt file. This file tells search engine bots how to most appropriately crawl your site and which pages not to crawl and index.</p>
                     @endif
 
                 </div>
             </div>
             <hr>
+            <div class="clear">
+                
+            </div>
+            <div class="sectionmap"> 
             <div class="row">
                 <div class="col-md-3">
                     @if(!empty($sitemap))
-                        <h6><span><img src="images/green.png"></span>XML Sitemap file</h6>
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>XML Sitemap file</h6>
                     @else
-                        <h6><span><img src="images/orange.png"></span>XML Sitemap file</h6>
+                        <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>XML Sitemap file</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
                     @if(!empty($sitemap))
-                        <p>Sitemap file found</p>
+                        <p>Your site using XML sitemap</p>
                     @else
-                        <p>Sitemap file not found</p>
+                        <p>Your site is missing its XML sitemap. This map helps search engines find your pages better.</p>
                     @endif
                 </div>
             </div>
+            </div>
+         </div>
 
-        </div>
     </section>

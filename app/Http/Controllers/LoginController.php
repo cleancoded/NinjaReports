@@ -8,7 +8,6 @@ use Exception;
 use Illuminate\Http\Request;
 use Session;
 use Socialite;
-
 class LoginController extends Controller
 {
     /**
@@ -21,7 +20,7 @@ class LoginController extends Controller
         
         $intended = $request->request->get('page');
         $url = $request->request->get('url');
-
+        
         //dd($request);
         if ($intended) {
             Session::put('page_url', $intended);
@@ -32,9 +31,6 @@ class LoginController extends Controller
 
         return Socialite::driver('google')->redirect();
 
-        // $intended = url()->previous();
-        // Session::put('page_url', $intended);
-
     }
 
     /**
@@ -44,11 +40,13 @@ class LoginController extends Controller
      */
     public function handleGoogleCallback()
     {
+        
         try {
             $redirect = Session::get('page_url');
             $url = Session::get('url');
 
             $user = Socialite::driver('google')->user();
+           
             $finduser = User::where('google_id', $user->id)->first();
 
             if ($finduser){
@@ -61,11 +59,11 @@ class LoginController extends Controller
                     return redirect($redirect);
                 }else{
                     return redirect('/home');
-
                 }
 
             } else {
-                if ($user->user['verified_email']) {
+                if ($user->user['verified_email'] !== false) {
+                  
                     $newUser = $newUser = User::create([
                         'name' => $user->name,
                         'email' => $user->email,
@@ -89,7 +87,7 @@ class LoginController extends Controller
                     dd($err);
                 }
             }
-
+            
         } catch (Exception $e) {
             dd($e->getMessage());
         }
