@@ -54,7 +54,11 @@
     padding-bottom: 4px;
     padding-left: 30px;
 }
-
+#loginModal .modal-dialog { margin: 12rem auto;}
+#loginModal .modal-dialog .modal-content {padding:10px;}
+#loginModal .modal-dialog .modal-content .google-btn {    margin: 0px auto;
+    position: relative;}
+    .table a {text-decoration:  underline;  }
 .top-bar {
     background-color: #3f3f3f;
     color: white;
@@ -67,7 +71,7 @@
 
 .overview {
     padding: 30px !important;
-    margin-top: 20px !important;
+    margin-top: 50px !important;
 }
 
 .Welcome-two-cols .Quick-col,
@@ -89,7 +93,7 @@
 }
 
 .errors-table thead {
-    background-color: gray;
+    background-color: #3f3f3f;
     color: white;
 }
 
@@ -118,6 +122,8 @@
     color: black;
     font-weight: 600;
 }
+.side-bar a.dropdown-item {font-size:14px;padding-left:40px;}
+
 
 .overview .Analyze .btn {
      width: 98%;
@@ -151,14 +157,13 @@
     margin: 5px;
     max-width: 24%;
 }
-
 .overview .four-cols p {
     margin-bottom: 0px;
 }
 
 .overview .four-cols .number-error {
     margin: 13px 0px;
-    font-size: 35px;
+    font-size: 45px;
     font-weight: 700;
 }
 

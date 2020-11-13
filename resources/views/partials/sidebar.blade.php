@@ -12,9 +12,9 @@
 					<a class="nav-link"  href="{{route('audit')}}"><i class="fa fa-refresh" aria-hidden="true"></i> SITE AUDIT</a>
 					<div class="audit-item" style="display:none;">
 						<a class="dropdown-item" href="#overview">OVERVIEW</a>
-						<a class="dropdown-item" href="#errors">ERRORS</a>
-						<a class="dropdown-item" href="#warnings">WARNINGS</a>
-						<a class="dropdown-item" href="#notices">NOTICES</a>
+						<a class="dropdown-item" href="#errors"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ERRORS</a>
+						<a class="dropdown-item" href="#warnings"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> WARNINGS</a>
+						<a class="dropdown-item" href="#notices"><i class="fa fa-flag" aria-hidden="true"></i> NOTICES</a>
 					</div>
 				</li>
 
@@ -45,7 +45,7 @@
 		<div class="modal" id="myModal">
 			<div class="modal-dialog">
 				<div class="modal-content">
-
+test
 					<!-- Modal Header -->
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -72,16 +72,16 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="loginModalLabel"></h5>
+					<h3>Login with Google</h3>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<hr>
+			
 				<div class="modal-body">
 					<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
-
-					<div class="google-btn" style="margin-right: 157px; margin-top: -20px;">
+					<p>Please sign in with Google in order to run an SEO analysis.</p>
+					<div class="google-btn">
 						<div class="google-icon-wrapper">
 							<img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
 						</div>

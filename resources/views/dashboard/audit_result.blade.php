@@ -29,56 +29,60 @@
             </div>
 
             <div class="col-md-3 error-box">
-                <h5 style="color: red;">ERRORS</h5>
+                <h5 style="color: #ff0000;">ERRORS</h5>
                 <h5 class="number-error">{{$errors}}</h5>
-                <p>Errors are SEO issues that have the highest impact on your website's SEO performance.</p>
+                <p class="description">Errors are SEO issues that have the highest impact on your website's SEO performance.</p>
+                <h4>Errors Found:</h4>
                 <p>@if(!empty($status404))  @endif  {{!empty($status404) ? 'Broken links found':''}}</p>
-                <p>@if(!empty($status500))   @endif  {{!empty($status500) ? '500 error found':''}}</p>
-                <p>@if(!empty($page_miss_title))      @endif  {{!empty($page_miss_title)? 'Title tag missing':''}}</p>
-                <p>@if(!empty($page_without_canonical))  @endif  {{!empty($page_without_canonical) ? 'Canonical tag missing on some pages':''}}</p>
-                <p>@if(!empty($duplicate_meta_description))  @endif    {{!empty($duplicate_meta_description) ? 'Duplicate meta discriptions found' : ''}}</p>
-                <p>@if(!empty($duplicate_title))     @endif  {{!empty($duplicate_title) ? 'Duplicate title tags found' : ''}}</p>
-                <div class="link-div text-right">
-                   <p> <a href="#errors">View errors</a></p>
+                <p>@if(!empty($status500))  @endif  {{!empty($status500) ? '500 error found':''}}</p>
+                <p>@if(!empty($page_miss_title))     @endif  {{!empty($page_miss_title)? 'Title tag missing':''}}</p>
+                <p>@if(!empty($page_without_canonical))  @endif  {{!empty($page_without_canonical) ? 'Canonical tags missing on some pages':''}}</p>
+                <p>@if(!empty($duplicate_meta_description)) @endif    {{!empty($duplicate_meta_description) ? 'Duplicate meta discriptions found' : ''}}</p>
+                <p>@if(!empty($duplicate_title))   @endif  {{!empty($duplicate_title) ? 'Duplicate title tags found' : ''}}</p>
+                <div class="link-div text-right view-more">
+                   <a href="#errors">View errors</a>
                 </div>
             </div>
 
             <div class="col-md-3 warning-box">
-                <h5 style="color:orange;">WARNINGS</h5>
+                <h5 style="color:#ff6600;">WARNINGS</h5>
                 <h5 class="number-error">{{$warning}}</h5>
-                      <p>Warnings have less impact on your SEO performance but should not be overlooked.</p>
-                <p>@if(!empty($less_page_words))   @endif {{!empty($less_page_words)   ? 'Low word count found':''}}</p>
-                <p>@if(!empty($links_empty_h1))    @endif    {{!empty($links_empty_h1)    ? 'H1 missing found':''}}</p>
-                <p>@if(!empty($duplicate_h1))        @endif    {{!empty($duplicate_h1) ? 'H1 duplicate found':''}}</p>
-                <p>@if(!empty($page_miss_meta))   @endif     {{!empty($page_miss_meta)    ? 'Some pages missing description':''}}</p>
-                <p>@if(!empty($page_incomplete_card))  @endif     {{!empty($page_incomplete_card)  ? 'Twitter card incomplete' :''}}</p>
-                <p>@if(!empty($page_incomplete_graph))   @endif  {{!empty($page_incomplete_graph) ? 'Open Graph tags incomplete':''}}</p>
-                <p>@if(!empty($status301))          @endif  {{!empty($status301)     ? '301 found':''}}</p>
-                <p class="match">@if(!empty($status302))  @endif {{!empty($status302) ? '302 found':''}}</p>
+                      <p class="description">Warnings have less impact on your SEO performance but should not be overlooked.</p>
+                      <h4>Warnings Found:</h4>
+                <p>@if(!empty($less_page_words))  @endif {{!empty($less_page_words)   ? 'Low word count':''}}</p>
+                <p>@if(!empty($links_empty_h1))  @endif    {{!empty($links_empty_h1)    ? 'H1 tag missing':''}}</p>
+                <p>@if(!empty($duplicate_h1))    @endif    {{!empty($duplicate_h1) ? 'Duplicate h1 tags':''}}</p>
+                <p>@if(!empty($page_miss_meta)) @endif     {{!empty($page_miss_meta)    ? 'Some pages missing meta description tag':''}}</p>
+                <p>@if(!empty($page_incomplete_card)) @endif     {{!empty($page_incomplete_card)  ? 'Twitter card incomplete' :''}}</p>
+                <p>@if(!empty($page_incomplete_graph))  @endif  {{!empty($page_incomplete_graph) ? 'Open Graph tags incomplete':''}}</p>
+                <p>@if(!empty($status301))    
+     @endif  {{!empty($status301)     ? '301 redirects found':''}}</p>
+                <p class="match">@if(!empty($status302))  @endif {{!empty($status302) ? '302 redirects found':''}}</p>
                
-                <div class="link-div text-right">
-                    <p> <a href="#warnings">View Warnings</a></p>
+                <div class="link-div text-right view-more">
+                  <a href="#warnings">View Warnings</a>
                 </div>
             </div>
             <div class="col-md-3 notice-box">
-                <h5 style="color:lightblue;">NOTICES</h5>
+                <h5 style="color:#0e6eea;">NOTICES</h5>
                 <h5 class="number-error">{{$notices}}</h5>
-                  <p>Notices are not critical to your SEO performance but should be corrected.</p>
-                <p>@if(!empty($page_h1_less))    @endif      {{!empty($page_h1_less)    ? 'H1 too short found'   :''}}</p>
-                <p>@if(!empty($page_h1_greater))     @endif   {{!empty($page_h1_greater)  ? 'H1 too long found'    :''}}</p>
-                <p>@if(!empty($links_more_h1))     @endif     {{!empty($links_more_h1) ? 'H1 two time found on page':''}}</p>
-                <p>@if(!empty($short_title))       @endif        {{!empty($short_title) ? 'Title too short found':''}}</p>
-                <p>@if(!empty($long_title))          @endif    {{!empty($long_title)  ? 'Title too long found' :''}}</p>
-                <p>@if(!empty($url_length))       @endif    {{!empty($url_length)  ?  'Longs URL found'     :''}}</p>
-                <p>@if(empty($twitter))        @endif    {{!empty($twitter) ? '' :'Twitter card missing'}}</p>
-                <p>@if(empty($graph_data))      @endif     {{!empty($graph_data) ? '' :'Open graph missing'}}</p>
-                <p>@if(!empty($less_code_ratio))        @endif      {{!empty($less_code_ratio) ? 'Text to code ratio < 10% found' : ''}}</p>
-                <p>@if(!empty($long_meta_description))   @endif    {{!empty($long_meta_description) ? 'Long meta description found' : ''}}</p>
-                <p>@if(!empty($short_meta_description))  @endif    {{!empty($short_meta_description) ? 'Short meta description found' : ''}}</p>
+                  <p class="description">Notices are not critical to your SEO performance but should be corrected.</p>
+                  <h4>Notices Found:</h4>
+                <p>@if(!empty($page_h1_less))  @endif      {{!empty($page_h1_less)    ? 'h1 tag too short'   :''}}</p>
+                <p>@if(!empty($page_h1_greater))   @endif   {{!empty($page_h1_greater)  ? 'h1 tag too long'    :''}}</p>
+                <p>@if(!empty($links_more_h1))  @endif     {{!empty($links_more_h1) ? 'Multiple h1 tags found':''}}</p>
+                <p>@if(!empty($short_title))    @endif        {{!empty($short_title) ? 'Title tag too short':''}}</p>
+                <p>@if(!empty($long_title))     @endif    {{!empty($long_title)  ? 'Title tag too long' :''}}</p>
+                <p>@if(!empty($url_length))   @endif    {{!empty($url_length)  ?  'Longs URLs'     :''}}</p>
+                <p>@if(empty($twitter))  @endif    {{!empty($twitter) ? '' :'Twitter card missing'}}</p>
+                <p>@if(empty($graph_data))   @endif     {{!empty($graph_data) ? '' :'Open graph tags missing'}}</p>
+                <p>@if(!empty($less_code_ratio))     @endif      {{!empty($less_code_ratio) ? 'HTML to text ratio < 10% found' : ''}}</p>
+                <p>@if(!empty($long_meta_description))  @endif    {{!empty($long_meta_description) ? 'Long meta descriptions' : ''}}</p>
+                <p>@if(!empty($short_meta_description))  @endif    {{!empty($short_meta_description) ? 'Short meta descriptions' : ''}}</p>
                 <p class="match">{{empty($robot) ? 'Robot.txt missing' : ''}}</p>
 
-                <div class="link-div text-right">
-                    <p><a href="#notices">View Notices</a></p>
+                <div class="link-div text-right view-more">
+                    <a href="#notices">View Notices</a>
                 </div>
 
             </div>

@@ -11,7 +11,7 @@
     <div class="row Welcome-two-cols">
         <div class="col-md-6 text-center Quick-col">
             <h5>QUICK ANALYSIS</h5>
-            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical</p>
+            <p>Enter your URL to start a quick SEO analysis of your page. Ninja Reports scans your website for 50+ SEO factors and tells you how to fix them.</p>
                 <div class="row">
                     <div class="col-md-10">
                         <input type="text" class="form-control url" placeholder="Analyze">
@@ -22,9 +22,9 @@
                 </div>
         </div>
         <div class="col-md-6 plan-col">
-            <h6><span>Plan:</span><span>Free</span></h6>
-            <h6><span>Next Billing Date</span><span>N/A</span></h6>
-            <button class="btn btn-warning">upgrade</button>
+            <h6><span>Plan: </span><span>Free</span></h6>
+            <h6><span>Next Billing Date: </span><span>N/A</span></h6>
+            <button class="btn btn-warning">Upgrade</button>
         </div>
     </div>
 </div>

@@ -89,9 +89,11 @@
                         $(this).find('.circle').circleProgress({
                             startAngle: -Math.PI / 2,
                             value: percent / 100,
+                            size: 150,
                             thickness: 10,
+                            lineCap: "round",
                             fill: {
-                            color: '#1B58B8'
+                            color: '#0E6EEA'
                             }
                         }).on('circle-animation-progress', function(event, progress, stepValue){
                             $(this).find('div').text((stepValue * 100).toFixed(0) + "%");

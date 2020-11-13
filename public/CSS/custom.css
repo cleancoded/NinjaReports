@@ -1,6 +1,11 @@
 .warning-box {background:#f9e4e4;}
 .error-box {background:#f9ede4;}
-.notice-box {background:#cbd5f7;}
+.notice-box {background:#DCE8F7;}
+.error-box i, .error-box p {color:#ff0000}
+.notice-box i, .notice-box p {color:#0E6EEA;}
+.warning-box i, .warning-box p {color:#ff6600;}
+.error-box, .notice-box, .warning-box p.description, .notice-box p.description, .error-box p.description{font-size:14px;margin-bottom:15px;color:#3f3f3f;}
+.view-more a{font-size:16px;text-transform:  uppercase;  color:#3f3f3f;text-decoration:  underline;  }
 #teaser {}
 #teaser div.col-md-8 {
     background:#f9f9f9;
@@ -32,7 +37,7 @@ li.nav-item {
     font-size: 17px;
 }
 .row.Analyze {
-    margin-top: 50px;
+    margin-top: 0px;
 }
 img.audit {
     height: 22px;
