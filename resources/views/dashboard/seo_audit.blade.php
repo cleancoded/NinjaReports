@@ -184,7 +184,10 @@
                         $(this).find('.circle').circleProgress({
                             startAngle: -Math.PI / 2,
                             value: percent / 100,
-                            thickness: 10,
+                            thickness: 17,
+                            size: 175,
+                            lineCap: "round",
+                            emptyFill: "#f2f2f2",
                             fill: {
                             color: '#1B58B8'
                             }

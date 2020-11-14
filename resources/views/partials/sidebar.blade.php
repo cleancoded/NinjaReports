@@ -11,7 +11,7 @@
 				<li class="nav-item">
 					<a class="nav-link"  href="{{route('audit')}}"><i class="fa fa-refresh" aria-hidden="true"></i> SITE AUDIT</a>
 					<div class="audit-item" style="display:none;">
-						<a class="dropdown-item" href="#overview">OVERVIEW</a>
+						<a class="dropdown-item" href="#overview"><i class="fa fa-bullseye" aria-hidden="true"></i> OVERVIEW</a>
 						<a class="dropdown-item" href="#errors"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ERRORS</a>
 						<a class="dropdown-item" href="#warnings"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> WARNINGS</a>
 						<a class="dropdown-item" href="#notices"><i class="fa fa-flag" aria-hidden="true"></i> NOTICES</a>

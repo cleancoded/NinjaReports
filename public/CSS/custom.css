@@ -1,12 +1,35 @@
+body {font-family:Roboto}
 .warning-box {background:#f9e4e4;}
 .error-box {background:#f9ede4;}
 .notice-box {background:#DCE8F7;}
-.error-box i, .error-box p {color:#ff0000}
-.notice-box i, .notice-box p {color:#0E6EEA;}
-.warning-box i, .warning-box p {color:#ff6600;}
-.error-box, .notice-box, .warning-box p.description, .notice-box p.description, .error-box p.description{font-size:14px;margin-bottom:15px;color:#3f3f3f;}
-.view-more a{font-size:16px;text-transform:  uppercase;  color:#3f3f3f;text-decoration:  underline;  }
-#teaser {}
+.notice-bo h4, .error-box h4, .warning-box h4 {
+    border-bottom: 1px solid #fff;
+    margin-bottom: 0;
+    padding-bottom: 6px;
+}
+.notice-box ul, .error-box ul, .warning-box ul {}
+.error-box i, .error-box p {}
+.notice-box i, .notice-box p {}
+.warning-box i, .warning-box p {}
+.warning-box p.description, 
+.notice-box p.description, 
+.error-box p.description {
+    font-size:14px;
+    margin-bottom:15px;
+    color:#3f3f3f;
+}
+.found-list {
+    padding-left: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #ccc;
+}
+.clean i {color:#19BF21;}
+.view-more a {
+    font-size:16px;
+    text-transform:  uppercase;
+    color:#3f3f3f;
+    text-decoration:  underline;
+}
 #teaser div.col-md-8 {
     background:#f9f9f9;
     border-radius:3px;
