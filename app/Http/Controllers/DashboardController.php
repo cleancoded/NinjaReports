@@ -20,4 +20,7 @@ class DashboardController extends Controller
     public function audit(){
         return view('dashboard/audit');
     }
+    public function pricing(){
+        return view('dashboard/pricing');
+    }
 }

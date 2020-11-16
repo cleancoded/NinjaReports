@@ -1,6 +1,6 @@
     <div class="row audit-text pt-3 pb-3">
         <div class="col-md-5">
-            <h5><STRONG>SEO AUDIT REPORT:</STRONG>{{$url}}</h5>
+            <h5><STRONG>SEO AUDIT REPORT: </STRONG>{{$url}}</h5>
         </div>
         <div class="col-md-2">
 
@@ -17,65 +17,75 @@
                 <h5>ON-PAGE SEO SCORE</h5>
                 <div class="blue" >
                     <div class="Progress" data-animate="false">
-                        <div class="circle" data-percent="<?php echo round($health_score); ?>" style="margin-left: 20%;">
+                        <div class="circle" data-percent="<?php echo round($health_score); ?>" style="margin-left: 10%;">
                             <div></div>
                         </div>
                     </div>
                 </div>
-                <h6 style="margin-top:23%;">{{$passed_pages < 0 ? 0 : $passed_pages}} Passed</h6>
-                <h6>{{$errors}} Errors</h6>
-                <h6>{{$warning}} Warnings</h6>
-                <h6>{{$notices}} Notices</h6>
+                <h5 style="margin-top:15%;">{{$passed_pages < 0 ? 0 : $passed_pages}} URLs Passed</h5>
+                <h5>{{$errors}} Errors</h5>
+                <h5>{{$warning}} Warnings</h5>
+                <h5>{{$notices}} Notices</h5>
             </div>
 
-            <div class="col-md-3">
-                <h5 style="color: red;">ERRORS</h5>
+            <div class="col-md-3 error-box">
+                <h5 style="color: #ff0000;">ERRORS</h5>
                 <h5 class="number-error">{{$errors}}</h5>
-                <p>@if(!empty($status404))  <span class="icon"><i class="fa fa-chain-broken" aria-hidden="true"></i></span> @endif  {{!empty($status404) ? 'Broken links found':''}}</p>
-                <p>@if(!empty($status500))  <span class="icon"><i class="fa fa-chain-broken" aria-hidden="true"></i></span> @endif  {{!empty($status500) ? '500 error found':''}}</p>
-                <p>@if(!empty($page_miss_title))        <span class="icon"><img src="{{asset('images/title.png')}}"></span> @endif  {{!empty($page_miss_title)? 'Title messing found':''}}</p>
-                <p>@if(!empty($page_without_canonical)) <span class="icon"><i class="fa fa-link" aria-hidden="true"></i></span> @endif  {{!empty($page_without_canonical) ? 'Canonical missing on some pages':''}}</p>
-                <p>@if(!empty($duplicate_meta_description))     <span class="icon"><img src="{{asset('images/description.png')}}"></span> @endif    {{!empty($duplicate_meta_description) ? 'Duplicate meta discription found' : ''}}</p>
-                <p>@if(!empty($duplicate_title))    <span class="icon"><img src="{{asset('images/title.png')}}"></span> @endif  {{!empty($duplicate_title) ? 'Duplicate title found' : ''}}</p>
-                <div class="link-div text-right">
-                   <p> <a href="#">View errors</a></p>
+                <p class="description">Errors are SEO issues that have the highest impact on your website's SEO performance.</p>
+                <ul class="found-list">
+                @if(!empty($status404)) <li> @endif  {{!empty($status404) ? 'Broken links found':''}} @if(!empty($status404)) </li> @endif
+                @if(!empty($status500)) <li>  @endif  {{!empty($status500) ? '500 error found':''}} @if(!empty($status500)) </li>  @endif
+                @if(!empty($page_miss_title))  <li>  @endif  {{!empty($page_miss_title)? 'Title tag missing':''}} @if(!empty($page_miss_title))  </li>  @endif
+                @if(!empty($page_without_canonical)) <li>   @endif  {{!empty($page_without_canonical) ? 'Canonical tags missing on some pages':''}} @if(!empty($page_without_canonical)) </li>   @endif
+                @if(!empty($duplicate_meta_description)) <li>  @endif    {{!empty($duplicate_meta_description) ? 'Duplicate meta discriptions found' : ''}} @if(!empty($duplicate_meta_description)) </li>  @endif
+                @if(!empty($duplicate_title)) <li>   @endif  {{!empty($duplicate_title) ? 'Duplicate title tags found' : ''}} @if(!empty($duplicate_title)) </li>   @endif
+            </ul>
+                @if($errors == 0)  <div class="clean"><i class="fa fa-check" aria-hidden="true"></i> Nice, no errors!</div> @endif
+                <div class="link-div text-right view-more">
+                   <a href="#errors">View errors</a>
                 </div>
             </div>
 
-            <div class="col-md-3">
-                <h5 style="color:orange;">WARNINGS</h5>
+            <div class="col-md-3 warning-box">
+                <h5 style="color:#ff6600;">WARNINGS</h5>
                 <h5 class="number-error">{{$warning}}</h5>
-                <p>@if(!empty($less_page_words))    <span class="icon"><i class="fa fa-calculator" aria-hidden="true"></i></span>@endif {{!empty($less_page_words)   ? 'Low word count found':''}}</p>
-                <p>@if(!empty($links_empty_h1))     <span class="icon"><i class="fa fa-header" aria-hidden="true"></i></span> @endif    {{!empty($links_empty_h1)    ? 'H1 missing found':''}}</p>
-                <p>@if(!empty($duplicate_h1))       <span class="icon"><i class="fa fa-header" aria-hidden="true"></i></span> @endif    {{!empty($duplicate_h1) ? 'H1 duplicate found':''}}</p>
-                <p>@if(!empty($page_miss_meta))     <span class="icon"><img src="{{asset('images/description.png')}}"></span> @endif     {{!empty($page_miss_meta)    ? 'Some pages missing description':''}}</p>
-                <p>@if(!empty($page_incomplete_card))   <span class="icon"><i class="fa fa-twitter" aria-hidden="true"></i></span> @endif     {{!empty($page_incomplete_card)  ? 'Twitter card incomplete' :''}}</p>
-                <p>@if(!empty($page_incomplete_graph))  <span class="icon"><i class="fa fa-tags" aria-hidden="true"></i></span> @endif  {{!empty($page_incomplete_graph) ? 'Open Graph tags incomplete':''}}</p>
-                <p>@if(!empty($status301))              <span class="icon"><i class="fa fa-link" aria-hidden="true"></i></span> @endif  {{!empty($status301)     ? '301 found':''}}</p>
-                <p class="match">@if(!empty($status302)) <span class="icon"><i class="fa fa-link" aria-hidden="true"></i></span> @endif {{!empty($status302) ? '302 found':''}}</p>
-               
-                <div class="link-div text-right">
-                    <p> <a href="#">View Warnings</a></p>
+                      <p class="description">Warnings have less impact on your SEO performance but should not be overlooked.</p>
+                      <ul class="found-list">
+                @if(!empty($less_page_words)) <li>  @endif {{!empty($less_page_words)   ? 'Low word count':''}} @if(!empty($less_page_words)) </li>  @endif
+                @if(!empty($links_empty_h1)) <li> @endif    {{!empty($links_empty_h1)    ? 'H1 tag missing':''}} @if(!empty($links_empty_h1)) </li> @endif
+                @if(!empty($duplicate_h1))  <li>  @endif    {{!empty($duplicate_h1) ? 'Duplicate h1 tags':''}} @if(!empty($duplicate_h1))  </li>  @endif
+                @if(!empty($page_miss_meta)) <li> @endif     {{!empty($page_miss_meta)    ? 'Some pages missing meta description tag':''}} @if(!empty($page_miss_meta)) </li> @endif
+                @if(!empty($page_incomplete_card)) <li> @endif     {{!empty($page_incomplete_card)  ? 'Twitter card incomplete' :''}} @if(!empty($page_incomplete_card)) </li> @endif
+                @if(!empty($page_incomplete_graph)) <li> @endif  {{!empty($page_incomplete_graph) ? 'Open Graph tags incomplete':''}} @if(!empty($page_incomplete_graph)) </li> @endif
+                @if(!empty($status301))   <li> @endif  {{!empty($status301)     ? '301 redirects found':''}} @if(!empty($status301)) </li> @endif
+                @if(!empty($status302)) <li> @endif {{!empty($status302) ? '302 redirects found':''}} @if(!empty($status302)) </li> @endif
+               </ul>
+                 @if($warning == 0)  <div class="clean"><i class="fa fa-check" aria-hidden="true"></i> Nice, no warnings!</div> @endif
+                <div class="link-div text-right view-more">
+                  <a href="#warnings">View Warnings</a>
                 </div>
             </div>
-            <div class="col-md-3">
-                <h5 style="color:lightblue;">NOTICES</h5>
+            <div class="col-md-3 notice-box">
+                <h5 style="color:#0e6eea;">NOTICES</h5>
                 <h5 class="number-error">{{$notices}}</h5>
-                <p>@if(!empty($page_h1_less))     <span class="icon"><i class="fa fa-header" aria-hidden="true"></i></span> @endif      {{!empty($page_h1_less)    ? 'H1 too short found'   :''}}</p>
-                <p>@if(!empty($page_h1_greater))     <span class="icon"><i class="fa fa-header" aria-hidden="true"></i></span> @endif   {{!empty($page_h1_greater)  ? 'H1 too long found'    :''}}</p>
-                <p>@if(!empty($links_more_h1))     <span class="icon"><i class="fa fa-header" aria-hidden="true"></i></span> @endif     {{!empty($links_more_h1) ? 'H1 two time found on page':''}}</p>
-                <p>@if(!empty($short_title))    <span class="icon"><img src="{{asset('images/title.png')}}"></span>       @endif        {{!empty($short_title) ? 'Title too short found':''}}</p>
-                <p>@if(!empty($long_title))     <span class="icon"><img src="{{asset('images/title.png')}}"></span>       @endif    {{!empty($long_title)  ? 'Title too long found' :''}}</p>
-                <p>@if(!empty($url_length))     <span class="icon"><i class="fa fa-link" aria-hidden="true"></i></span>   @endif    {{!empty($url_length)  ?  'Longs URL found'     :''}}</p>
-                <p>@if(empty($twitter))        <span class="icon"><i class="fa fa-twitter" aria-hidden="true"></i></span> @endif    {{!empty($twitter) ? '' :'Twitter card missing'}}</p>
-                <p>@if(empty($graph_data))     <span class="icon"><i class="fa fa-tags" aria-hidden="true"></i></span>   @endif     {{!empty($graph_data) ? '' :'Open graph missing'}}</p>
-                <p>@if(!empty($less_code_ratio))        <span class="icon"><i class="fa fa-code" aria-hidden="true"></i></span> @endif      {{!empty($less_code_ratio) ? 'Text to code ratio < 10% found' : ''}}</p>
-                <p>@if(!empty($long_meta_description))  <span class="icon"><img src="{{asset('images/description.png')}}"></span> @endif    {{!empty($long_meta_description) ? 'Long meta description found' : ''}}</p>
-                <p>@if(!empty($short_meta_description)) <span class="icon"><img src="{{asset('images/description.png')}}"></span> @endif    {{!empty($short_meta_description) ? 'Short meta description found' : ''}}</p>
-                <p class="match">{{empty($robot) ? 'Robot.txt missing' : ''}}</p>
-
-                <div class="link-div text-right">
-                    <p><a href="#">View Notices</a></p>
+                  <p class="description">Notices are not critical to your SEO performance but should be corrected.</p>
+                  <ul class="found-list">
+                @if(!empty($page_h1_less)) <li> @endif      {{!empty($page_h1_less)    ? 'h1 tag too short':''}} @if(!empty($page_h1_less)) </li> @endif
+                @if(!empty($page_h1_greater)) <li>  @endif   {{!empty($page_h1_greater)  ? 'h1 tag too long'    :''}} @if(!empty($page_h1_greater)) </li>  @endif
+                @if(!empty($links_more_h1)) <li> @endif  {{!empty($links_more_h1) ? 'Multiple h1 tags found':''}} @if(!empty($links_more_h1)) </li> @endif 
+                @if(!empty($short_title)) <li>   @endif    {{!empty($short_title) ? 'Title tag too short':''}} @if(!empty($short_title)) </li>   @endif
+                @if(!empty($long_title))   <li>  @endif  {{!empty($long_title)  ? 'Title tag too long' :''}} @if(!empty($long_title))  </li>  @endif 
+                @if(!empty($url_length)) <li>  @endif  {{!empty($url_length)  ?  'Longs URLs':''}} @if(!empty($url_length)) </li>  @endif 
+                @if(empty($twitter)) <li> @endif   {{!empty($twitter) ? '' :'Twitter card missing'}} @if(empty($twitter)) </li> @endif
+                @if(empty($graph_data)) <li>  @endif   {{!empty($graph_data) ? '' :'Open graph tags missing'}} @if(empty($graph_data)) </li>  @endif
+                @if(!empty($less_code_ratio)) <li> @endif {{!empty($less_code_ratio) ? 'HTML to text ratio < 10% found': ''}} @if(!empty($less_code_ratio)) </li> @endif
+                @if(!empty($long_meta_description)) <li> @endif    {{!empty($long_meta_description) ? 'Long meta descriptions' : ''}} @if(!empty($long_meta_description)) </li> @endif
+                @if(!empty($short_meta_description)) <li> @endif    {{!empty($short_meta_description) ? 'Short meta descriptions' : ''}} @if(!empty($short_meta_description)) </li> @endif
+                @if(!empty($robot)) <li> @endif  {{!empty($robot) ? 'Robot.txt missing' : ''}} @if(!empty($robot)) </li> @endif
+            </ul>
+                @if($notices == 0)  <div class="clean"><i class="fa fa-check" aria-hidden="true"></i> Nice, no notices!</div> @endif
+                <div class="link-div text-right view-more">
+                    <a href="#notices">View Notices</a>
                 </div>
 
             </div>
@@ -102,7 +112,7 @@
                             <tr>
                                 <td><a href="{{$val}}" target="_blank">{{$val}}</a></td>
                                 <td>Your canonical tag is missing. Canonical tags are important because they tell search engines what the correct URL of the page should be.</td>
-                                <td>Add a canonical tag to your page.</td>
+                                <td>Add a canonical tag to your website pages.</td>
                             </tr>
                         @endforeach    
                     @endif
@@ -111,8 +121,8 @@
                         @foreach($duplicate_title as $key => $val)
                             <tr>
                                 <td><a href="{{$key}}" target="_blank">{{$key}}</a></td>
-                                <td>One or more pages have identical titles.</td>
-                                <td>make sure to rewrite duplicate titles where needed so that every page on your site has a unique title that accurately describes its content.</td>
+                                <td>One or more pages have identical title tags.</td>
+                                <td>Make sure to rewrite duplicate title tags where needed so that every page on your site has a unique title tag.</td>
                             </tr>
                         @endforeach    
                     @endif
@@ -121,8 +131,8 @@
                         @foreach($duplicate_meta_description as $key => $val)
                             <tr>
                                 <td><a href="{{$key}}" target="_blank">{{$key}}</a></td>
-                                <td>One or more pages have identical description.</td>
-                                <td>make sure to rewrite duplicate description where needed</td>
+                                <td>One or more pages have identical meta description tags.</td>
+                                <td>Each URL/page should have a unique meta description tag.</td>
                             </tr>
                         @endforeach    
                     @endif
@@ -131,7 +141,7 @@
                         @foreach($link_500 as  $val)
                             <tr>
                                 <td><a href="{{$val}}" target="_blank">{{$val}}</a></td>
-                                <td>your page have 500 error</td>
+                                <td>your page has 500 error</td>
                                 <td>Find the link or links that are broken and change it to the correct page or take the link off.</td>
                             </tr>
                         @endforeach    
@@ -169,7 +179,7 @@
                             @foreach($links_empty_h1 as $link)
                                 <tr>
                                     <td><a href="{{$link}}" target="_blank">{{$link}}</a></td>
-                                    <td>Your page is not using header tags appropriately. Header tags are the section titles of your content. They should be structured correctly.</td>
+                                    <td>Your page is not using heading tags appropriately. Heading tags are the section titles of your content. They should be structured correctly.</td>
                                     <td>Make sure the page has one H1 tag to signal the most important topic of the page and descending tags to show other topics.</td>
                                 </tr>
                             @endforeach    
@@ -200,7 +210,7 @@
                                 <tr>
                                     <td><a href="{{$val}}" target="_blank">{{$val}}</a></td>
                                     <td>302 redirects</td>
-                                    <td>Lorem IpsumLorem IpsumLorem Ipsum</td>
+                                    <td>Your page has a 302 redirect. Link directly to the redirected page or remove the 302 redirect.</td>
                                 </tr>
                             @endforeach    
                         @endif
@@ -210,7 +220,7 @@
                                 <tr>
                                     <td><a href="{{$val}}" target="_blank">{{$val}}</a></td>
                                     <td>301 redirects</td>
-                                    <td>Lorem IpsumLorem IpsumLorem Ipsum</td>
+                                    <td>Your page has a 301 redirect. Link directly to the redirected page or remove the 301 redirect.</td>
                                 </tr>
                             @endforeach    
                         @endif
@@ -261,8 +271,8 @@
                             @foreach($links_more_h1 as $link)
                                 <tr>
                                     <td><a href="{{$link}}" target="_blank">{{$link}}</a></td>
-                                    <td>H1 more thin one time found on page</td>
-                                    <td>Make sure you leave only one h1 tag - the simplest way to do this might be to convert h1’s into h2’s.</td>
+                                    <td>Multiple h1 tags found on your page.</td>
+                                    <td>Make sure you have only one h1 tag on each page and it includes the main keywords for that page.</td>
                                 </tr>
                             @endforeach
                         @endif
@@ -301,8 +311,8 @@
                             @foreach($short_title as $short)
                                 <tr>
                                     <td><a href="{{$short}}" target="_blank">{{$short}}</a></td>
-                                    <td>Title too short found</td>
-                                    <td>The length should be between 50 and 60 characters.</td>
+                                    <td>Title tag too short</td>
+                                    <td>The title tag length should be between 50 and 60 characters.</td>
                                 </tr>
                             @endforeach
                         @endif
@@ -331,7 +341,7 @@
                             @foreach($short_meta_description as $short_meta)
                                 <tr>
                                     <td><a href="{{$short_meta}}" target="_blank">{{$short_meta}}</a></td>
-                                    <td>The meta description is shorter than 70 characters.</td>
+                                    <td>The meta description is not the optimal length.</td>
                                     <td>Create a unique meta description of 150 to 160 characters in length.</td>
                                 </tr>
                             @endforeach
@@ -342,7 +352,7 @@
                                 <tr>
                                     <td><a href="{{$val}}" target="_blank">{{$val}}</a></td>
                                     <td>Twitter card missing</td>
-                                    <td>Add Twitter card to your page</td>
+                                    <td>Add Twitter card to your page headers.</td>
                                 </tr>
                             @endforeach
                         @endif
@@ -362,7 +372,7 @@
                                 <tr>
                                     <td><a href="{{$val}}" target="_blank">{{$val}}</a></td>
                                     <td>Longs URL found</td>
-                                    <td>A site's URL structure should be as simple as possible.</td>
+                                    <td>A site's URL structure should be as simple as possible and include the pages keyword.</td>
                                 </tr>
                             @endforeach
                         @endif

@@ -54,9 +54,13 @@
     padding-bottom: 4px;
     padding-left: 30px;
 }
-
+#loginModal .modal-dialog { margin: 12rem auto;}
+#loginModal .modal-dialog .modal-content {padding:10px;}
+#loginModal .modal-dialog .modal-content .google-btn {    margin: 0px auto;
+    position: relative;}
+    .table a {text-decoration:  underline;  }
 .top-bar {
-    background-color: black;
+    background-color: #3f3f3f;
     color: white;
     padding: 12px;
 }
@@ -67,7 +71,7 @@
 
 .overview {
     padding: 30px !important;
-    margin-top: 20px !important;
+    margin-top: 50px !important;
 }
 
 .Welcome-two-cols .Quick-col,
@@ -89,7 +93,7 @@
 }
 
 .errors-table thead {
-    background-color: gray;
+    background-color: #3f3f3f;
     color: white;
 }
 
@@ -115,27 +119,39 @@
 }
 
 .side-bar a {
-    color: black;
-    font-weight: 600;
+    color: #3f3f3f;
+    font-size: 18px;
+    font-weight: 400;
 }
 
+.side-bar a.dropdown-item {
+    font-size:14px;
+    padding-left:40px;
+}
 .overview .Analyze .btn {
-    width: 80%;
+     width: 98%;
     margin-left: 5%;
+    text-transform: uppercase;
+    color: #fff;
+    background: #f50;
+    border-bottom: 2px solid #ce5119;
 }
 
+.overview .Analyze .btn:hover {
+    background:#e25d03;
+}
 .overview .Analyze {
     padding: 20px;
-    background-color: cornflowerblue;
+    background-color: #0e6eea;
 }
 
 .overview .progressbar {
-    padding: 10px;
+   padding: 10px;
     background: #a6a6a6;
 }
 
 .overview .progressbar .progress {
-    width: 80%;
+    width: 100%;
 }
 
 .overview .four-cols .col-md-3 {
@@ -144,14 +160,13 @@
     margin: 5px;
     max-width: 24%;
 }
-
 .overview .four-cols p {
     margin-bottom: 0px;
 }
 
 .overview .four-cols .number-error {
     margin: 13px 0px;
-    font-size: 35px;
+    font-size: 45px;
     font-weight: 700;
 }
 
@@ -178,11 +193,11 @@
 }
 
 .three-cols .col-md-4 {
-    max-width: 25%;
+    max-width: 30%;
     margin-left: 3%;
     background: white;
     border: 2px solid #D3D3D3;
-    padding: 24px 0px;
+    padding: 30px;
 }
 
 .three-cols .col-md-4 a {
@@ -191,12 +206,13 @@
 }
 
 .three-cols .col-md-4 h6 {
-    margin-bottom: 0px;
+    margin-bottom: 20px;
 }
 
 .three-cols .col-md-4 h5 {
-    margin-top: 50px;
-    margin-bottom: 50px;
+      margin-top: 25px;
+    font-size:2rem;
+    margin-bottom: 5px;
 }
 
 .three-cols .col-md-4 h3 {
@@ -498,11 +514,13 @@ input:checked+.slider:before {
 
 .circle div {
     position: absolute;
-    top: 30px;
+    top: 68px;
     width: 100%;
     text-align: center;
     line-height: 40px;
-    font-size: 20px;
+    font-size: 42px;
+    left: 40px;
+    font-weight: 700;
 }
 
 .circle strong i {

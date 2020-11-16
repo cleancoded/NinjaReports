@@ -1,13 +1,66 @@
+body {font-family:Roboto}
+.warning-box {background:#f9e4e4;}
+.error-box {background:#f9ede4;}
+.notice-box {background:#DCE8F7;}
+.notice-bo h4, .error-box h4, .warning-box h4 {
+    border-bottom: 1px solid #fff;
+    margin-bottom: 0;
+    padding-bottom: 6px;
+}
+.notice-box ul, .error-box ul, .warning-box ul {}
+.error-box i, .error-box p {}
+.notice-box i, .notice-box p {}
+.warning-box i, .warning-box p {}
+.warning-box p.description, 
+.notice-box p.description, 
+.error-box p.description {
+    font-size:14px;
+    margin-bottom:15px;
+    color:#3f3f3f;
+}
+.found-list {
+    padding-left: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #ccc;
+}
+.clean i {color:#19BF21;}
+.view-more a {
+    font-size:16px;
+    text-transform:  uppercase;
+    color:#3f3f3f;
+    text-decoration:  underline;
+}
+#teaser div.col-md-8 {
+    background:#f9f9f9;
+    border-radius:3px;
+    padding:50px;
+}
+#waiting {text-align:center;padding:50px 0 30px 0;}
+#waiting .loading-box img {padding:15px;}
+.overview .progressbar {
+    padding: 10px;
+    background: #eee;
+}
+.overview .progressbar .col-md-12 {
+    padding:0px;
+}
+.progress {
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+.pricing-page {margin-top:40px;}
+.pricing-page .testimonials label {text-align:right;font-weight:bold;display:block;}
+.pricing-page .testimonials img {border:1px solid #ccc;padding: 3px;}
 img.most {
     margin-right: 3px;
     height: 24px;
     width: 20px;
 }
 li.nav-item {
-    font-size: 15px;
+    font-size: 17px;
 }
 .row.Analyze {
-    margin-top: 60px;
+    margin-top: 0px;
 }
 img.audit {
     height: 22px;
@@ -87,7 +140,7 @@ p.match {
 @media screen and (min-width: 768px) {
 .side-bar {
     height: 100%;
-    width: 200px;
+    width: 250px;
     left: 0;
     top: 55px;
     position: fixed;
