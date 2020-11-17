@@ -29,8 +29,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-5">
-                <h5 class="meta"><a href="#">{{$url}}</a></h5>
+            <div class="col-md-4">
+                <h5 class="meta"><a href="{{$url}}">{{$url}} <i class="fa fa-external-link" aria-hidden="true"></i></a></h5>
                 
                 <h6 class="pass"><span><img src="images/green.png" class="hero"></span>
                     Passed
@@ -69,7 +69,7 @@
                 </div>
                 <div class="clear"></div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="blue">
                     <div class="Progress" id="score" data-animate="false">
                         <div class="circle" data-percent="58" style="margin-left: 20%;">
@@ -210,9 +210,9 @@
                 </div>
                 <div class="col-md-9">
                     @if(empty($img_miss_alt))
-                        <p>No images are missing alt tags.({{$img_alt ?? 0}} images passed)</p>
+                        <p>No images are missing alt tags. ({{$img_alt ?? 0}} images passed)</p>
                     @else
-                        <p>{{$img_miss_alt}} images are missing alt tags.({{$img_alt}} images passed)</p>
+                        <p>{{$img_miss_alt}} images are missing alt tags. ({{$img_alt}} images passed)</p>
                     @endif
 
                     @if(!empty($img_without_alt))
@@ -228,9 +228,9 @@
                 <hr>
             <div class="row">
                 <div class="col-md-3">
-                    @if($url_seo_friendly == "Seo Friendly")
+                    @if($url_seo_friendly == "URLs are SEO-Friendly")
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>SEO Friendly URL</h6>
-                    @elseif($url_seo_friendly == "not seo friendly")
+                    @elseif($url_seo_friendly == "URLs are not SEO-Friendly")
                         <h6><span style="margin-right: 9px;color: red;"><i class="fa fa-times" aria-hidden="true"></i></span>SEO Friendly URL</h6>
                     @endif
                 </div>
@@ -249,9 +249,9 @@
                 </div>
                 <div class="col-md-9">
                @if(!empty($iframe))
-                    <p>You are using an Iframe on your page.Iframes can't be crawled by search engnies and aren't good for SEO, in General</p>
+                    <p>You are using an Iframe on your page. Iframes can't be crawled by search engines and aren't good for SEO, in general.</p>
                 @else
-                  <p>No Iframe on Page</p>
+                  <p>No Iframes on the page</p>
                 @endif
                 </div>
             </div>
@@ -265,7 +265,7 @@
             <div class="row">
                 <div class="col-md-3">
                     @if($h1_tags > 0)
-                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>H1</h6>
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>H1 tag</h6>
                     @else
                         <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>H1</h6>
                     @endif
@@ -283,7 +283,7 @@
             <div class="row">
                 <div class="col-md-3">
                     @if($h2_tags > 0)
-                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>H2</h6>
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>H2 tags</h6>
                     @else
                         <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>H2</h6>
                     @endif
@@ -302,7 +302,7 @@
             <div class="row">
                 <div class="col-md-3">
                     @if($h3_tags > 0)
-                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>H3</h6>
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>H3 tags</h6>
                     @else
                         <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>H3</h6>
                     @endif
@@ -320,7 +320,7 @@
             <div class="row">
                 <div class="col-md-3">
                     @if(!empty($word_count))
-                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Keyword Density </h6>
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Keyword Density</h6>
                     @else
                         <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Keyword Density </h6>
                     @endif
@@ -605,9 +605,9 @@
                 </div>
                 <div class="col-md-9">
                     @if(!empty($a_https) && !empty($link_https)  && !empty($script_https))
-                        <p>links pointing to non-https pages found</p>
+                        <p>Links pointing to non-https pages found</p>
                     @else
-                        <p>links pointing to non-https pages not found</p>
+                        <p>Links pointing to non-https pages not found</p>
                     @endif
                 </div>
             </div>
@@ -626,7 +626,7 @@
                     @endif
                 </div>
                 <div class="col-md-9">
-                    <p>{{$social_media_link ?? 'Link to social media profile not found'}}</p>
+                    <p>{{$social_media_link ?? 'Link to social media profiles not found'}}</p>
                 </div>
             </div>
             <hr>
@@ -663,7 +663,7 @@
                 </div>
                 <div class="col-md-9">
                     @if(!empty($robot) && $robot[0] !== '<!doctype')
-                        <p>Your site using robots.txt</p>
+                        <p>Robots.txt file found.</p>
                     @else
                         <p>Your site is missing its robots.txt file. This file tells search engine bots how to most appropriately crawl your site and which pages not to crawl and index.</p>
                     @endif
@@ -685,9 +685,9 @@
                 </div>
                 <div class="col-md-9">
                     @if(!empty($sitemap))
-                        <p>Your site using XML sitemap</p>
+                        <p>XML sitemap found</p>
                     @else
-                        <p>Your site is missing its XML sitemap. This map helps search engines find your pages better.</p>
+                        <p>Your site is missing its XML sitemap. This file helps search engines find your pages better.</p>
                     @endif
                 </div>
             </div>

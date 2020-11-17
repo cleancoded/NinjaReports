@@ -6,7 +6,7 @@
         <div class="row Analyze">
             <div class="col-md-10">
 
-                <input type="text" id='analyze' class="form-control" value="{{$_GET['url'] ?? ''}}"  placeholder="Analyze">
+                <input type="text" id='analyze' class="form-control" value="{{$_GET['url'] ?? ''}}"  placeholder="Enter URL">
 
             </div>
             <div class="col-md-2">
@@ -28,7 +28,13 @@
             </div> -->
         </div>
     </div>
-
+      <div id="waiting" style="display:none;">
+        <div class="loading-box">
+            <img src="{{asset('images/806.gif')}}" alt="loading"/>
+            <h4>Crawling...</h4>
+            <p>Please wait while we crawl your page. This process can take a few minutes.</p>
+        </div>
+    </div>
     <div id="text-container"></div>
 
 
@@ -89,11 +95,12 @@
                         $(this).find('.circle').circleProgress({
                             startAngle: -Math.PI / 2,
                             value: percent / 100,
-                            size: 150,
-                            thickness: 10,
+                            thickness: 17,
+                            size: 175,
                             lineCap: "round",
+                            emptyFill: "#f2f2f2",
                             fill: {
-                            color: '#0E6EEA'
+                            color: '#1B58B8'
                             }
                         }).on('circle-animation-progress', function(event, progress, stepValue){
                             $(this).find('div').text((stepValue * 100).toFixed(0) + "%");
@@ -166,6 +173,7 @@
                                         if (e.lengthComputable) {
                                             var percent = Math.round((e.loaded / e.total) * 100)-60;
                                             //console.log(percent);
+                                            $('#waiting').show();
                                             $('#progressBar').attr('aria-valuenow', percent).css('width', percent + '%').text(percent + '%');
                                         }
                                     });
@@ -181,6 +189,7 @@
                                         $('#upgradeModel').show();
                                     }else{
                                         $('div#text-container').append(data);
+                                        $('#waiting').hide();
                                         $('.analysis_section').show();
                                         $('#progressBar').css('width', 80 + '%').text(80 + '%');
                                         runPagespeed();
