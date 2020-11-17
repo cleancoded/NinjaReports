@@ -1,7 +1,8 @@
 body {font-family:Roboto}
-.warning-box {background:#f9e4e4;}
-.error-box {background:#f9ede4;}
+.warning-box {background:#f9ede4;}
+.error-box {background:#f9e8e8;}
 .notice-box {background:#DCE8F7;}
+table a i.fa {    font-size: 14px !important;}
 .notice-bo h4, .error-box h4, .warning-box h4 {
     border-bottom: 1px solid #fff;
     margin-bottom: 0;
@@ -18,6 +19,7 @@ body {font-family:Roboto}
     margin-bottom:15px;
     color:#3f3f3f;
 }
+.row.audit-text .col-md-5 {padding-left:0;}
 .found-list {
     padding-left: 20px;
     padding-top: 10px;
@@ -259,7 +261,7 @@ input#seo_audit {
     border: 2px solid #f4f4f4;
     padding: 13px;
     text-align: center;
-    margin: 5px;
+    margin: 7px;
     max-width: 100%;
 }
 .Back-to-audit {
