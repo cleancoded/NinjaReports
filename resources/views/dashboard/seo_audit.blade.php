@@ -125,6 +125,7 @@
                                                 var percent = Math.round((e.loaded / e.total) * 100)-60;
                                                 //console.log(percent);
                                                 $('#waiting').show();
+                                                $('#analyse').attr('disabled','disabled');
                                                 $('#progress').attr('aria-valuenow', percent).css('width', percent + '%').text(percent + '%');
                                             }
                                         });
@@ -139,6 +140,7 @@
                                         $('div#text-container').append(data);
                                         $('#waiting').hide();
                                         $('.audit-item').show();
+                                        $('#analyse').removeAttr('disabled');
                                         animateElements();
                                         $(".progress-bar1").css("animation-play-state", "paused");
                                     }
@@ -184,7 +186,7 @@
                         $(this).find('.circle').circleProgress({
                             startAngle: -Math.PI / 2,
                             value: percent / 100,
-                            thickness: 17,
+                            thickness: 15,
                             size: 175,
                             lineCap: "round",
                             emptyFill: "#f2f2f2",

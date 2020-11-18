@@ -29,54 +29,57 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <h5 class="meta"><a href="{{$url}}">{{$url}} <i class="fa fa-external-link" aria-hidden="true"></i></a></h5>
+            <div class="col-md-4 breakdown">
+<!--                 <h5 class="meta"><a href="{{$url}}">{{$url}} <i class="fa fa-external-link" aria-hidden="true"></i></a></h5> -->
                 
-                <h6 class="pass"><span><img src="images/green.png" class="hero"></span>
-                    Passed
+                <h6 class="pass">
+                    <i class="fa fa-check" style="color:#008000" aria-hidden="true"></i> Passed
                 </h6>
                 <div class="progress" style="margin-bottom:5px;width: 70%;float: left;">
                         <div id="passed_progress" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="10"
-                        aria-valuemin="0" aria-valuemax="100" style="width:{{ $passed_score ?? ''}}%;background-color: green;">
+                        aria-valuemin="0" aria-valuemax="100" style="width:{{ $passed_score ?? ''}}%;background-color: #008000;">
                         </div>
                 </div>
                 <div class="clear"></div>
-                <h6 class="cta"><span><img src="images/orange.png" class="hero"></span>
-                    Warning
-                </h6>
-                <div class="progress" style="margin-bottom:5px;width: 70%;float: left;">
-                        <div id="warning" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50"
-                        aria-valuemin="0" aria-valuemax="100" style="width:{{$warning_score ?? ''}}%;background-color: orange;">
-                        </div>
-                </div>
-                <div class="clear"></div>
-                <h6 class="mca"><span><img src="images/red.png" class="hero"></span>
-                    Errors
+                 <h6 class="mca">
+                    <i style="color:#ff0000" class="fa fa-exclamation-triangle" aria-hidden="true"></i> Errors
                 </h6>
                 <div class="progress" style="margin-bottom:5px;width: 70%;float: left;">
                         <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
-                        aria-valuemin="0" aria-valuemax="100" style="width:{{$error_score ?? ''}}%;background-color: red;">
+                        aria-valuemin="0" aria-valuemax="100" style="width:{{$error_score ?? ''}}%;background-color: #ff0000;">
                         </div>
                 </div>
                 <div class="clear"></div>
-                <h6 class="pta"><span><img src="images/blue.jpg" class="hero"></span>
-                    Notices
+                <h6 class="cta">
+                    <i style="color:#ff6600" class="fa fa-exclamation-circle" aria-hidden="true"></i> Warnings
+                </h6>
+                <div class="progress" style="margin-bottom:5px;width: 70%;float: left;">
+                        <div id="warning" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50"
+                        aria-valuemin="0" aria-valuemax="100" style="width:{{$warning_score ?? ''}}%;background-color: #ff6600;">
+                        </div>
+                </div>
+                <div class="clear"></div>
+                <h6 class="pta">
+                    <i style="color:#0E6EEA" class="fa fa-flag" aria-hidden="true"></i> Notices
                 </h6>
                 <div class="progress" style="margin-bottom:5px;width: 70%;float: left;">
                         <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70"
-                        aria-valuemin="0" aria-valuemax="100" style="width:{{$notice_score ?? ''}}%;background-color: blue;">
+                        aria-valuemin="0" aria-valuemax="100" style="width:{{$notice_score ?? ''}}%;background-color: #0E6EEA;">
                         </div>
                 </div>
                 <div class="clear"></div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 text-center">
                 <div class="blue">
+                    <div class="score-wrapper">
                     <div class="Progress" id="score" data-animate="false">
-                        <div class="circle" data-percent="58" style="margin-left: 20%;">
+                        <div class="circle" data-percent="58">
                             <div></div>
                         </div>
                     </div>
+                    </div>
                 </div>
+                <h3 style="text-align:center">{{$score_description ?? ''}}</h3>
             </div>
         </div>
     </section>
@@ -96,23 +99,23 @@
                 @endif
                 </div>
                 <div class="col-md-9">
-                    <h6>{{$title}}</h6>
-                    <p>Length: {{$title_length}} Characters (recommended: 60 characters)</p>
+                    <p>{{$title}}</p>
+                    <p>Length: {{$title_length}} Characters (Recommended: 60 characters)</p>
                 </div>
             </div>
                 <hr>
             <div class="row">
                 <div class="col-md-3">
-                @if($meta_length > 50 && $meta_length < 160)
+                @if($meta_length > 60 && $meta_length < 160)
 
-                    <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Meta Description</h6>
+                    <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Meta Description Tag</h6>
                 @else
-                <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Meta Description</h6>
+                <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Meta Description Tag</h6>
                 @endif
                 </div>
                 <div class="col-md-9">
                     <p>{{$meta}}</p>
-                    <p>Length: {{$meta_length}} Characters (recommended: 60 to 160 characters)</p>
+                    <p>Length: {{$meta_length}} Characters (Recommended: 60-160 characters)</p>
                 </div>
             </div>
                 <hr>
@@ -150,7 +153,7 @@
                 </div>
                 <div class="col-md-9 favicon">
                     @if(!empty($favicon))
-                       <img src="{{$favicon}}" alt="" class="fav-icon"> <p>Your site using favicon</p>
+                       <img src="{{$favicon}}" alt="" class="fav-icon"> <p class="fav">Your site using favicon</p>
                     @else
                         <p>Your site is missing it's favicon. Favicons are important for brand visability and SEO.</p>
                     @endif
@@ -167,9 +170,9 @@
                 </div>
                 <div class="col-md-9">
                     @if($mobile_friendly === 'MOBILE_FRIENDLY')
-                        <p>Your site is Mobile Friendly</p>
+                        <p>Your website is Mobile Friendly</p>
                     @elseif($mobile_friendly === 'NOT_MOBILE_FRIENDLY')
-                        <p>Your site is not mobile responsive. With a mobile responsive website, you will rank better in the mobile index.</p>
+                        <p>Your website is not mobile responsive. With a mobile responsive website, you will rank better in the mobile index.</p>
                     @endif
                 </div>
             </div>
@@ -192,7 +195,7 @@
                     @if(!empty($schema))
                         <p>Schema tags found on your page</p>
                     @else
-                        <p>Your page is missing it's schema tag. Schema tags help crawlers determine certain information about a website, business, product or video. </p>
+                        <p>Your page is missing schema tags. Schema tags help crawlers determine certain information about a website, business, products or videos. </p>
                     @endif
                     <!-- <h6>Organisation, Service</h6>
                     <p>No Schema Errors</p> -->
@@ -327,7 +330,7 @@
                 </div>
                 <div class="col-md-9">
                     @if(!empty($word_count))
-                        <table class="table">
+                        <table class="table keyword-table">
                             <thead class="thead-light">
                                 <tr>
                                     <th>Keyword</th>
@@ -408,12 +411,12 @@
                 @endif
                 </div>
                 <div class="col-md-9">
-                    <table class="table">
+                    <table class="table size-table">
                         <thead class="thead-light">
                             <tr>
                             <th>Page Size</th>
                             <th>Text Size</th>
-                            <th>Code To Text Ratio(%)</th>
+                            <th>Text-HTML Ratio(%)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -463,17 +466,17 @@
                 </div>
                 <div class="col-md-9">
                     @if(!empty($img_data))
-                        <table class="table">
+                        <table class="table image-table">
                             <thead class="thead-light">
                                 <tr>
-                                <th>Location</th>
+                                <th>Image Location</th>
                                 <th>Size</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($img_data as  $key => $val)
                                     <tr>
-                                        <td>{{substr($key,0,80)}}</td>
+                                        <td><a target="_blank" href="{{substr($key,0,80)}}">{{substr($key,0,80)}}  <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
                                         <td>{{number_format($val,1)}} kb</td>
                                     </tr>
                                 @endforeach
@@ -564,7 +567,7 @@
                     @if(!empty($status404))
                         <p>You have broken links on your page. Those links are sending users to a page that does not exist.</p>
                     @else
-                        <p>No Broken link found</p>
+                        <p>No broken links found</p>
                     @endif
                 </div>
             </div>
@@ -622,7 +625,7 @@
                     @if(!empty($social_media_link))
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Links to Social Media Pages</h6>
                     @else
-                        <h6><span style="margin-right: 9px;color:blue;"><i class="fa fa-sticky-note" aria-hidden="true"></i></span>Links to Social Media Pages</h6>
+                        <h6><span style="margin-right: 9px;color:#0E6EEA;"><i class="fa fa-sticky-note" aria-hidden="true"></i></span>Links to Social Media Pages</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -635,7 +638,7 @@
                     @if(!empty($social_schema))
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Schema for social media profiles</h6>
                     @else
-                    <h6><span style="margin-right: 9px;color:blue;"><i class="fa fa-sticky-note" aria-hidden="true"></i></span>Schema for social media profiles</h6>
+                    <h6><span style="margin-right: 9px;color:blue;"><i class="fa fa-flag" aria-hidden="true"></i></span>Schema for social media profiles</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -663,7 +666,7 @@
                 </div>
                 <div class="col-md-9">
                     @if(!empty($robot) && $robot[0] !== '<!doctype')
-                        <p>Robots.txt file found.</p>
+                        <p>Robots.txt file found</p>
                     @else
                         <p>Your site is missing its robots.txt file. This file tells search engine bots how to most appropriately crawl your site and which pages not to crawl and index.</p>
                     @endif

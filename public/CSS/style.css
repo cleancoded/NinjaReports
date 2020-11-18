@@ -494,10 +494,10 @@ input:checked+.slider:before {
 
 .Progress {
     display: inline-block;
-    width: 100px;
+    width: 190px;
     margin: 25px;
 }
-
+.score-wrapper {position: relative;}
 .circle {
     width: 100%;
     margin: 0 auto;
@@ -514,12 +514,12 @@ input:checked+.slider:before {
 
 .circle div {
     position: absolute;
-    top: 68px;
+    top: 75px;
     width: 100%;
     text-align: center;
     line-height: 40px;
     font-size: 42px;
-    left: 40px;
+    left: 10px;
     font-weight: 700;
 }
 

@@ -22,14 +22,16 @@
 					<a class="nav-link" href="{{ route('analysis') }}"><i class="fa fa-search" aria-hidden="true"></i> SEO ANALYSIS</a>
 					<div class="analysis_section" style="display:none;">
 						<div class="">
-							<a class="dropdown-item" href="#header">HEADER</a>
-							<a class="dropdown-item" href="#technical">TECHNICAL</a>
-							<a class="dropdown-item" href="#Content">CONTENT</a>
-							<a class="dropdown-item" href="#performance">PERFORMANCE</a>
-							<a class="dropdown-item" href="#links">LINKS</a>
-							<a class="dropdown-item" href="#security">SECURITY</a>
-							<a class="dropdown-item" href="#social">SOCIAL</a>
-							<a class="dropdown-item" href="#other">OTHER</a>
+							<a class="dropdown-item" href="#header"><i class="fa fa-code" aria-hidden="true"></i> HEADER</a>
+							<a class="dropdown-item" href="#technical"><i class="fa fa-cog" aria-hidden="true"></i> TECHNICAL</a>
+							<a class="dropdown-item" href="#Content"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> CONTENT</a>
+							<a class="dropdown-item" href="#performance"><i class="fa fa-bar-chart" aria-hidden="true"></i> PERFORMANCE</a>
+							<a class="dropdown-item" href="#links"><i class="fa fa-link" aria-hidden="true"></i> LINKS</a>
+							<a class="dropdown-item" href="#security"><i class="fa fa-shield" aria-hidden="true"></i> SECURITY</a>
+							<a class="dropdown-item" href="#social"><i class="fa fa-facebook-official" aria-hidden="true"></i>
+ SOCIAL</a>
+							<a class="dropdown-item" href="#other"><i class="fa fa-asterisk" aria-hidden="true"></i>
+ OTHER</a>
 						</div>
 					</div>
 				</li>

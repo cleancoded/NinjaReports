@@ -95,8 +95,8 @@
                         $(this).find('.circle').circleProgress({
                             startAngle: -Math.PI / 2,
                             value: percent / 100,
-                            thickness: 17,
-                            size: 175,
+                            thickness: 13,
+                            size: 190,
                             lineCap: "round",
                             emptyFill: "#f2f2f2",
                             fill: {
@@ -174,6 +174,7 @@
                                             var percent = Math.round((e.loaded / e.total) * 100)-60;
                                             //console.log(percent);
                                             $('#waiting').show();
+                                             $('#analyse').attr('disabled','disabled');
                                             $('#progressBar').attr('aria-valuenow', percent).css('width', percent + '%').text(percent + '%');
                                         }
                                     });
@@ -193,6 +194,7 @@
                                         $('.analysis_section').show();
                                         $('#progressBar').css('width', 80 + '%').text(80 + '%');
                                         runPagespeed();
+                                        $('#analyse').removeAttr('disabled');
                                     }
                                     
                                 }
