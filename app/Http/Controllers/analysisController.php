@@ -635,6 +635,14 @@ class analysisController extends Controller
                     $val5_notice = 3.7;
                 }
                 $notice_score = $val1_notice+$val2_notice+$val3_notice+$val4_notice+$val5_notice;
+
+                if($passed_score > 80){
+                $score_description = "Your page SEO is good!";
+                } elseif ($passed_score > 60) {
+                $score_description = "Your page SEO needs work!";
+                } else {
+                  $score_description = "Your page SEO is bad!";  
+                }
             }catch(Exception $e){}
             //dd($notice_score);
             $view = view("dashboard/seo_result", compact(
@@ -650,7 +658,7 @@ class analysisController extends Controller
                 'social_media_link', 'robot', 'sitemap', 'schema',
                 'social_schema', 'passed_score', 'warning_score', 'error_score',
                 'img_data','favicon','mobile_friendly','ssl_certificate','notice_score',
-                'image'
+                'image','score_description'
 
             ));
             return $view;
