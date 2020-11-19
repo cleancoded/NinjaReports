@@ -165,7 +165,7 @@ class analysisController extends Controller
                 foreach ($link_to_social as $val) {
                     $path = parse_url($val, PHP_URL_PATH);
                     if (strpos($path, pathinfo($domain_url, PATHINFO_FILENAME))) {
-                        $social_media_link = 'link To Social Media page Found';
+                        $social_media_link = 'Link to social media profiles found';
                     }
                 }
 
