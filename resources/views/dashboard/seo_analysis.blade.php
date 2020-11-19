@@ -245,8 +245,8 @@
                                     var get_passed = document.getElementById("warning").style.width;
                                     var add_vale = parseFloat(get_passed) + 3.7;
                                     $("#warning").css("width", add_vale + "%");
-                                    $("#img_err").attr("class", "fa fa-exclamation-triangle");
-                                    $("#img_color").css('color','orange');
+                                    $("#img_err").attr("class", "fa fa-exclamation-circle");
+                                    $("#img_color").css('color','#ff6600');
                                 }
                             }
                             catch(err) {
@@ -264,8 +264,8 @@
                                     var get_passed = document.getElementById("warning").style.width;
                                     var add_vale = parseFloat(get_passed) + 3.7;
                                     $("#warning").css("width", add_vale + "%");
-                                    $("#img_err").attr("class", "fa fa-exclamation-triangle");
-                                    $("#img_color").css('color','orange');
+                                    $("#img_err").attr("class", "fa fa-exclamation-circle");
+                                    $("#img_color").css('color','#ff6600');
                                     
                                 }
                             }
@@ -283,8 +283,8 @@
                                     var get_passed = document.getElementById("warning").style.width;
                                     var add_vale = parseFloat(get_passed) + 3.7;
                                     $("#warning").css("width", add_vale + "%");
-                                    $("#img_gzip").attr("class", "fa fa-exclamation-triangle");
-                                    $("#gzip_color").css('color','orange');
+                                    $("#img_gzip").attr("class", "fa fa-exclamation-circle");
+                                    $("#gzip_color").css('color','#ff6600');
                                 }
                             }
                             catch(err) {

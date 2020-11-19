@@ -93,9 +93,9 @@
                 @if($title_length > 30 && $title_length < 70)
                     <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Title Tag</h6>
                 @elseif($title_length <= 30)
-                    <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Title Tag</h6>
+                    <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Title Tag</h6>
                 @elseif($title_length > 60)
-                    <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Title Tag</h6>
+                    <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Title Tag</h6>
                 @endif
                 </div>
                 <div class="col-md-9">
@@ -110,7 +110,7 @@
 
                     <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Meta Description Tag</h6>
                 @else
-                <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Meta Description Tag</h6>
+                <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Meta Description Tag</h6>
                 @endif
                 </div>
                 <div class="col-md-9">
@@ -124,7 +124,7 @@
                     @if(!empty($canonical))
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Canonical Tag</h6>
                     @else
-                        <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Canonical Tag</h6>
+                        <h6><span style="margin-right: 9px;color: #ff6600;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>Canonical Tag</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -150,7 +150,7 @@
                     @if(!empty($favicon))
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Favicon</h6>
                     @else
-                        <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Favicon</h6>
+                        <h6><span style="margin-right: 9px;color: #0E6EEA;"><i class="fa fa-flag" aria-hidden="true"></i></span>Favicon</h6>
                     @endif
                 </div>
                 <div class="col-md-9 favicon">
@@ -167,7 +167,7 @@
                     @if($mobile_friendly === 'MOBILE_FRIENDLY')
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Mobile Friendly</h6>
                     @elseif($mobile_friendly === 'NOT_MOBILE_FRIENDLY')
-                        <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Mobile Friendly</h6>
+                        <h6><span style="margin-right: 9px;color: #ff6600;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>Mobile Friendly</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -209,7 +209,7 @@
                 @if(empty($img_miss_alt))
                 <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Alt Tags</h6>
                 @else
-                <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Alt Tags</h6>
+                <h6><span style="margin-right: 9px;color: #ff6600;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>Alt Tags</h6>
                 @endif
 
                 </div>
@@ -233,9 +233,9 @@
                 <hr>
             <div class="row">
                 <div class="col-md-3">
-                    @if($url_seo_friendly == "URLs are SEO-Friendly")
+                    @if($url_seo_friendly == "SEO-Friendly")
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>SEO Friendly URL</h6>
-                    @elseif($url_seo_friendly == "URLs are not SEO-Friendly")
+                    @elseif($url_seo_friendly == "Unfriendly SEO URLs")
                         <h6><span style="margin-right: 9px;color: red;"><i class="fa fa-times" aria-hidden="true"></i></span>SEO Friendly URL</h6>
                     @endif
                 </div>
@@ -272,16 +272,16 @@
                     @if($h1_tags > 0)
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>H1 tag</h6>
                     @else
-                        <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>H1</h6>
+                        <h6><span style="margin-right: 9px;color: #ff6600;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>H1 tags</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
                      {{$h1_tags}} H1 tags were found on your page
-                    <p>
+                    <ol>
                     @foreach($h1 as $val)
-                        {{$val}} <br>
+                      <li>{{$val}}</li>
                     @endforeach
-                    </p>
+                    </ol>
                 </div>
             </div>
             <hr>
@@ -290,16 +290,16 @@
                     @if($h2_tags > 0)
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>H2 tags</h6>
                     @else
-                        <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>H2</h6>
+                        <h6><span style="margin-right: 9px;color: #ff6600;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>H2 tags</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
                     {{$h2_tags}} H2 tags were found on your page
-                    <p>
+                    <ol>
                     @foreach($h2 as $val)
-                        {{$val}} <br>
+                        <li>{{$val}}</li>
                     @endforeach
-                    </p>
+                    </ol>
 
                 </div>
             </div>
@@ -309,16 +309,16 @@
                     @if($h3_tags > 0)
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>H3 tags</h6>
                     @else
-                        <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>H3</h6>
+                        <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>H3 tags</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
                     {{$h3_tags}} H3 tags were found on your page
-                    <p>
+                    <ol>
                     @foreach($h3 as $val)
-                        {{$val}} <br>
+                      <li>{{$val}}</li>
                     @endforeach
-                    </p>
+                    </ol>
                 </div>
             </div>
             <hr>
