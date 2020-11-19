@@ -105,7 +105,7 @@ class analysisController extends Controller
             //As page on HTTPS
             try {
                 if (parse_url($url, PHP_URL_SCHEME) === 'https') {
-                    $page_https = 'Page use HTTPS';
+                    $page_https = 'Page using HTTPS';
                 } else {
                     $page_https = 'Page not on HTTPS';
 
@@ -301,11 +301,11 @@ class analysisController extends Controller
             //URL Seo Result
             $url_len = strlen($url);
             if (preg_match("/[A-Z_]/", $url, $matches)) {
-                $url_seo_friendly = "not seo friendly";
+                $url_seo_friendly = "Unfriendly SEO URLs";
             } else if ($url_len > 75) {
                 $url_seo_friendly = "Long URL";
             } else {
-                $url_seo_friendly = "Seo Friendly";
+                $url_seo_friendly = "SEO-Friendly";
             }
 
             //title & title length
@@ -468,7 +468,7 @@ class analysisController extends Controller
                 } else {
                     $val14_pass = 3.7;
                 }
-                if ($page_https == "Page use HTTPS") {
+                if ($page_https == "Page using HTTPS") {
                     $val15_pass = 3.7;
                 } else {
                     $val15_pass = 0;
@@ -595,7 +595,7 @@ class analysisController extends Controller
                 } else {
                     $val1_error = 0;
                 }
-                if ($page_https == "Page use HTTPS") {
+                if ($page_https == "Page using HTTPS") {
                     $val2_error = 0;
                 } else {
                     $val2_error = 3.7;

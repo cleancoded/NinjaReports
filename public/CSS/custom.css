@@ -24,6 +24,8 @@ h1, h2, h3, h4, h5 ,h6, .nav a {font-family:Roboto;}
     margin-bottom:15px;
     color:#3f3f3f;
 }
+.google-preview {max-width:650px;}
+.google-preview p {font-size:.9rem;}
 .row.audit-text .col-md-5 {padding-left:0;}
 .col-md-4.breakdown{padding-top:40px;}
 .top-bar a.dropdown-toggle {color:#fff;}

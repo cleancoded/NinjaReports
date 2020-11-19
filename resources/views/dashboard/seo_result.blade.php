@@ -122,9 +122,9 @@
             <div class="row">
                 <div class="col-md-3">
                     @if(!empty($canonical))
-                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Canonical</h6>
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Canonical Tag</h6>
                     @else
-                        <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Canonical</h6>
+                        <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Canonical Tag</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -134,12 +134,14 @@
                 <hr>
             <div class="row">
                 <div class="col-md-3">
-                    <h6><span><img src="images/gray.jpg"></span>Google Preview</h6>
+                    <h6><i style="color:#999" class="fa fa-google" aria-hidden="true"></i> Google Preview</h6>
                 </div>
                 <div class="col-md-9">
+                    <div class="google-preview">
                     <h5 style="color:#1a0dab;">{{$title}}</h5>
                     <h6 style="font-size:14px;color:green;">{{$url}}</h6>
                     <p>{{$meta}}</p>
+                </div>
                 </div>
             </div>
             <hr>
@@ -188,7 +190,7 @@
                     @if(!empty($schema))
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Schema Tags</h6>
                     @else
-                        <h6><span style="margin-right: 9px;color:blue;"><i class="fa fa-sticky-note" aria-hidden="true"></i></span>Schema Tags</h6>
+                        <h6><span style="margin-right: 9px;color:#0E6EEA;"><i class="fa fa-flag" aria-hidden="true"></i></span>Schema Tags</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -307,7 +309,7 @@
                     @if($h3_tags > 0)
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>H3 tags</h6>
                     @else
-                        <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>H3</h6>
+                        <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>H3</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -325,7 +327,7 @@
                     @if(!empty($word_count))
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Keyword Density</h6>
                     @else
-                        <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Keyword Density </h6>
+                        <h6><span style="margin-right: 9px;color: #ff6600;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>Keyword Density </h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -391,7 +393,7 @@
             <div class="row">
                 <div class="col-md-3">
                     @if($page_words < 300)
-                        <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Thin Content</h6>
+                        <h6><span style="margin-right: 9px;color: #ff6600;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>Thin Content</h6>
                     @else
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Thin Content</h6>
                     @endif
@@ -407,7 +409,7 @@
                 @if($page_text_ratio > 10)
                     <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Text-HTML ratio</h6>
                 @else
-                    <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Text-HTML ratio</h6>
+                    <h6><span style="margin-right: 9px;color: #ff6600;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>Text-HTML ratio</h6>
                 @endif
                 </div>
                 <div class="col-md-9">
@@ -461,7 +463,7 @@
                     @if(!empty($img_data))
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Image Size Analysis </h6>
                     @else
-                        <h6><span style="margin-right: 9px;color:blue;"><i class="fa fa-sticky-note" aria-hidden="true"></i></span>Image Size Analysis </h6>
+                        <h6><span style="margin-right: 9px;color:#0E6EEA;"><i class="fa fa-flag" aria-hidden="true"></i></span>Image Size Analysis </h6>
                     @endif    
                 </div>
                 <div class="col-md-9">
@@ -501,9 +503,9 @@
             <div class="row">
                 <div class="col-md-3">
                     @if(!empty($cache))
-                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Browser Cacheing</h6>
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Browser Caching</h6>
                     @else
-                        <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Browser Cacheing</h6>
+                        <h6><span style="margin-right: 9px;color: #ff6600;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>Browser Caching</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -525,7 +527,7 @@
                 @if(!empty($internal_link))
                     <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Internal Linking</h6>
                 @else
-                    <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Internal Linking</h6>
+                    <h6><span style="margin-right: 9px;color: #ff6600;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>Internal Linking</h6>
                 @endif
                 </div>
                 <div class="col-md-9">
@@ -579,7 +581,7 @@
         <div class="Technical-section">
             <div class="row">
                 <div class="col-md-3">
-                    @if($page_https == "Page use HTTPS")
+                    @if($page_https == "Page using HTTPS")
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>HTTPS</h6>
                     @else
                         <h6><span style="margin-right: 9px;color: red;"><i class="fa fa-times" aria-hidden="true"></i></span>HTTPS</h6>
@@ -589,12 +591,25 @@
                    @if(!empty($page_https))
                         <p>{{$page_https}}</p><br>
                     @endif    
-                    @if(!empty($ssl_certificate))
-                        <h5>SSL Certificate Found</h5>
-                    @else
-                        <h5>SSL Certificate not found</h5>
-                    @endif
                     
+                </div>
+            </div>
+             <hr>
+                 <div class="row">
+                <div class="col-md-3">
+                    @if(!empty($ssl_certificate))
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>SSL Certificate</h6>
+                    @else
+                        <h6><span style="margin-right: 9px;color: red;"><i class="fa fa-times" aria-hidden="true"></i></span>SSL Certificate</h6>
+                    @endif
+                </div>
+                <div class="col-md-9">
+                  @if(!empty($ssl_certificate))
+                        <p>SSL certificate found</p>
+                    @else
+                        <p>SSL certificate not found</p>
+                    @endif
+                     
                 </div>
             </div>
             <hr>
@@ -625,7 +640,7 @@
                     @if(!empty($social_media_link))
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Links to Social Media Pages</h6>
                     @else
-                        <h6><span style="margin-right: 9px;color:#0E6EEA;"><i class="fa fa-sticky-note" aria-hidden="true"></i></span>Links to Social Media Pages</h6>
+                        <h6><span style="margin-right: 9px;color:#0E6EEA;"><i class="fa fa-flag" aria-hidden="true"></i></span>Links to Social Media Pages</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -636,16 +651,16 @@
             <div class="row">
                 <div class="col-md-3">
                     @if(!empty($social_schema))
-                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Schema for social media profiles</h6>
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Social Schema Tags</h6>
                     @else
-                    <h6><span style="margin-right: 9px;color:blue;"><i class="fa fa-flag" aria-hidden="true"></i></span>Schema for social media profiles</h6>
+                    <h6><span style="margin-right: 9px;color:#0E6EEA;"><i class="fa fa-flag" aria-hidden="true"></i></span>Social Schema Tags</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
                     @if(!empty($social_schema))
-                        <p>Schema for social media profiles found</p>
+                        <p>Schema tags for social media profiles found</p>
                     @else
-                    <p>Schema for social media profiles not found</p>
+                    <p>Schema tags for social media profiles not found</p>
                     @endif
                 </div>
             </div>
@@ -661,7 +676,7 @@
                     @if(!empty($robot) && $robot[0] !== '<!doctype')
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Robots.txt</h6>
                     @else
-                        <h6><span style="margin-right: 9px;color:blue;"><i class="fa fa-sticky-note" aria-hidden="true"></i></span>Robots.txt</h6>
+                        <h6><span style="margin-right: 9px;color:#0E6EEA;"><i class="fa fa-flag" aria-hidden="true"></i></span>Robots.txt</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -681,9 +696,9 @@
             <div class="row">
                 <div class="col-md-3">
                     @if(!empty($sitemap))
-                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>XML Sitemap file</h6>
+                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>XML Sitemap</h6>
                     @else
-                        <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>XML Sitemap file</h6>
+                        <h6><span style="margin-right: 9px;color: #ff6600;"><i class="fa fa fa-exclamation-circle" aria-hidden="true"></i></span>XML Sitemap</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
