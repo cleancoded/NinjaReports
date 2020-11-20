@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Spatie\Browsershot\Browsershot;
 use App\Analysis;
 use App\User;
+use App\Payment;
+use App\Audit;
 class analysisController extends Controller
 {
 
@@ -16,24 +18,41 @@ class analysisController extends Controller
         $url = $request->input('url');
         $time = date('F d Y, h:i:s A');
         
-    
-        $user = Analysis::where('user_id',auth()->user()->id)->latest()->first();
+        
+        
+        try{
+            $Payment = Payment::withCount('analysis')->where('user_id',auth()->user()->id)->first();
+           
+            $stripe = new \Stripe\StripeClient(
+                'sk_test_51HoNAJJ6zlhCKixlJbwLtOGpvpHLYv5wTqkAmJeiB3VUWmIN3fvW8Khk1y3gy0CWwQSdizHxZo9m1O7y4sxuRutQ00t2BWtXoL'
+            );
+            $retrive= $stripe->subscriptions->retrieve(
+                $Payment->subscription_id,
+                []
+            );
+            $exp_plan = date('F d Y, h:i:s A', $retrive->current_period_end);
+        }catch(Exception $e){}
+        
 
-        if(!empty($user) && $user->created_at->format('m/d/Y') == date("m/d/Y") && $user->status == 'free'){
+        if(empty($Payment) || $Payment->status == 0){
             return 'unsuccessfull';
+        }else if(!empty($exp_plan) && $exp_plan < $time ){
+            return 'Expired';
+        }else if ($Payment->plan_id== 1 && $Payment->no_allowed_analysis <= $Payment->analysis_count ){
+            return 'acceded';
         }
         else
         {
 
             $client = new Client();
             $crawler = $client->request('GET', $url);
-            //dd($crawler);
+
+            $create_analysis = new Analysis;
+            $create_analysis->user_id = auth()->user()->id;
+            $create_analysis->site_url = $url;
+            $create_analysis->payment_id = $Payment->id;
+            $create_analysis->save();
             
-            $data= [
-                'user_id' => auth()->user()->id,
-                'site_url' => $url
-            ];
-            Analysis::create($data);
 
             Browsershot::url($url)->save("images/screenshot.png");
             //Mobile Friendly test
@@ -670,467 +689,502 @@ class analysisController extends Controller
         // set_time_limit(200); 
         $url = $request->input('url');
         $time = date('F d Y, h:i:s A');
-        $client = new Client();
-        $crawler = $client->request('GET', $url);
 
-        //get internal links
         try{
-                foreach ($crawler->filter('a') as $a) {
-                    $a_links[] = $a->getAttribute('href');
-                }
-
-                //extract Domain
-                $domain = parse_url($url, PHP_URL_HOST);
-                $domain_url = str_replace('www.', '', $domain);
-                foreach ($a_links as $lnk) {
-                    if (strpos($lnk, $domain_url) !== false) {
-                        $internal_link[] = $lnk;
-                    } else {
-                        $external_link[] = $lnk;
-                    }
-                }
-                $pages_link = array_unique(array_filter($internal_link));
-        
-                foreach ($pages_link as $val) {
-                    if (parse_url($val, PHP_URL_SCHEME) === 'https' || parse_url($val, PHP_URL_SCHEME) === 'http') {
-                        $internal_pages[] = $val;
-                    }
-                }
-        }catch(Exception $e){
-            $links = $this->get_a_href($url);
-            $internal_pages = array_unique($links['InternalLinks']);
-        }
-            $pages_internal = array();
-            foreach($internal_pages as $d){
-                if(strpos($d,"facebook") == false && strpos($d,"twitter") == false && strpos($d,"linkedin") == false && strpos($d,"instagram") == false){
-                    array_push($pages_internal,$d);
-                }
-            }
-            
-        try {
-            foreach ($internal_pages as $val) {
-                $crawler = $client->request('GET', $val);
-                
-                $h1 = $crawler->filter('h1')->each(function ($node) {
-                    return $node->text();
-                });
-
-                if (count($h1) > 1) {
-                    $links_more_h1[] = $val;
-                }elseif (count($h1) < 1 && strpos($val,"twitter") == false && strpos($val,"facebook") == false && strpos($val,"linkedin") == false && strpos($val,"instagram") == false ) {
-                    $links_empty_h1[] = $val;
-                }
-                if(count(array_unique($h1)) < count($h1)){
-                    $duplicate_h1[] = $val;
-                }
-
-                foreach ($h1 as $data) {
-                    if (strlen($data) > 60) {
-                        $h1_greater[] = $val;
-                    } elseif (strlen($data) < 5) {
-                        $h1_short[] = $val;
-                    }
-                }
-                $card = $crawler->filter('meta[name="twitter:card"]')->each(function ($node) {
-                    return $node->attr('content');
-                });
-
-                $site = $crawler->filter('meta[name="twitter:site"]')->each(function ($node) {
-                    return $node->attr('content');
-                });
-
-                $title_twitter = $crawler->filter('meta[name="twitter:title"]')->each(function ($node) {
-                    return $node->attr('content');
-                });
-
-                $twitter_description = $crawler->filter('meta[name="twitter:description"]')->each(function ($node) {
-                    return $node->attr('content');
-                });
-                
-
-                $image_twitter = $crawler->filter('meta[name="twitter:image"]')->each(function ($node) {
-                    return $node->attr('content');
-                });
-
-                $creator_twitter = $crawler->filter('meta[name="twitter:creator"]')->each(function ($node) {
-                    return $node->attr('content');
-                });
-
-                if(empty($card) || empty($site) || empty($title_twitter) || empty($twitter_description) || empty($image_twitter) || empty($creator_twitter)){
-                    $page_incomplete_card[] = $val;
-                }
-
-                $a = array();
-                $twitter[] = array_push($a, $card, $site, $title_twitter, $twitter_description, $image_twitter,$creator_twitter);
-
-                
-                $graph_type = $crawler->filter('meta[property="og:type"]')->each(function ($node) {
-                    return $node->attr('content');
-                });
-                $graph_title = $crawler->filter('meta[property="og:title"]')->each(function ($node) {
-                    return $node->attr('content');
-                });
-                
-                $graph_description = $crawler->filter('meta[property="og:description"]')->each(function ($node) {
-                    return $node->attr('content');
-                });
-                $graph_image = $crawler->filter('meta[property="og:image"]')->each(function ($node) {
-                    return $node->attr('content');
-                });
-                $graph_name = $crawler->filter('meta[property="og:site_name"]')->each(function ($node) {
-                    return $node->attr('content');
-                });
-                $graph_url = $crawler->filter('meta[property="og:url"]')->each(function ($node) {
-                    return $node->attr('content');
-                });
-
-                if(empty($graph_type) || empty($graph_title) || empty($graph_description) || empty($graph_image) || empty($graph_url)){
-                    $page_incomplete_graph[]  = $val;
-                }
-
-                $b = array();
-                $graph_data[] = array_push($b, $graph_type, $graph_title, $graph_description, $graph_image, $graph_name, $graph_url);
-
-                $title = $crawler->filter('title')->html();
-                if (!empty($title)) {
-                    $page_with_title[] = $val;
-                } else {
-                    $page_miss_title[] = $val;
-                   
-                }
-                if (strlen($title) < 35) {
-                    $short_title[] = $val;
-                } elseif (strlen($title) > 60) {
-                    $long_title[] = $val;
-                }
-                
-                $total_title[] = $title;
-
-                if(strlen($val)>115){
-                    $url_length[] = $val;
-                }
-
-                //page word count
-                $page = strip_tags($crawler->html());
-                $exp = explode(" ", $page);
-                $page_words = count($exp);
-               
-                if ($page_words < 600) {
-                    $less_page_words[] = $val;
-                }
-
-                //Text-HTML ratio
-                $size = strlen($crawler->html());
-                $page_size = round(strlen($crawler->html()) / 1024, 4);
-                $page_text_ratio = $page_words / $size * 100;
-                $page_words_size = round($page_words / 1024, 4);
-                if ($page_text_ratio < 25) {
-                    $less_code_ratio[] = $val;
-                }
-                //$less_page[] = $page_words;
-                $page_html = preg_replace('#<[^>]+>#', ' ', $crawler->html());
-                $html_page = explode("\t\t\t", $page_html);
-                $html_values = preg_replace('/\s+/', ' ', $html_page);
-                $unique = array_unique($html_values);
-                $duplicates = array_diff_assoc($html_values, $unique);
-
-                foreach (array_map('trim', $duplicates) as $value) {
-                    if ($value === $title) {
-                        $duplicate_title[] = $val;
-                    }
-                }
-                $m_can = array();
-                foreach ($crawler->filter('link[rel="canonical"]') as $can) {
-                    if (!empty($can->getAttribute('href'))) {
-                        $link_canonical[] = $val;
-                        $canonical[] = $can->getAttribute('href');
-                    }else{
-                        array_push($m_can,$val);
-                    }
-                    
-                }
-                
-                //meta description
-                
-                foreach ($crawler->filter('meta[name="description"]') as $desc) {
-                    $meta = $desc->getAttribute('content');
-                    //array_push($var,$meta);
-                    //array_push($d,$meta);
-                    if (!empty($meta)) {
-                        $linkss[] = $val;
-                        if (strlen($meta) < 70) {
-                            $short_meta_description[] = $val;
-                        } elseif (strlen($meta) > 160) {
-                            $long_meta_description[] = $val;
-                        }
-                        $page_link_description[] = $val;
-                    }else{
-                        $page_null_description[] = $val;
-                       
-                    }
-                    $total_meta[] = $meta;
-                }
-
-                
-                $redirect_links = get_headers($val);
-                preg_match('/\s(\d+)\s/', $redirect_links[0], $matches);
-                if($matches[0] == 200){
-                    $status200[] = $matches[0];
-                    $link_200[] = $val;
-                }elseif($matches[0] == 301) {
-                    $status301[] = $matches[0];
-                    $link_301[] = $val;
-                } elseif ($matches[0] == 302) {
-                    $status302[] = $matches[0];
-                    $link_302[] = $val;
-                } elseif ($matches[0] == 404) {
-                    $status404[] = $matches[0];
-                    $link_404[] = $val;
-                   
-                } elseif ($matches[0] == 500) {
-                    $status500[] = $matches[0];
-                    $link_500[] = $val;
-                    
-                }
-                $pages[] = $val;
-                
-            }
-        } catch (Exception $e) {}
-        
-        //H1 Tags Length
-        try {
-            $page_h1_greater = array_unique($h1_greater);
-            $page_h1_less = array_unique($h1_short);
-        } catch (Exception $e) {}
-        
-        //meta duplicate
-        try {
-            $arr = array_combine($linkss,$total_meta);
-            $counts = array_count_values($arr);
-            $duplicate_meta_description  = array_filter($arr, function ($value) use ($counts) {
-                return $counts[$value] > 1;
-            });
-
-        } catch(Exception $e) {}
-
-        //Robot.txt
-        try {
-            $get_robot = file_get_contents($url . "/robots.txt");
-            $robots = explode(" ", (str_replace("\r\n", " ", $get_robot)));
-            $robot_txt = array_chunk($robots, 1);
-            foreach ($robot_txt as $dat) {
-                $rob = $dat;
-                foreach ($rob as $data) {
-                    $robot[] = $data;
-                }
-            }
-        } catch (Exception $e) {}
-        
-        // miss canonical and page miss meta
-        try{
-            $miss =  array_diff($pages,$linkss);
-            $page_miss_meta = array();
-            foreach($miss as $d){
-                if(strpos($d,"facebook") == false && strpos($d,"twitter") == false && strpos($d,"linkedin") == false && strpos($d,"instagram") == false){
-                    array_push($page_miss_meta,$d);
-                }
-            }
-
-            $can = array_diff($pages,$link_canonical);
-            $page_without_canonical = array();
-            foreach($can as $d){
-                if(strpos($d,"facebook") == false && strpos($d,"twitter") == false && strpos($d,"linkedin") == false && strpos($d,"instagram") == false){
-                    array_push($page_without_canonical,$d);
-                }
-            }
-        }catch(Exception $e){}
-        
-        //duplicate title
-        try{
-            $array = array_combine($page_with_title,$total_title);
-            $counts = array_count_values($array);
-            $duplicate_title  = array_filter($array, function ($value) use ($counts) {
-                return $counts[$value] > 1;
-            });
-            
-        }catch(Exception $e){}
-       
-        //Notices Score Count
-        try{
+            $Payment = Payment::withCount('audit')->where('user_id',auth()->user()->id)->first();
            
-            if(!empty($page_h1_greater)){
-                $h1_count_greater = count($page_h1_greater);
+            $stripe = new \Stripe\StripeClient(
+                'sk_test_51HoNAJJ6zlhCKixlJbwLtOGpvpHLYv5wTqkAmJeiB3VUWmIN3fvW8Khk1y3gy0CWwQSdizHxZo9m1O7y4sxuRutQ00t2BWtXoL'
+            );
+            $retrive= $stripe->subscriptions->retrieve(
+                $Payment->subscription_id,
+                []
+            );
+            $exp_plan = date('F d Y, h:i:s A', $retrive->current_period_end);
+        }catch(Exception $e){}
+        //dd($Payment);
+        if(empty($Payment) || $Payment->status == 0){
+            return 'unsuccessfull';
+        }else if(!empty($exp_plan) && $exp_plan < $time ){
+            return 'Expired';
+        }else if ($Payment->plan_id == 1 && $Payment->no_allowed_audits <= $Payment->audit_count ){
+            return 'acceded';
+        }
+        else if ($Payment->plan_id == 2 && $Payment->no_allowed_audits <= $Payment->audit_count ){
+            return 'acceded';
+        }
+        else if ($Payment->plan_id== 3 && $Payment->no_allowed_audits <= $Payment->audit_count ){
+            return 'acceded';
+        }
+        else
+        {
+            $client = new Client();
+            $crawler = $client->request('GET', $url);
+
+            $create_analysis = new Audit;
+            $create_analysis->user_id =auth()->user()->id;
+            $create_analysis->site_url = $url;
+            $create_analysis->payment_id = $Payment->id;
+            $create_analysis->save();
+
+            //get internal links
+            try{
+                    foreach ($crawler->filter('a') as $a) {
+                        $a_links[] = $a->getAttribute('href');
+                    }
+
+                    //extract Domain
+                    $domain = parse_url($url, PHP_URL_HOST);
+                    $domain_url = str_replace('www.', '', $domain);
+                    foreach ($a_links as $lnk) {
+                        if (strpos($lnk, $domain_url) !== false) {
+                            $internal_link[] = $lnk;
+                        } else {
+                            $external_link[] = $lnk;
+                        }
+                    }
+                    $pages_link = array_unique(array_filter($internal_link));
+            
+                    foreach ($pages_link as $val) {
+                        if (parse_url($val, PHP_URL_SCHEME) === 'https' || parse_url($val, PHP_URL_SCHEME) === 'http') {
+                            $internal_pages[] = $val;
+                        }
+                    }
+            }catch(Exception $e){
+                $links = $this->get_a_href($url);
+                $internal_pages = array_unique($links['InternalLinks']);
+            }
+                $pages_internal = array();
+                foreach($internal_pages as $d){
+                    if(strpos($d,"facebook") == false && strpos($d,"twitter") == false && strpos($d,"linkedin") == false && strpos($d,"instagram") == false){
+                        array_push($pages_internal,$d);
+                    }
+                }
+                
+            try {
+                foreach ($internal_pages as $val) {
+                    $crawler = $client->request('GET', $val);
+                    
+                    $h1 = $crawler->filter('h1')->each(function ($node) {
+                        return $node->text();
+                    });
+
+                    if (count($h1) > 1) {
+                        $links_more_h1[] = $val;
+                    }elseif (count($h1) < 1 && strpos($val,"twitter") == false && strpos($val,"facebook") == false && strpos($val,"linkedin") == false && strpos($val,"instagram") == false ) {
+                        $links_empty_h1[] = $val;
+                    }
+                    if(count(array_unique($h1)) < count($h1)){
+                        $duplicate_h1[] = $val;
+                    }
+
+                    foreach ($h1 as $data) {
+                        if (strlen($data) > 60) {
+                            $h1_greater[] = $val;
+                        } elseif (strlen($data) < 5) {
+                            $h1_short[] = $val;
+                        }
+                    }
+                    $card = $crawler->filter('meta[name="twitter:card"]')->each(function ($node) {
+                        return $node->attr('content');
+                    });
+
+                    $site = $crawler->filter('meta[name="twitter:site"]')->each(function ($node) {
+                        return $node->attr('content');
+                    });
+
+                    $title_twitter = $crawler->filter('meta[name="twitter:title"]')->each(function ($node) {
+                        return $node->attr('content');
+                    });
+
+                    $twitter_description = $crawler->filter('meta[name="twitter:description"]')->each(function ($node) {
+                        return $node->attr('content');
+                    });
+                    
+
+                    $image_twitter = $crawler->filter('meta[name="twitter:image"]')->each(function ($node) {
+                        return $node->attr('content');
+                    });
+
+                    $creator_twitter = $crawler->filter('meta[name="twitter:creator"]')->each(function ($node) {
+                        return $node->attr('content');
+                    });
+
+                    if(empty($card) || empty($site) || empty($title_twitter) || empty($twitter_description) || empty($image_twitter) || empty($creator_twitter)){
+                        $page_incomplete_card[] = $val;
+                    }
+
+                    $a = array();
+                    $twitter[] = array_push($a, $card, $site, $title_twitter, $twitter_description, $image_twitter,$creator_twitter);
+
+                    
+                    $graph_type = $crawler->filter('meta[property="og:type"]')->each(function ($node) {
+                        return $node->attr('content');
+                    });
+                    $graph_title = $crawler->filter('meta[property="og:title"]')->each(function ($node) {
+                        return $node->attr('content');
+                    });
+                    
+                    $graph_description = $crawler->filter('meta[property="og:description"]')->each(function ($node) {
+                        return $node->attr('content');
+                    });
+                    $graph_image = $crawler->filter('meta[property="og:image"]')->each(function ($node) {
+                        return $node->attr('content');
+                    });
+                    $graph_name = $crawler->filter('meta[property="og:site_name"]')->each(function ($node) {
+                        return $node->attr('content');
+                    });
+                    $graph_url = $crawler->filter('meta[property="og:url"]')->each(function ($node) {
+                        return $node->attr('content');
+                    });
+
+                    if(empty($graph_type) || empty($graph_title) || empty($graph_description) || empty($graph_image) || empty($graph_url)){
+                        $page_incomplete_graph[]  = $val;
+                    }
+
+                    $b = array();
+                    $graph_data[] = array_push($b, $graph_type, $graph_title, $graph_description, $graph_image, $graph_name, $graph_url);
+
+                    $title = $crawler->filter('title')->html();
+                    if (!empty($title)) {
+                        $page_with_title[] = $val;
+                    } else {
+                        $page_miss_title[] = $val;
+                    
+                    }
+                    if (strlen($title) < 35) {
+                        $short_title[] = $val;
+                    } elseif (strlen($title) > 60) {
+                        $long_title[] = $val;
+                    }
+                    
+                    $total_title[] = $title;
+
+                    if(strlen($val)>115){
+                        $url_length[] = $val;
+                    }
+
+                    //page word count
+                    $page = strip_tags($crawler->html());
+                    $exp = explode(" ", $page);
+                    $page_words = count($exp);
+                
+                    if ($page_words < 600) {
+                        $less_page_words[] = $val;
+                    }
+
+                    //Text-HTML ratio
+                    $size = strlen($crawler->html());
+                    $page_size = round(strlen($crawler->html()) / 1024, 4);
+                    $page_text_ratio = $page_words / $size * 100;
+                    $page_words_size = round($page_words / 1024, 4);
+                    if ($page_text_ratio < 25) {
+                        $less_code_ratio[] = $val;
+                    }
+                    //$less_page[] = $page_words;
+                    $page_html = preg_replace('#<[^>]+>#', ' ', $crawler->html());
+                    $html_page = explode("\t\t\t", $page_html);
+                    $html_values = preg_replace('/\s+/', ' ', $html_page);
+                    $unique = array_unique($html_values);
+                    $duplicates = array_diff_assoc($html_values, $unique);
+
+                    foreach (array_map('trim', $duplicates) as $value) {
+                        if ($value === $title) {
+                            $duplicate_title[] = $val;
+                        }
+                    }
+                    $m_can = array();
+                    foreach ($crawler->filter('link[rel="canonical"]') as $can) {
+                        if (!empty($can->getAttribute('href'))) {
+                            $link_canonical[] = $val;
+                            $canonical[] = $can->getAttribute('href');
+                        }else{
+                            array_push($m_can,$val);
+                        }
+                        
+                    }
+                    
+                    //meta description
+                    
+                    foreach ($crawler->filter('meta[name="description"]') as $desc) {
+                        $meta = $desc->getAttribute('content');
+                        //array_push($var,$meta);
+                        //array_push($d,$meta);
+                        if (!empty($meta)) {
+                            $linkss[] = $val;
+                            if (strlen($meta) < 70) {
+                                $short_meta_description[] = $val;
+                            } elseif (strlen($meta) > 160) {
+                                $long_meta_description[] = $val;
+                            }
+                            $page_link_description[] = $val;
+                        }else{
+                            $page_null_description[] = $val;
+                        
+                        }
+                        $total_meta[] = $meta;
+                    }
+
+                    
+                    $redirect_links = get_headers($val);
+                    preg_match('/\s(\d+)\s/', $redirect_links[0], $matches);
+                    if($matches[0] == 200){
+                        $status200[] = $matches[0];
+                        $link_200[] = $val;
+                    }elseif($matches[0] == 301) {
+                        $status301[] = $matches[0];
+                        $link_301[] = $val;
+                    } elseif ($matches[0] == 302) {
+                        $status302[] = $matches[0];
+                        $link_302[] = $val;
+                    } elseif ($matches[0] == 404) {
+                        $status404[] = $matches[0];
+                        $link_404[] = $val;
+                    
+                    } elseif ($matches[0] == 500) {
+                        $status500[] = $matches[0];
+                        $link_500[] = $val;
+                        
+                    }
+                    $pages[] = $val;
+                    
+                }
+            } catch (Exception $e) {}
+            
+            //H1 Tags Length
+            try {
+                $page_h1_greater = array_unique($h1_greater);
+                $page_h1_less = array_unique($h1_short);
+            } catch (Exception $e) {}
+            
+            //meta duplicate
+            try {
+                $arr = array_combine($linkss,$total_meta);
+                $counts = array_count_values($arr);
+                $duplicate_meta_description  = array_filter($arr, function ($value) use ($counts) {
+                    return $counts[$value] > 1;
+                });
+
+            } catch(Exception $e) {}
+
+            //Robot.txt
+            try {
+                $get_robot = file_get_contents($url . "/robots.txt");
+                $robots = explode(" ", (str_replace("\r\n", " ", $get_robot)));
+                $robot_txt = array_chunk($robots, 1);
+                foreach ($robot_txt as $dat) {
+                    $rob = $dat;
+                    foreach ($rob as $data) {
+                        $robot[] = $data;
+                    }
+                }
+            } catch (Exception $e) {}
+            
+            // miss canonical and page miss meta
+            try{
+                $miss =  array_diff($pages,$linkss);
+                $page_miss_meta = array();
+                foreach($miss as $d){
+                    if(strpos($d,"facebook") == false && strpos($d,"twitter") == false && strpos($d,"linkedin") == false && strpos($d,"instagram") == false){
+                        array_push($page_miss_meta,$d);
+                    }
+                }
+
+                $can = array_diff($pages,$link_canonical);
+                $page_without_canonical = array();
+                foreach($can as $d){
+                    if(strpos($d,"facebook") == false && strpos($d,"twitter") == false && strpos($d,"linkedin") == false && strpos($d,"instagram") == false){
+                        array_push($page_without_canonical,$d);
+                    }
+                }
+            }catch(Exception $e){}
+            
+            //duplicate title
+            try{
+                $array = array_combine($page_with_title,$total_title);
+                $counts = array_count_values($array);
+                $duplicate_title  = array_filter($array, function ($value) use ($counts) {
+                    return $counts[$value] > 1;
+                });
+                
+            }catch(Exception $e){}
+        
+            //Notices Score Count
+            try{
+            
+                if(!empty($page_h1_greater)){
+                    $h1_count_greater = count($page_h1_greater);
+                    }else{
+                    $h1_count_greater = 0;
+                }
+
+                if(!empty($page_h1_less)){
+                    $h1_count_less = count($page_h1_less);
                 }else{
-                $h1_count_greater = 0;
-            }
+                    $h1_count_less = 0;
+                }
 
-            if(!empty($page_h1_less)){
-                $h1_count_less = count($page_h1_less);
-             }else{
-                $h1_count_less = 0;
-            }
+                if(!empty($links_more_h1)){
+                    $h1_count_more = count($links_more_h1);
+                }else{
+                    $h1_count_more = 0;
+                }
+                if(!empty($short_title)){
+                    $short_title_count = count($short_title);
+                }else{
+                    $short_title_count = 0;
+                }
 
-            if(!empty($links_more_h1)){
-                $h1_count_more = count($links_more_h1);
-             }else{
-                $h1_count_more = 0;
-            }
-            if(!empty($short_title)){
-                $short_title_count = count($short_title);
-             }else{
-                $short_title_count = 0;
-            }
+                if(!empty($long_title)){
+                    $long_title_count = count($long_title);
+                }else{
+                    $long_title_count = 0;
+                }
 
-            if(!empty($long_title)){
-                $long_title_count = count($long_title);
-             }else{
-                $long_title_count = 0;
-            }
+                if(empty($twitter)){
+                    $twitter_count = 1;
+                }else{
+                    $twitter_count = 0;
+                }
 
-            if(empty($twitter)){
-                $twitter_count = 1;
-             }else{
-                $twitter_count = 0;
-            }
+                if(empty($graph_data)){
+                    $graph_count = 1;
+                }else{
+                    $graph_count = 0;
+                }
 
-            if(empty($graph_data)){
-                $graph_count = 1;
-             }else{
-                $graph_count = 0;
-            }
+                if(!empty($less_code_ratio)){
+                    $less_code_ratio_count = count($less_code_ratio);
+                }else{
+                    $less_code_ratio_count = 0;
+                }
 
-            if(!empty($less_code_ratio)){
-                $less_code_ratio_count = count($less_code_ratio);
-             }else{
-                $less_code_ratio_count = 0;
-            }
+                if(!empty($short_meta_description)){
+                    $short_meta_description_count = count($short_meta_description);
+                }else{
+                    $short_meta_description_count = 0;
+                }
 
-            if(!empty($short_meta_description)){
-                $short_meta_description_count = count($short_meta_description);
-             }else{
-                $short_meta_description_count = 0;
-            }
+                if(!empty($long_meta_description)){
+                    $long_meta_description_count = count($long_meta_description);
+                }else{
+                    $long_meta_description_count = 0;
+                }
 
-            if(!empty($long_meta_description)){
-                $long_meta_description_count = count($long_meta_description);
-             }else{
-                $long_meta_description_count = 0;
-            }
+                if(!empty($url_length)){
+                    $url_length_count = count($url_length);
+                }else{
+                    $url_length_count = 0;
+                }
 
-            if(!empty($url_length)){
-                $url_length_count = count($url_length);
-             }else{
-                $url_length_count = 0;
-            }
+                $notices = $h1_count_greater+$h1_count_less+$h1_count_more+$short_title_count+$long_title_count+$twitter_count+$graph_count+$less_code_ratio_count+$short_meta_description_count+$long_meta_description_count+$url_length_count;
+            }catch(Exception $e){}
+            //Warning Score Count
+            try{
+                if(!empty($less_page_words)){
+                    $less_page_words_count = count($less_page_words);
+                }else{
+                    $less_page_words_count = 0;
+                }
 
-            $notices = $h1_count_greater+$h1_count_less+$h1_count_more+$short_title_count+$long_title_count+$twitter_count+$graph_count+$less_code_ratio_count+$short_meta_description_count+$long_meta_description_count+$url_length_count;
-        }catch(Exception $e){}
-        //Warning Score Count
-        try{
-            if(!empty($less_page_words)){
-                $less_page_words_count = count($less_page_words);
-            }else{
-                $less_page_words_count = 0;
-            }
+                if(!empty($links_empty_h1)){
+                    $links_empty_h1_count = count($links_empty_h1);
+                }else{
+                    $links_empty_h1_count = 0;
+                }
 
-            if(!empty($links_empty_h1)){
-                $links_empty_h1_count = count($links_empty_h1);
-            }else{
-                $links_empty_h1_count = 0;
-            }
+                if(!empty($duplicate_h1)){
+                    $duplicate_h1_count = count($duplicate_h1);
+                }else{
+                    $duplicate_h1_count = 0;
+                }
 
-            if(!empty($duplicate_h1)){
-                $duplicate_h1_count = count($duplicate_h1);
-            }else{
-                $duplicate_h1_count = 0;
-            }
+                if(!empty($page_miss_meta)){
+                    $page_miss_meta_count = count($page_miss_meta);
+                }else{
+                    $page_miss_meta_count = 0;
+                }
 
-            if(!empty($page_miss_meta)){
-                $page_miss_meta_count = count($page_miss_meta);
-            }else{
-                $page_miss_meta_count = 0;
-            }
+                if(!empty($page_incomplete_card)){
+                    $page_incomplete_card_count = count($page_incomplete_card);
+                }else{
+                    $page_incomplete_card_count = 0;
+                }
 
-            if(!empty($page_incomplete_card)){
-                $page_incomplete_card_count = count($page_incomplete_card);
-            }else{
-                $page_incomplete_card_count = 0;
-            }
+                if(!empty($page_incomplete_graph)){
+                    $page_incomplete_graph_count = count($page_incomplete_graph);
+                }else{
+                    $page_incomplete_graph_count = 0;
+                }
 
-            if(!empty($page_incomplete_graph)){
-                $page_incomplete_graph_count = count($page_incomplete_graph);
-            }else{
-                $page_incomplete_graph_count = 0;
-            }
+                if(!empty($link_301)){
+                    $link_301_count = count($link_301);
+                }else{
+                    $link_301_count = 0;
+                }
+                if(!empty($link_302)){
+                    $link_302_count = count($link_302);
+                }else{
+                    $link_302_count = 0;
+                }
 
-            if(!empty($link_301)){
-                $link_301_count = count($link_301);
-            }else{
-                $link_301_count = 0;
-            }
-            if(!empty($link_302)){
-                $link_302_count = count($link_302);
-            }else{
-                $link_302_count = 0;
-            }
+                $warning = $less_page_words_count+$links_empty_h1_count+$duplicate_h1_count+$page_miss_meta_count+$page_incomplete_card_count+$page_incomplete_graph_count+$link_301_count+$link_302_count;
+            }catch(Exception $e){}
+            //Errors
+            try{
+                $health=array();
+                if(!empty($link_404)){
+                    $link_404_count = count($link_404);
+                    array_push($health,$link_404);
+                }else{
+                    $link_404_count = 0;
+                }
 
-            $warning = $less_page_words_count+$links_empty_h1_count+$duplicate_h1_count+$page_miss_meta_count+$page_incomplete_card_count+$page_incomplete_graph_count+$link_301_count+$link_302_count;
-        }catch(Exception $e){}
-        //Errors
-        try{
-            $health=array();
-            if(!empty($link_404)){
-                $link_404_count = count($link_404);
-                array_push($health,$link_404);
-            }else{
-                $link_404_count = 0;
-            }
+                if(!empty($link_500)){
+                    $link_500_count = count($link_500);
+                    array_push($health,$link_500);
+                }else{
+                    $link_500_count = 0;
+                }
 
-            if(!empty($link_500)){
-                $link_500_count = count($link_500);
-                array_push($health,$link_500);
-            }else{
-                $link_500_count = 0;
-            }
+                if(!empty($duplicate_title)){
+                    $duplicate_title_count = count($duplicate_title);
+                    array_push($health,array_keys($duplicate_title));
+                }else{
+                    $duplicate_title_count = 0;
+                }
 
-            if(!empty($duplicate_title)){
-                $duplicate_title_count = count($duplicate_title);
-                array_push($health,array_keys($duplicate_title));
-            }else{
-                $duplicate_title_count = 0;
-            }
+                if(!empty($page_without_canonical)){
+                    $page_without_canonical_count = count($page_without_canonical);
+                    array_push($health,$page_without_canonical);
+                }else{
+                    $page_without_canonical_count = 0;
+                }
 
-            if(!empty($page_without_canonical)){
-                $page_without_canonical_count = count($page_without_canonical);
-                array_push($health,$page_without_canonical);
-            }else{
-                $page_without_canonical_count = 0;
-            }
+                if(!empty($duplicate_meta_description)){
+                    $duplicate_meta_description_count = count($duplicate_meta_description);
+                    array_push($health,array_keys($duplicate_meta_description));
+                }else{
+                    $duplicate_meta_description_count = 0;
+                }
 
-            if(!empty($duplicate_meta_description)){
-                $duplicate_meta_description_count = count($duplicate_meta_description);
-                array_push($health,array_keys($duplicate_meta_description));
-            }else{
-                $duplicate_meta_description_count = 0;
-            }
-
-            $errors = $link_404_count+$link_500_count+$duplicate_title_count+$page_without_canonical_count+$duplicate_meta_description_count;
-        }catch(Exception $e){}
-        try{
-            $page_with_errors = []; 
-            foreach ($health as $childArray) 
-            { 
-                foreach ($childArray as $value) 
+                $errors = $link_404_count+$link_500_count+$duplicate_title_count+$page_without_canonical_count+$duplicate_meta_description_count;
+            }catch(Exception $e){}
+            try{
+                $page_with_errors = []; 
+                foreach ($health as $childArray) 
                 { 
-                $page_with_errors[] = $value; 
-                } 
-            }
-            $data = count(array_unique($page_with_errors))/count($internal_pages);
-            $health_score = (1-($data))*100;
-            $pages = count($internal_pages);
-            $passed_pages = $pages - count($page_with_errors);
-        }catch(Exception $e){}
-        return view("dashboard/audit_result",
+                    foreach ($childArray as $value) 
+                    { 
+                    $page_with_errors[] = $value; 
+                    } 
+                }
+                $data = count(array_unique($page_with_errors))/count($internal_pages);
+                $health_score = (1-($data))*100;
+                $pages = count($internal_pages);
+                $passed_pages = $pages - count($page_with_errors);
+            }catch(Exception $e){}
+            return view("dashboard/audit_result",
             compact('url', 'time', 'page_h1_greater', 'page_h1_less', 'long_title', 'short_title','url_length',
                 'graph_data', 'links_more_h1', 'less_code_ratio', 'short_meta_description',
                 'long_meta_description', 'robot', 'less_page_words', 'links_empty_h1', 'duplicate_h1',
@@ -1139,6 +1193,7 @@ class analysisController extends Controller
                 'link_302','link_301','link_404','link_500','page_without_canonical','notices','warning','errors','passed_pages'
                 ,'health_score','pages'
             ));
+        }
     }
 
     public function get_a_href($url){

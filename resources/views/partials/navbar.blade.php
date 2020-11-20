@@ -7,8 +7,7 @@
 			<div class="col-md-6 text-right">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#"><img src="{{ Auth::user()->picture }}" style="height: 38px;border-radius: 50%;"></a>
 				<div class="dropdown-menu">
-					<a class="dropdown-item" href="#"><i class="fa fa-user-circle" aria-hidden="true"></i> My Account</a>
-					<a class="dropdown-item" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out</a>
+
 				</div>
 			</div>
 		@else

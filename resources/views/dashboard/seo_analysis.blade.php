@@ -141,10 +141,7 @@
                     if(loggedIn){
                         var url =  $("#analyze").val();
                         !!url && insertParam('url', url);
-                        
-                            analyzeURL();
-                        
-                        
+                            //analyzeURL();
                     }else{
                         var j$ = jQuery.noConflict();
                         j$("#loginModal").modal("show");
@@ -187,8 +184,19 @@
                                 success:function(data){
                                     //console.log(data);
                                     if(data == 'unsuccessfull'){
-                                        $('#upgradeModel').show();
-                                    }else{
+                                        var msg = "<?php echo base64_encode('Please Subscribe plan');?>";
+                                        var url = '/subscription?success='+msg;
+                                        window.location = url;
+                                    }else if(data == 'Expired'){
+                                        var msg = "<?php echo base64_encode('Your Subscription Expired');?>";
+                                        var url = '/account?success='+msg;
+                                        window.location = url;
+                                    }else if(data == 'acceded'){
+                                        var msg = "<?php echo base64_encode('You are acceded');?>";
+                                        var url = '/account?success='+msg;
+                                        window.location = url;
+                                    }
+                                    else{
                                         $('div#text-container').append(data);
                                         $('#waiting').hide();
                                         $('.analysis_section').show();

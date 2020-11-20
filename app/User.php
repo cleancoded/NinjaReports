@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Analysis;
+use App\Payment;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -43,4 +44,8 @@ class User extends Authenticatable
         return $this->hasMany(Analysis::class);
     }
     
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
+    }
 }

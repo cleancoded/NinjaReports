@@ -97,7 +97,7 @@
                     var url =  $("#seo_audit").val();
                     if(loggedIn){
                         !!url && insertParam('url', url);
-                        get_audit();
+                        //get_audit();
                     }else{
                         var j$ = jQuery.noConflict();
                         j$("#loginModal").modal("show");
@@ -136,13 +136,7 @@
                                     data:{url:url},
                                     
                                     success:function(data){
-                                        $('#progress').css('width', 100 + '%').text(100 + '%'); 
-                                        $('div#text-container').append(data);
-                                        $('#waiting').hide();
-                                        $('.audit-item').show();
-                                        $('#analyse').removeAttr('disabled');
-                                        animateElements();
-                                        $(".progress-bar1").css("animation-play-state", "paused");
+
                                     }
                                 });
                         }else{
