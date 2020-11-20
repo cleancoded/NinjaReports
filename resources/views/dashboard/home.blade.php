@@ -32,6 +32,8 @@
 <script>
     $(document).ready(function($){
         var loggedIn = {{ auth()->check() ? 'true' : 'false' }};
+
+
      
         $("#analsis").click(function(e){
             var j$ = jQuery.noConflict();
