@@ -12,6 +12,18 @@
     
     <section id="analysis">
         <div class="row Analysis-details" style="border:1px solid #f4f4f4;padding: 6px;">
+                  <div class="col-md-4 text-center">
+                <div class="blue">
+                    <div class="score-wrapper">
+                    <div class="Progress" id="score" data-animate="false">
+                        <div class="circle" data-percent="58">
+                            <div></div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <h3 style="text-align:center">{{$score_description ?? ''}}</h3>
+            </div>
             <div class="col-md-4">
                 <!-- <img src="images/desktop.jpg" style="height:140px;margin-top:15%;margin-left:5%;"> -->
                 <div class="screen-container">
@@ -68,19 +80,9 @@
                         </div>
                 </div>
                 <div class="clear"></div>
+                <p class="overview-desc">On this scan, {{ $passed_score ?? ''}} factors passed with {{$error_score ?? ''}} errors, {{$warning_score ?? ''}} warnings and {{$notice_score ?? ''}} notices. Errors are the most important to fix in order to rank higher in search engines.</p>
             </div>
-            <div class="col-md-4 text-center">
-                <div class="blue">
-                    <div class="score-wrapper">
-                    <div class="Progress" id="score" data-animate="false">
-                        <div class="circle" data-percent="58">
-                            <div></div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <h3 style="text-align:center">{{$score_description ?? ''}}</h3>
-            </div>
+      
         </div>
     </section>
 
@@ -236,7 +238,7 @@
                     @if($url_seo_friendly == "SEO-Friendly")
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>SEO Friendly URL</h6>
                     @elseif($url_seo_friendly == "Unfriendly SEO URLs")
-                        <h6><span style="margin-right: 9px;color: red;"><i class="fa fa-times" aria-hidden="true"></i></span>SEO Friendly URL</h6>
+                        <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-times" aria-hidden="true"></i></span>SEO Friendly URL</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -247,7 +249,7 @@
             <div class="row">
                 <div class="col-md-3">
                 @if(!empty($iframe))
-                    <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Flash/Iframes</h6>
+                    <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Flash/Iframes</h6>
                 @else
                     <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Flash/Iframes</h6>
                 @endif
@@ -290,7 +292,7 @@
                     @if($h2_tags > 0)
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>H2 tags</h6>
                     @else
-                        <h6><span style="margin-right: 9px;color: #ff6600;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>H2 tags</h6>
+                        <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-exclamation-triange" aria-hidden="true"></i></span>H2 tags</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -309,7 +311,7 @@
                     @if($h3_tags > 0)
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>H3 tags</h6>
                     @else
-                        <h6><span style="margin-right: 9px;color: orange;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>H3 tags</h6>
+                        <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-exclamation-triange" aria-hidden="true"></i></span>H3 tags</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -705,7 +707,7 @@
                     @if(!empty($sitemap))
                         <p>XML sitemap found</p>
                     @else
-                        <p>Your site is missing its XML sitemap. This file helps search engines find your pages better.</p>
+                        <p>We cannot seem to find your website's sitemap.xml file. This helps search engines better index your website and get found online.</p>
                     @endif
                 </div>
             </div>

@@ -17,7 +17,7 @@
                 <h5>ON-PAGE SEO SCORE</h5>
                 <div class="blue" >
                     <div class="Progress" data-animate="false">
-                        <div class="circle" data-percent="<?php echo round($health_score); ?>" style="margin-left: 10%;">
+                        <div class="circle" data-percent="<?php echo round($health_score); ?>">
                             <div></div>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
             </div>
 
             <div class="col-md-3 error-box">
-                <h5 style="color: #ff0000;">ERRORS</h5>
+                <h5 style="color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ERRORS</h5>
                 <h5 class="number-error">{{$errors}}</h5>
                 <p class="description">Errors are SEO issues that have the highest impact on your website's SEO performance.</p>
                 <ul class="found-list">
@@ -47,7 +47,7 @@
             </div>
 
             <div class="col-md-3 warning-box">
-                <h5 style="color:#ff6600;">WARNINGS</h5>
+                <h5 style="color:#ff6600;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> WARNINGS</h5>
                 <h5 class="number-error">{{$warning}}</h5>
                       <p class="description">Warnings have less impact on your SEO performance but should not be overlooked.</p>
                       <ul class="found-list">
@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div class="col-md-3 notice-box">
-                <h5 style="color:#0e6eea;">NOTICES</h5>
+                <h5 style="color:#0e6eea;"><i class="fa fa-flag" aria-hidden="true"></i> NOTICES</h5>
                 <h5 class="number-error">{{$notices}}</h5>
                   <p class="description">Notices are not critical to your SEO performance but should be corrected.</p>
                   <ul class="found-list">
@@ -141,7 +141,7 @@
                         @foreach($link_500 as  $val)
                             <tr>
                                 <td><a href="{{$val}}" target="_blank">{{$val}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
-                                <td>your page has 500 error</td>
+                                <td>Your page has 500 error</td>
                                 <td>Find the link or links that are broken and change it to the correct page or take the link off.</td>
                             </tr>
                         @endforeach    
