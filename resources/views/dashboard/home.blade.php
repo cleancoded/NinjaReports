@@ -24,7 +24,7 @@
         <div class="col-md-6 plan-col">
             <h6><span>Plan: </span><span>Free</span></h6>
             <h6><span>Next Billing Date: </span><span>N/A</span></h6>
-            <button class="btn btn-warning">Upgrade</button>
+            <a href="{{route('subscription')}}" class="btn btn-warning">Upgrade</a>
         </div>
     </div>
 </div>
