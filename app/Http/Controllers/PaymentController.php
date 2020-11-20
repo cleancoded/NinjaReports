@@ -24,7 +24,7 @@ class PaymentController extends Controller
         $Payment=Payment::where('user_id',auth()->user()->id)->where('status',1)->first();
         
         $stripe = new \Stripe\StripeClient(
-            'sk_test_51HoNAJJ6zlhCKixlJbwLtOGpvpHLYv5wTqkAmJeiB3VUWmIN3fvW8Khk1y3gy0CWwQSdizHxZo9m1O7y4sxuRutQ00t2BWtXoL'
+            'sk_test_R5yp5YcSzHXQFP41vvKCSh9v'
           );
 
         if(!empty($Payment->subscription_id) && $Payment->status == 1){
@@ -48,7 +48,7 @@ class PaymentController extends Controller
                             'items' => [
                                 [
                                 'id' => $retrive->items->data[0]->id,
-                                'price' => 'price_1Hoj8eJ6zlhCKixlJQk3hieV',
+                                'price' => 'Enter Webmaster product price ID.',
                                 ],
                             ],
                         ]);
@@ -89,7 +89,7 @@ class PaymentController extends Controller
                             'items' => [
                                 [
                                 'id' => $retrive->items->data[0]->id,
-                                'price' => 'price_1HojA5J6zlhCKixlFWOld6lW',
+                                'price' => 'Enter Business product price ID.',
                                 ],
                             ],
                         ]);
@@ -131,7 +131,7 @@ class PaymentController extends Controller
                             'items' => [
                                 [
                                 'id' => $retrive->items->data[0]->id,
-                                'price' => 'price_1HojAbJ6zlhCKixlEGM1JraJ',
+                                'price' => 'Enter Agency product price ID.',
                                 ],
                             ],
                         ]);
@@ -169,7 +169,7 @@ class PaymentController extends Controller
                         "customer" => $customer->id,
                         "trial_period_days" => 7,
                         'items' => [
-                            ['price' => 'price_1Hoj8eJ6zlhCKixlJQk3hieV'],
+                            ['price' => 'Enter Webmaster product price ID.'],
                         ],
                     
                 ]);
@@ -187,7 +187,7 @@ class PaymentController extends Controller
                         "customer" => $customer->id,
                         "trial_period_days" => 7,
                         'items' => [
-                            ['price' => 'price_1HojA5J6zlhCKixlFWOld6lW'],
+                            ['price' => 'Enter Business product price ID.'],
                         ],
                     
                 ]);
@@ -205,7 +205,7 @@ class PaymentController extends Controller
                         "customer" => $customer->id,
                         "trial_period_days" => 7,
                         'items' => [
-                            ['price' => 'price_1HojAbJ6zlhCKixlEGM1JraJ'],
+                            ['price' => 'Enter Agency product price ID.'],
                         ],
                     
                 ]);

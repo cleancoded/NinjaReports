@@ -24,7 +24,7 @@ class analysisController extends Controller
             $Payment = Payment::withCount('analysis')->where('user_id',auth()->user()->id)->first();
            
             $stripe = new \Stripe\StripeClient(
-                'sk_test_51HoNAJJ6zlhCKixlJbwLtOGpvpHLYv5wTqkAmJeiB3VUWmIN3fvW8Khk1y3gy0CWwQSdizHxZo9m1O7y4sxuRutQ00t2BWtXoL'
+                'sk_test_R5yp5YcSzHXQFP41vvKCSh9v'
             );
             $retrive= $stripe->subscriptions->retrieve(
                 $Payment->subscription_id,
@@ -54,7 +54,7 @@ class analysisController extends Controller
             $create_analysis->save();
             
 
-            Browsershot::url($url)->save("images/screenshot.png");
+            //Browsershot::url($url)->save("images/screenshot.png");
             //Mobile Friendly test
             try{
                 $urls = "https://searchconsole.googleapis.com/v1/urlTestingTools/mobileFriendlyTest:run?key=AIzaSyBoWi8UVeIzrhXxxDhPm4G9OQT3lJuy1fc";
@@ -694,7 +694,7 @@ class analysisController extends Controller
             $Payment = Payment::withCount('audit')->where('user_id',auth()->user()->id)->first();
            
             $stripe = new \Stripe\StripeClient(
-                'sk_test_51HoNAJJ6zlhCKixlJbwLtOGpvpHLYv5wTqkAmJeiB3VUWmIN3fvW8Khk1y3gy0CWwQSdizHxZo9m1O7y4sxuRutQ00t2BWtXoL'
+                'sk_test_R5yp5YcSzHXQFP41vvKCSh9v'
             );
             $retrive= $stripe->subscriptions->retrieve(
                 $Payment->subscription_id,

@@ -25,7 +25,7 @@ class DashboardController extends Controller
         $Payment=Payment::where('user_id',auth()->user()->id)->first();
         if($Payment['product_id']){
             $stripe = new \Stripe\StripeClient(
-                'sk_test_51HoNAJJ6zlhCKixlJbwLtOGpvpHLYv5wTqkAmJeiB3VUWmIN3fvW8Khk1y3gy0CWwQSdizHxZo9m1O7y4sxuRutQ00t2BWtXoL'
+                'sk_test_R5yp5YcSzHXQFP41vvKCSh9v'
             );
             $product = $stripe->products->retrieve(
                 $Payment['product_id'],
@@ -53,7 +53,7 @@ class DashboardController extends Controller
         //dd($Payment['subscription_id']);
         if($Payment){
             $stripe = new \Stripe\StripeClient(
-                'sk_test_51HoNAJJ6zlhCKixlJbwLtOGpvpHLYv5wTqkAmJeiB3VUWmIN3fvW8Khk1y3gy0CWwQSdizHxZo9m1O7y4sxuRutQ00t2BWtXoL'
+                'sk_test_R5yp5YcSzHXQFP41vvKCSh9v'
             );
             $stripe->subscriptions->cancel(
                 $Payment['subscription_id'],

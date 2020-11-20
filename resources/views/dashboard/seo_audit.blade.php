@@ -136,7 +136,27 @@
                                     data:{url:url},
                                     
                                     success:function(data){
-
+                                        if(data == 'unsuccessfull'){
+                                            var msg = "<?php echo base64_encode('Please Subscribe plan');?>";
+                                            var url = '/subscription?success='+msg;
+                                            window.location = url;
+                                        }else if(data == 'Expired'){
+                                            var msg = "<?php echo base64_encode('Your Subscription Expired');?>";
+                                            var url = '/account?success='+msg;
+                                            window.location = url;
+                                        }else if(data == 'acceded'){
+                                            var msg = "<?php echo base64_encode('You are acceded');?>";
+                                            var url = '/account?success='+msg;
+                                            window.location = url;
+                                        }
+                                        else{
+                                            $('#progress').css('width', 100 + '%').text(100 + '%'); 
+                                            $('div#text-container').append(data);
+                                            $('.audit-item').show();
+                                            animateElements();
+                                            $(".progress-bar1").css("animation-play-state", "paused");
+                                            $('#waiting').hide();
+                                        }
                                     }
                                 });
                         }else{
