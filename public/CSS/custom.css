@@ -1,7 +1,13 @@
-body {font-family:Roboto}
-.warning-box {background:#f9e4e4;}
-.error-box {background:#f9ede4;}
+body {font-family:Arial}
+h1, h2, h3, h4, h5 ,h6, .nav a {font-family:Roboto;}
+.warning-box {background:#f9ede4;}
+.error-box {background:#f9e8e8;}
 .notice-box {background:#DCE8F7;}
+.table .thead-light th {    color: #fff;
+    background-color: #3f3f3f;
+    padding: .5rem;}
+    .table td {padding:.4rem;border-top: 1px solid #ccc;}
+.table a i.fa {    font-size: 14px !important;}
 .notice-bo h4, .error-box h4, .warning-box h4 {
     border-bottom: 1px solid #fff;
     margin-bottom: 0;
@@ -18,6 +24,12 @@ body {font-family:Roboto}
     margin-bottom:15px;
     color:#3f3f3f;
 }
+.google-preview {max-width:650px;}
+.google-preview p {font-size:.9rem;}
+.row.audit-text .col-md-5 {padding-left:0;}
+.col-md-4.breakdown{padding-top:40px;}
+.top-bar a.dropdown-toggle {color:#fff;}
+.fav-icon .fav {margin:0;padding-top:5px;}
 .found-list {
     padding-left: 20px;
     padding-top: 10px;
@@ -259,7 +271,7 @@ input#seo_audit {
     border: 2px solid #f4f4f4;
     padding: 13px;
     text-align: center;
-    margin: 5px;
+    margin: 7px;
     max-width: 100%;
 }
 .Back-to-audit {

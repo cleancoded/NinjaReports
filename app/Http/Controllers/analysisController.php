@@ -105,7 +105,7 @@ class analysisController extends Controller
             //As page on HTTPS
             try {
                 if (parse_url($url, PHP_URL_SCHEME) === 'https') {
-                    $page_https = 'Page use HTTPS';
+                    $page_https = 'Page using HTTPS';
                 } else {
                     $page_https = 'Page not on HTTPS';
 
@@ -165,7 +165,7 @@ class analysisController extends Controller
                 foreach ($link_to_social as $val) {
                     $path = parse_url($val, PHP_URL_PATH);
                     if (strpos($path, pathinfo($domain_url, PATHINFO_FILENAME))) {
-                        $social_media_link = 'link To Social Media page Found';
+                        $social_media_link = 'Link to social media profiles found';
                     }
                 }
 
@@ -301,11 +301,11 @@ class analysisController extends Controller
             //URL Seo Result
             $url_len = strlen($url);
             if (preg_match("/[A-Z_]/", $url, $matches)) {
-                $url_seo_friendly = "not seo friendly";
+                $url_seo_friendly = "Unfriendly SEO URLs";
             } else if ($url_len > 75) {
                 $url_seo_friendly = "Long URL";
             } else {
-                $url_seo_friendly = "Seo Friendly";
+                $url_seo_friendly = "SEO-Friendly";
             }
 
             //title & title length
@@ -468,7 +468,7 @@ class analysisController extends Controller
                 } else {
                     $val14_pass = 3.7;
                 }
-                if ($page_https == "Page use HTTPS") {
+                if ($page_https == "Page using HTTPS") {
                     $val15_pass = 3.7;
                 } else {
                     $val15_pass = 0;
@@ -595,7 +595,7 @@ class analysisController extends Controller
                 } else {
                     $val1_error = 0;
                 }
-                if ($page_https == "Page use HTTPS") {
+                if ($page_https == "Page using HTTPS") {
                     $val2_error = 0;
                 } else {
                     $val2_error = 3.7;
@@ -635,6 +635,14 @@ class analysisController extends Controller
                     $val5_notice = 3.7;
                 }
                 $notice_score = $val1_notice+$val2_notice+$val3_notice+$val4_notice+$val5_notice;
+
+                if($passed_score > 80){
+                $score_description = "Your page SEO is good!";
+                } elseif ($passed_score > 60) {
+                $score_description = "Your page SEO needs work!";
+                } else {
+                  $score_description = "Your page SEO is bad!";  
+                }
             }catch(Exception $e){}
             //dd($notice_score);
             $view = view("dashboard/seo_result", compact(
@@ -650,7 +658,7 @@ class analysisController extends Controller
                 'social_media_link', 'robot', 'sitemap', 'schema',
                 'social_schema', 'passed_score', 'warning_score', 'error_score',
                 'img_data','favicon','mobile_friendly','ssl_certificate','notice_score',
-                'image'
+                'image','score_description'
 
             ));
             return $view;

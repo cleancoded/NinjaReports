@@ -125,8 +125,8 @@
 }
 
 .side-bar a.dropdown-item {
-    font-size:14px;
-    padding-left:40px;
+    font-size:15px;
+    padding-left:35px;
 }
 .overview .Analyze .btn {
      width: 98%;
@@ -228,7 +228,7 @@
 
 .heading-section,
 .Technical-section {
-    border: 1px solid #f4f4f4;
+    border: 1px solid #eee;
     padding: 20px;
 }
 
@@ -494,10 +494,10 @@ input:checked+.slider:before {
 
 .Progress {
     display: inline-block;
-    width: 100px;
+    width: 190px;
     margin: 25px;
 }
-
+.score-wrapper {position: relative;}
 .circle {
     width: 100%;
     margin: 0 auto;
@@ -514,12 +514,12 @@ input:checked+.slider:before {
 
 .circle div {
     position: absolute;
-    top: 68px;
+    top: 75px;
     width: 100%;
     text-align: center;
     line-height: 40px;
     font-size: 42px;
-    left: 40px;
+    left: 10px;
     font-weight: 700;
 }
 

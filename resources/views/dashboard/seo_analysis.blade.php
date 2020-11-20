@@ -6,7 +6,7 @@
         <div class="row Analyze">
             <div class="col-md-10">
 
-                <input type="text" id='analyze' class="form-control" value="{{$_GET['url'] ?? ''}}"  placeholder="Analyze">
+                <input type="text" id='analyze' class="form-control" value="{{$_GET['url'] ?? ''}}"  placeholder="Enter URL">
 
             </div>
             <div class="col-md-2">
@@ -28,7 +28,13 @@
             </div> -->
         </div>
     </div>
-
+      <div id="waiting" style="display:none;">
+        <div class="loading-box">
+            <img src="{{asset('images/806.gif')}}" alt="loading"/>
+            <h4>Crawling...</h4>
+            <p>Please wait while we crawl your page. This process can take a few minutes.</p>
+        </div>
+    </div>
     <div id="text-container"></div>
 
 
@@ -89,11 +95,12 @@
                         $(this).find('.circle').circleProgress({
                             startAngle: -Math.PI / 2,
                             value: percent / 100,
-                            size: 150,
-                            thickness: 10,
+                            thickness: 13,
+                            size: 190,
                             lineCap: "round",
+                            emptyFill: "#f2f2f2",
                             fill: {
-                            color: '#0E6EEA'
+                            color: '#1B58B8'
                             }
                         }).on('circle-animation-progress', function(event, progress, stepValue){
                             $(this).find('div').text((stepValue * 100).toFixed(0) + "%");
@@ -166,6 +173,8 @@
                                         if (e.lengthComputable) {
                                             var percent = Math.round((e.loaded / e.total) * 100)-60;
                                             //console.log(percent);
+                                            $('#waiting').show();
+                                             $('#analyse').attr('disabled','disabled');
                                             $('#progressBar').attr('aria-valuenow', percent).css('width', percent + '%').text(percent + '%');
                                         }
                                     });
@@ -181,9 +190,11 @@
                                         $('#upgradeModel').show();
                                     }else{
                                         $('div#text-container').append(data);
+                                        $('#waiting').hide();
                                         $('.analysis_section').show();
                                         $('#progressBar').css('width', 80 + '%').text(80 + '%');
                                         runPagespeed();
+                                        $('#analyse').removeAttr('disabled');
                                     }
                                     
                                 }
@@ -230,16 +241,16 @@
                             try {
                                 var wastBytes_css = lighthouse.audits['unminified-css']['details']['items'][1]['wastedBytes'];
                                 if(wastBytes_css){
-                                    $("#css_minified").append("Your CSS is not minified. Minifying your files and code can help speed up your website which will improve SEO and user experience.");
+                                    $("#css_minified").append("Your CSS is not minified. Minifying your CSS can help speed up your website which will improve SEO and user experience");
                                     var get_passed = document.getElementById("warning").style.width;
                                     var add_vale = parseFloat(get_passed) + 3.7;
                                     $("#warning").css("width", add_vale + "%");
-                                    $("#img_err").attr("class", "fa fa-exclamation-triangle");
-                                    $("#img_color").css('color','orange');
+                                    $("#img_err").attr("class", "fa fa-exclamation-circle");
+                                    $("#img_color").css('color','#ff6600');
                                 }
                             }
                             catch(err) {
-                                $("#css_minified").append("CSS is Minified");
+                                $("#css_minified").append("CSS is minified");
                                 var get_passed = document.getElementById("passed_progress").style.width;
                                 var add_vale = parseFloat(get_passed) + 3.7;
                                 $("#passed_progress").css("width", add_vale + "%");
@@ -249,17 +260,17 @@
                             try {
                                 var wastBytes_js = lighthouse.audits['unminified-javascript']['details']['items'][1]['wastedBytes'];
                                 if(wastBytes_js){
-                                    $("#js_minified").append("Your JS is not minified. Minifying your files and code can help speed up your website which will improve SEO and user experience.");
+                                    $("#js_minified").append("Your JS is not minified. Minifying your files and code can help speed up your website which will improve SEO and user experience");
                                     var get_passed = document.getElementById("warning").style.width;
                                     var add_vale = parseFloat(get_passed) + 3.7;
                                     $("#warning").css("width", add_vale + "%");
-                                    $("#img_err").attr("class", "fa fa-exclamation-triangle");
-                                    $("#img_color").css('color','orange');
+                                    $("#img_err").attr("class", "fa fa-exclamation-circle");
+                                    $("#img_color").css('color','#ff6600');
                                     
                                 }
                             }
                             catch(err) {
-                                $("#js_minified").append("JS is Minified");
+                                $("#js_minified").append("JS is minified");
                                 var get_passed = document.getElementById("passed_progress").style.width;
                                 var add_vale = parseFloat(get_passed) + 3.7;
                                 $("#passed_progress").css("width", add_vale + "%");
@@ -268,16 +279,16 @@
                             try {
                                 var wastBytes_js = lighthouse.audits['uses-text-compression']['details']['items'][1]['wastedBytes'];
                                 if(wastBytes_js){
-                                    $("#gzip_compression").append("Your page is not being GZIP compressed. This can impact how quickly your page takes to load.");
+                                    $("#gzip_compression").append("Your page is not being GZIP compressed. This can impact how quickly your page takes to load");
                                     var get_passed = document.getElementById("warning").style.width;
                                     var add_vale = parseFloat(get_passed) + 3.7;
                                     $("#warning").css("width", add_vale + "%");
-                                    $("#img_gzip").attr("class", "fa fa-exclamation-triangle");
-                                    $("#gzip_color").css('color','orange');
+                                    $("#img_gzip").attr("class", "fa fa-exclamation-circle");
+                                    $("#gzip_color").css('color','#ff6600');
                                 }
                             }
                             catch(err) {
-                                $("#gzip_compression").append("Gzip is Enabled");
+                                $("#gzip_compression").append("GZIP is enabled");
                                 var get_passed = document.getElementById("passed_progress").style.width;
                                 var add_vale = parseFloat(get_passed) + 3.7;
                                 $("#passed_progress").css("width", add_vale + "%");

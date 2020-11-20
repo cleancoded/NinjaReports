@@ -5,16 +5,16 @@
 <div class="col-md-10  overview">
     <div class="row audit-text pt-3 pb-3">
         <div class="col-md-12 text-start">
-            <h5 style="margin-left: 22px;"><STRONG>Welcome Tyler!</STRONG></h5>
+            <h5 style="margin-left: 22px;"><STRONG>Welcome!</STRONG></h5>
         </div>
     </div>
     <div class="row Welcome-two-cols">
         <div class="col-md-6 text-center Quick-col">
-            <h5>QUICK ANALYSIS</h5>
+            <h3>QUICK ANALYSIS</h3>
             <p>Enter your URL to start a quick SEO analysis of your page. Ninja Reports scans your website for 50+ SEO factors and tells you how to fix them.</p>
                 <div class="row">
                     <div class="col-md-10">
-                        <input type="text" class="form-control url" placeholder="Analyze">
+                        <input type="text" class="form-control url" placeholder="Enter URL">
                     </div>
                     <div class="col-md-2">
                         <button class="btn btn-primary" class="analyze" id='analsis'>Analyze</button>
