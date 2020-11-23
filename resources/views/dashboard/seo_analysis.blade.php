@@ -2,6 +2,14 @@
 @section('title', 'SEO Analysis')
 @section('content')
 <div class="col-md-10  overview">
+        <div id="tool-desc" class="row">
+
+        <div class="col-md-12">
+        <h3>SEO Analysis</h3>
+        <p>Enter your URL into the toolbar including https:// or http:// and Ninja Reports will scan the page for over 55+ SEO factors. Analyze your URL to see how you can get better rankings in search engines.</p>
+    </div>
+
+</div>
     <form id='analyse_form'>
         <div class="row Analyze">
             <div class="col-md-10">
@@ -171,6 +179,7 @@
                                             var percent = Math.round((e.loaded / e.total) * 100)-60;
                                             //console.log(percent);
                                             $('#waiting').show();
+                                            $('#tool-desc').slideUp();
                                              $('#analyse').attr('disabled','disabled');
                                             $('#progressBar').attr('aria-valuenow', percent).css('width', percent + '%').text(percent + '%');
                                         }
@@ -199,6 +208,7 @@
                                     else{
                                         $('div#text-container').append(data);
                                         $('#waiting').hide();
+
                                         $('.analysis_section').show();
                                         $('#progressBar').css('width', 80 + '%').text(80 + '%');
                                         runPagespeed();

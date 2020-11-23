@@ -17,12 +17,17 @@
                         <input type="text" class="form-control url" placeholder="Enter URL">
                     </div>
                     <div class="col-md-2">
-                        <button class="btn btn-primary" class="analyze" id='analsis'>Analyze</button>
+                        <button class="btn btn-primary" class="analyze" id='analsis'>Analyze URL</button>
                     </div>
                 </div>
         </div>
         <div class="col-md-6 plan-col">
-            <h6><span>Plan: </span><span>Free</span></h6>
+            <h6><span>Plan: </span><span>
+             @if(!empty($product) && $status == 1)
+                    <span>{{$product->name}} plan</span>
+                @else
+                    <span>Free plan</span>
+                @endif</span></h6>
             <h6><span>Next Billing Date: </span><span>N/A</span></h6>
             <a href="{{route('subscription')}}" class="btn btn-warning">Upgrade</a>
         </div>

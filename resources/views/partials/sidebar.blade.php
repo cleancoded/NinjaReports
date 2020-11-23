@@ -3,13 +3,13 @@
 			<div class="side-bar">
 			<ul class="nav flex-column">
 				<li class="nav-item">
-					<a class="nav-link" href="/home"><i class="fa fa-home" aria-hidden="true"></i> DASHBOARD</a>
+					<a class="{{(Request::is('home') || Request::is('home/')) ? 'active' : ''}} nav-link " href="/home"><i class="fa fa-home" aria-hidden="true"></i> DASHBOARD</a>
 				</li>
 				<li class="nav-item">
 					<a style="display:none" class="nav-link" href="#" data-toggle="modal" data-target="#myModal">KEYWORD TRACKING</a></li>
 
 				<li class="nav-item">
-					<a class="nav-link"  href="{{route('audit')}}"><i class="fa fa-refresh" aria-hidden="true"></i> SITE AUDIT</a>
+					<a class="{{(Request::is('audit') || Request::is('audit/')) ? 'active' : ''}} nav-link"  href="{{route('audit')}}"><i class="fa fa-refresh" aria-hidden="true"></i> SITE AUDIT</a>
 					<div class="audit-item" style="display:none;">
 						<a class="dropdown-item" href="#overview"><i class="fa fa-bullseye" aria-hidden="true"></i> OVERVIEW</a>
 						<a class="dropdown-item" href="#errors"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ERRORS</a>
@@ -19,7 +19,7 @@
 				</li>
 
 				<li class="nav-item">
-					<a class="nav-link" href="{{ route('analysis') }}"><i class="fa fa-search" aria-hidden="true"></i> SEO ANALYSIS</a>
+					<a class="{{(Request::is('analysis') || Request::is('analysis/')) ? 'active' : ''}} nav-link" href="{{ route('analysis') }}"><i class="fa fa-search" aria-hidden="true"></i> SEO ANALYSIS</a>
 					<div class="analysis_section" style="display:none;">
 						<div class="">
 							<a class="dropdown-item" href="#header"><i class="fa fa-code" aria-hidden="true"></i> HEADER</a>
@@ -35,13 +35,17 @@
 						</div>
 					</div>
 				</li>
-
+				<li class="nav-item"><a class="{{(Request::is('subscription') || Request::is('subscription/')) ? 'active' : ''}} nav-link" href="/subscription"><i class="fa fa-tachometer" aria-hidden="true"></i> PRICING</a></li>
 				<li class="nav-item">
 					<a class="nav-link" target="_blank" href="https://ninjareports.zendesk.com/hc/en-us"><i class="fa fa-lightbulb-o" aria-hidden="true"></i> KNOWLEDGE BASE</a></li>
 
 				<li class="nav-item">
 					<a class="nav-link" target="_blank" href="https://ninjareports.zendesk.com/hc/en-us/requests/new"><i class="fa fa-life-ring" aria-hidden="true"></i> SUPPORT</a></li>
 			</ul>
+
+			<div class="footer">
+				<p class="text-center">© Copyright Ninja Brands LLC, 2020</p>
+			</div>
 		</div>
 		<!--The Model-->
 		<div class="modal" id="myModal">

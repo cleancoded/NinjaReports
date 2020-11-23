@@ -12,8 +12,9 @@
     
     <section id="analysis">
         <div class="row Analysis-details" style="border:1px solid #f4f4f4;padding: 6px;">
-                  <div class="col-md-4 text-center">
-                <div class="blue">
+                  <div class="col-md-4 score-box">
+                     <h4>Page SEO Score</h4>
+                <div class="blue text-center">
                     <div class="score-wrapper">
                     <div class="Progress" id="score" data-animate="false">
                         <div class="circle" data-percent="58">
@@ -80,7 +81,15 @@
                         </div>
                 </div>
                 <div class="clear"></div>
-                <p class="overview-desc">On this scan, {{ $passed_score ?? ''}} factors passed with {{$error_score ?? ''}} errors, {{$warning_score ?? ''}} warnings and {{$notice_score ?? ''}} notices. Errors are the most important to fix in order to rank higher in search engines.</p>
+                <div class="row export-tools" style="display:none;">
+                        <div class="col-md-6">
+                            <a class="btn btn-success" href="#">EMAIL</a>
+                        </div>
+                          <div class="col-md-6">
+                            <a class="btn btn-success" href="#">DOWNLOAD</a>
+                        </div>
+                </div>
+                <p class="overview-desc" style="display:none">On this scan, {{ $passed_score ?? ''}} factors passed with {{$error_score ?? ''}} errors, {{$warning_score ?? ''}} warnings and {{$notice_score ?? ''}} notices. Errors are the most important to fix in order to rank higher in search engines.</p>
             </div>
       
         </div>
