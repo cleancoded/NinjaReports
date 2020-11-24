@@ -16,9 +16,9 @@
                 <!-- <img src="images/desktop.jpg" style="height:140px;margin-top:15%;margin-left:5%;"> -->
                 <div class="screen-container">
                     <div class="screen monitor">
-                        <div class="content">
-                        <img src="images/screenshot.png" style="width:100%" />
-                       
+                        <div class="content" id="image">
+                        <!-- <img src="images/screenshot.png" style="width:100%" /> -->
+                        
                         </div>
                         <div class="basee">
                             <div class="grey-shadow"></div>

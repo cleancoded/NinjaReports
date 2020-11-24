@@ -38,7 +38,7 @@ class analysisController extends Controller
             $create_analysis->payment_id = $Payment->id;
             $create_analysis->save();
             
-            Browsershot::url($url)->save("images/screenshot.png");
+           // Browsershot::url($url)->save("images/screenshot.png");
             //Mobile Friendly test
             try{
                 $urls = "https://searchconsole.googleapis.com/v1/urlTestingTools/mobileFriendlyTest:run?key=AIzaSyBoWi8UVeIzrhXxxDhPm4G9OQT3lJuy1fc";

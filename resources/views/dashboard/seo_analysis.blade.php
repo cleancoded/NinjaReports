@@ -198,11 +198,11 @@
                                     }
                                     else{
                                         $('div#text-container').append(data);
-                                        $('#waiting').hide();
                                         $('.analysis_section').show();
                                         $('#progressBar').css('width', 80 + '%').text(80 + '%');
                                         runPagespeed();
                                         $('#analyse').removeAttr('disabled');
+                                        
                                     }
                                     
                                 }
@@ -238,7 +238,11 @@
                             //showInitialContent(json.id);
                             //showCruxContent(cruxMetrics);
                             const lighthouse = json.lighthouseResult;
-                            //console.log(lighthouse);
+                            var image = new Image();
+                                image.src = lighthouse.audits['final-screenshot']['details']['data'];
+                                $("#image").append(image);
+                                //document.body.appendChild(image);
+                            //console.log();
                             var score = Math.round(lighthouse.categories.performance['score'] * 100);
                             console.log(score);
                             //console.log(lighthouse.audits['unminified-css']['numericValue']);
@@ -307,6 +311,7 @@
                             //$(window).scroll(animateElements);
                             $('#progressBar').css('width', 100 + '%').text(100 + '%');
                             $(".progress-bar1").css("animation-play-state", "paused");
+                            $('#waiting').hide();
                         });
                 }
 
