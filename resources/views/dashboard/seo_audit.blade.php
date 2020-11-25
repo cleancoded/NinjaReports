@@ -2,12 +2,20 @@
 @section('title', 'SEO Audit')
 @section('content')
 <div class="col-md-10  overview">
+       <div id="tool-desc" class="row">
+
+        <div class="col-md-12">
+        <h3>SEO Audit</h3>
+        <p>Enter your domain into the toolbar including https:// or http:// and Ninja Reports will scan your entire website and check over 55+ SEO factors and tell you know how to fix them and rank higher.</p>
+    </div>
+
+</div>
     <div class="row Analyze">
         <div class="col-md-10">
             <input type="text" id="seo_audit" class="form-control" value="{{$_GET['url'] ?? ''}}" placeholder="Enter URL">
         </div>
         <div class="col-md-2">
-            <button class="btn">Analyze</button>
+            <button class="btn" id="analyse">CRAWL</button>
         </div>
     </div>
     <div class="row progressbar">
@@ -125,6 +133,7 @@
                                                 var percent = Math.round((e.loaded / e.total) * 100)-60;
                                                 //console.log(percent);
                                                 $('#waiting').show();
+                                                $('#tool-desc').slideUp();
                                                 $('#analyse').attr('disabled','disabled');
                                                 $('#progress').attr('aria-valuenow', percent).css('width', percent + '%').text(percent + '%');
                                             }

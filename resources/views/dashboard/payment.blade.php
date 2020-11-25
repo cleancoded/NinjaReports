@@ -11,7 +11,7 @@
 	* how you can use CSS to style your Element's container.
 	*/
 	body{
-		background-color: azure;
+		background-color: #eee;
 	}
 	.StripeElement {
 	box-sizing: border-box;
@@ -20,7 +20,7 @@
 
 	padding: 10px 12px;
 
-	border: 1px solid transparent;
+	border: 1px solid #ccc;
 	border-radius: 4px;
 	background-color: white;
 
@@ -44,7 +44,7 @@
 	}
 	.container{	
 		margin: 0;
-		background-color: aliceblue;
+		background-color: #fff;
 		position: absolute;
 		top: 50%;
 		left: 50%;
@@ -52,7 +52,7 @@
 		transform: translate(-50%, -50%);
 		width:80%;
 		height:70vh;
-		box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+		border:1px solid #ccc;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -83,8 +83,6 @@
 	}
 </style>
 <body>
-	
-
 <script src="https://js.stripe.com/v3/"></script>
 <div class="container">
 	
