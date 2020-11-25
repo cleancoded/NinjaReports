@@ -17,27 +17,12 @@ class analysisController extends Controller
         ini_set("allow_url_fopen", 1);
         $url = $request->input('url');
         $time = date('F d Y, h:i:s A');
-        
-        
-        
         try{
             $Payment = Payment::withCount('analysis')->where('user_id',auth()->user()->id)->first();
-           
-            $stripe = new \Stripe\StripeClient(
-                'sk_test_R5yp5YcSzHXQFP41vvKCSh9v'
-            );
-            $retrive= $stripe->subscriptions->retrieve(
-                $Payment->subscription_id,
-                []
-            );
-            $exp_plan = date('F d Y, h:i:s A', $retrive->current_period_end);
         }catch(Exception $e){}
         
-
         if(empty($Payment) || $Payment->status == 0){
             return 'unsuccessfull';
-        }else if(!empty($exp_plan) && $exp_plan < $time ){
-            return 'Expired';
         }else if ($Payment->plan_id== 1 && $Payment->no_allowed_analysis <= $Payment->analysis_count ){
             return 'acceded';
         }
@@ -53,8 +38,7 @@ class analysisController extends Controller
             $create_analysis->payment_id = $Payment->id;
             $create_analysis->save();
             
-
-            //Browsershot::url($url)->save("images/screenshot.png");
+           // Browsershot::url($url)->save("images/screenshot.png");
             //Mobile Friendly test
             try{
                 $urls = "https://searchconsole.googleapis.com/v1/urlTestingTools/mobileFriendlyTest:run?key=AIzaSyBoWi8UVeIzrhXxxDhPm4G9OQT3lJuy1fc";
@@ -692,21 +676,10 @@ class analysisController extends Controller
 
         try{
             $Payment = Payment::withCount('audit')->where('user_id',auth()->user()->id)->first();
-           
-            $stripe = new \Stripe\StripeClient(
-                'sk_test_R5yp5YcSzHXQFP41vvKCSh9v'
-            );
-            $retrive= $stripe->subscriptions->retrieve(
-                $Payment->subscription_id,
-                []
-            );
-            $exp_plan = date('F d Y, h:i:s A', $retrive->current_period_end);
         }catch(Exception $e){}
-        //dd($Payment);
+      
         if(empty($Payment) || $Payment->status == 0){
             return 'unsuccessfull';
-        }else if(!empty($exp_plan) && $exp_plan < $time ){
-            return 'Expired';
         }else if ($Payment->plan_id == 1 && $Payment->no_allowed_audits <= $Payment->audit_count ){
             return 'acceded';
         }
