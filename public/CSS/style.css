@@ -523,7 +523,9 @@ input:checked+.slider:before {
     left: 3px;
     font-weight: 700;
 }
-
+.analysis-page .circle div {
+    top: 75px;
+}
 .circle strong i {
     font-style: normal;
     font-size: 0.6em;

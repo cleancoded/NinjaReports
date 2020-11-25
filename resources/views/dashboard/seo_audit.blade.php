@@ -15,7 +15,7 @@
             <input type="text" id="seo_audit" class="form-control" value="{{$_GET['url'] ?? ''}}" placeholder="Enter URL">
         </div>
         <div class="col-md-2">
-            <button class="btn">CRAWL</button>
+            <button class="btn" id="analyse">CRAWL</button>
         </div>
     </div>
     <div class="row progressbar">
@@ -133,6 +133,7 @@
                                                 var percent = Math.round((e.loaded / e.total) * 100)-60;
                                                 //console.log(percent);
                                                 $('#waiting').show();
+                                                $('#tool-desc').slideUp();
                                                 $('#analyse').attr('disabled','disabled');
                                                 $('#progress').attr('aria-valuenow', percent).css('width', percent + '%').text(percent + '%');
                                             }

@@ -1,4 +1,7 @@
 body {font-family:Arial}
+html {
+  scroll-behavior: smooth;
+}
 h1, h2, h3, h4, h5 ,h6, .nav a {font-family:Roboto;}
 .loginModal .modal-header {margin-top:5px;}
 .loginModal .google-btn{margin-top:30px;}
@@ -13,6 +16,7 @@ h1, h2, h3, h4, h5 ,h6, .nav a {font-family:Roboto;}
 .export-tools {margin-top:30px;}
 .export-tools a {display:block;background:#0E6EEA;border-color:#0E6EEA;}
 #tool-desc .col-md-12 {padding:5px 0;}
+.Welcome-two-cols {margin-bottom:50px;}
 .notice-bo h4, .error-box h4, .warning-box h4 {
     border-bottom: 1px solid #fff;
     margin-bottom: 0;
@@ -45,6 +49,18 @@ clear:both;    margin: 0;}
     padding-left: 10px;
     float: left;
     font-size: 11px;
+}
+.guide-box {
+   max-width: 45%;
+    margin-left: 3%;
+    border: 1px solid #d3d3d3;
+    background-color: #f4f4f4;
+    padding: 0px 0px 40px 0px;
+}
+    .guide-box h5 {
+    background: #DDD;
+    color: #3F3F3F;
+    padding: 5PX 10PX;
 }
 .pricing-boxes a {display:block;}
 .pricing-boxes a.btn {color:#fff;}

@@ -10,7 +10,7 @@
         </div>
     </div>
     
-    <section id="analysis">
+    <section id="analysis" class="analysis-page">
         <div class="row Analysis-details" style="border:1px solid #f4f4f4;padding: 6px;">
                   <div class="col-md-4 score-box">
                      <h4>Page SEO Score</h4>
