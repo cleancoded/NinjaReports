@@ -20,17 +20,20 @@ class LoginController extends Controller
         
         $intended = $request->request->get('page');
         $url = $request->request->get('url');
+        $payment_page =  url()->previous();
         
-        //dd($request);
-        if ($intended) {
-            Session::put('page_url', $intended);
-        }
-        if($url){
-            Session::put('url', $url);
-        }
-
+        $key = 'payment'; 
+        if (strpos($payment_page, $key) !== false) {
+            Session::put('pay', $payment_page);
+        }else{
+            if ($intended) {
+                Session::put('page_url', $intended);
+            }
+            if($url){
+                Session::put('url', $url);
+            }
+        } 
         return Socialite::driver('google')->redirect();
-
     }
 
     /**
@@ -44,7 +47,7 @@ class LoginController extends Controller
         try {
             $redirect = Session::get('page_url');
             $url = Session::get('url');
-
+           
             $user = Socialite::driver('google')->user();
            
             $finduser = User::where('google_id', $user->id)->first();
@@ -52,15 +55,20 @@ class LoginController extends Controller
             if ($finduser){
 
                 Auth::login($finduser);
-                if($redirect != null && $url != null){
-                    return redirect($redirect.'?url='.$url);
-                }
-                elseif ($redirect != null && $url == null) {
-                    return redirect($redirect);
+                if(Session::get('pay') !=null){
+                    //dd('working');
+                    return redirect(Session::get('pay'));
                 }else{
-                    return redirect('/home');
-                }
 
+                    if($redirect != null && $url != null){
+                        return redirect($redirect.'?url='.$url);
+                    }
+                    elseif ($redirect != null && $url == null) {
+                        return redirect($redirect);
+                    }else{
+                        return redirect('/home');
+                    }
+                }
             } else {
                 if ($user->user['verified_email'] !== false) {
                   
@@ -96,6 +104,7 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
+        Session::flush();
         return redirect('/home');
     }
 }

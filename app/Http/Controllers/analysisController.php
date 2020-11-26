@@ -18,7 +18,7 @@ class analysisController extends Controller
         $url = $request->input('url');
         $time = date('F d Y, h:i:s A');
         try{
-            $Payment = Payment::withCount('analysis')->where('user_id',auth()->user()->id)->first();
+            $Payment = Payment::withCount('analysis')->where('user_id',auth()->user()->id)->where('status',1)->first();
         }catch(Exception $e){}
         
         if(empty($Payment) || $Payment->status == 0){
@@ -38,7 +38,7 @@ class analysisController extends Controller
             $create_analysis->payment_id = $Payment->id;
             $create_analysis->save();
             
-           // Browsershot::url($url)->save("images/screenshot.png");
+           
             //Mobile Friendly test
             try{
                 $urls = "https://searchconsole.googleapis.com/v1/urlTestingTools/mobileFriendlyTest:run?key=AIzaSyBoWi8UVeIzrhXxxDhPm4G9OQT3lJuy1fc";
@@ -271,15 +271,14 @@ class analysisController extends Controller
 
             //page word count
             $page = strip_tags($crawler->html());
-            $search = array('@<script[^>]*?>.*?</script>@si',  // Strip out javascript
-            '@<head>.*?</head>@siU',            // Lose the head section
-            '@<style[^>]*?>.*?</style>@siU',    // Strip style tags properly
-            '@<![\s\S]*?--[ \t\n\r]*>@'         // Strip multi-line comments including CDATA
+            $search = array('@<script[^>]*?>.*?</script>@si',  
+            '@<head>.*?</head>@siU',            
+            '@<style[^>]*?>.*?</style>@siU',    
+            '@<![\s\S]*?--[ \t\n\r]*>@'         
             );
             $contents = preg_replace('#<(.+?)style=(:?"|\')?[^"\']+(:?"|\')?(.*?)>#si', '', $page);
             $page_words = str_word_count($crawler->html());
-            //$str = file_get_contents($url);
-            //$page_words = array_count_values(str_word_count(strip_tags(strtolower($str)), 1));
+            
             
             //keywords
             //page keywords
@@ -675,7 +674,7 @@ class analysisController extends Controller
         $time = date('F d Y, h:i:s A');
 
         try{
-            $Payment = Payment::withCount('audit')->where('user_id',auth()->user()->id)->first();
+            $Payment = Payment::withCount('audit')->where('user_id',auth()->user()->id)->where('status',1)->first();
         }catch(Exception $e){}
       
         if(empty($Payment) || $Payment->status == 0){

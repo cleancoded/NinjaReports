@@ -18,7 +18,7 @@
 				<div class="google-icon-wrapper">
 					<img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
 				</div>
-				<a class="btn-text" href='/login' style="text-decoration : none"><b>Sign in with google</b></a>
+				<a class="btn-text" href="javascript:0;" id="login_button" style="text-decoration : none"><b>Sign in with google</b></a>
 			</div>
 		@endif
     </div>
