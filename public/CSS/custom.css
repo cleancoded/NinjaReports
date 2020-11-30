@@ -50,6 +50,7 @@ clear:both;    margin: 0;}
     float: left;
     font-size: 11px;
 }
+.btn-orange {background:#ff6600;color:#fff;}
 .guide-box {
    max-width: 45%;
     margin-left: 3%;

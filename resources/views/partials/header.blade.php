@@ -25,7 +25,6 @@
 
   gtag('config', 'UA-79012395-19');
 </script>
-
 </head>
 <body>
 	<section class="index-1">
