@@ -41,7 +41,7 @@ class analysisController extends Controller
            // Browsershot::url($url)->save("images/screenshot.png");
             //Mobile Friendly test
             try{
-                $urls = "https://searchconsole.googleapis.com/v1/urlTestingTools/mobileFriendlyTest:run?key=AIzaSyAHL77ln2XVy5JQ--MuUJ7yGrZt0dbblz8";
+                $urls = "https://searchconsole.googleapis.com/v1/urlTestingTools/mobileFriendlyTest:run?key={{ env('SEARCH_CONSOLE_KEY') }}";
 
                 $curl = curl_init($urls);
                 curl_setopt($curl, CURLOPT_URL, $urls);

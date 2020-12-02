@@ -23,9 +23,7 @@ class PaymentController extends Controller
     {
         $Payment=Payment::where('user_id',auth()->user()->id)->where('status',1)->first();
         
-        $stripe = new \Stripe\StripeClient(
-            env('STRIPE_SECRET_KEY')
-          );
+        $stripe = new \Stripe\StripeClient('sk_test_R5yp5YcSzHXQFP41vvKCSh9v');
 
         if(!empty($Payment->subscription_id) && $Payment->status == 1){
             

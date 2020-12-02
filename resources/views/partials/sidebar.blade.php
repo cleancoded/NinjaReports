@@ -120,7 +120,7 @@ test
 
 					<!-- Modal footer -->
 					<div class="modal-footer" style="margin:auto;">
-						<button type="button" class="btn btn-warning" href="#">Upgrade</button>
+						<button type="button" class="btn btn-success" href="/subscriptions">Upgrade</button>
 					</div>
 
 				</div>

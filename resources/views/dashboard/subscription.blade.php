@@ -3,8 +3,10 @@
 @section('content')
 <div class="col-md-10 pricing-page">
     @if(!empty($_GET['success']))
-        <div class="alert alert-success mt-4">
+        <div class=" mt-4">
+            <div class="alert alert-success" style="margin:50px 30px 0px 30px">
             <?php echo base64_decode($_GET['success']); ?>
+        </div>
         </div>
     @endif  
 <h1 style="width:29%;margin:auto;text-align:center;margin-top: 50px;">Ninja Reports Pricing</h1>
@@ -14,7 +16,7 @@
                 <div class="col-md-4 text-center Webmaster-col">
                     <h6></h6>
                     <h3>Webmaster</h3>
-                    <p>Affordable Package for webmasters or small businesses wanting to enhance their SEO.
+                    <p>Affordable package for webmasters or small businesses wanting to enhance their SEO.
 </p>
                     <h5><strong>$29</strong></h5>
                     <h6>per month</h6>
@@ -84,18 +86,21 @@
 <tbody>
 <tr>
 <th></th>
+<th>Free</th>
 <th>Webmaster</th>
 <th>Business</th>
 <th>Agency</th>
 </tr>
 <tr>
 <td>URL Analysis Reports</td>
+<td>1 per day</td>
 <td>300</td>
 <td>UNLIMITED</td>
 <td>UNLIMITED</td>
 </tr>
 <tr>
-<td>Site Audit Reports</td>
+<td>Site Audit Reports</td>.
+<td>0</td>
 <td>25</td>
 <td>100</td>
 <td>250</td>
@@ -103,11 +108,13 @@
 <tr>
     <tr>
 <td>Price</td>
+<td>Free</td>
 <td>$29/month</td>
 <td>$49/month</td>
 <td>$99/month</td>
 </tr>
 <tr>
+<td></td>
 <td></td>
 <td><a class="btn btn-primary btn-md"  href="{{route('payment',['id' => 1])}}">7-DAY TRIAL</a></td>
 <td><a class="btn btn-primary btn-md"  href="{{route('payment',['id' => 2])}}">7-DAY TRIAL</a></td>
