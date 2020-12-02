@@ -291,14 +291,15 @@ class analysisController extends Controller
             }
 
             //page word count
-            $page = strip_tags($crawler->html());
+            $page = $crawler->html();
             $search = array('@<script[^>]*?>.*?</script>@si',  // Strip out javascript
             '@<head>.*?</head>@siU',            // Lose the head section
             '@<style[^>]*?>.*?</style>@siU',    // Strip style tags properly
             '@<![\s\S]*?--[ \t\n\r]*>@'         // Strip multi-line comments including CDATA
             );
-            $contents = preg_replace('#<(.+?)style=(:?"|\')?[^"\']+(:?"|\')?(.*?)>#si', '', $page);
-            $page_words = str_word_count($crawler->html());
+            $contents = preg_replace('/(<(script|style)\b[^>]*>).*?(<\/\2>)/is', "", $page);  
+            $contents = preg_replace('#<style type="text/css">.*?</style>#s', '', $contents);
+            $page_words = str_word_count(strip_tags($contents));
             //$str = file_get_contents($url);
             //$page_words = array_count_values(str_word_count(strip_tags(strtolower($str)), 1));
             
@@ -673,7 +674,7 @@ class analysisController extends Controller
                     $score_description = "Your page SEO needs work!";
                     break;
                 case $passed_score <= 69:
-                    $score_description = "Your page SEO is bad!";
+                    $score_description = "Your page SEO is weak!";
                     break;
                 default:
                 $score_description = "Your page SEO needs work!";
@@ -874,8 +875,8 @@ class analysisController extends Controller
                     //page word count
                     $page = strip_tags($crawler->html());
                     $exp = explode(" ", $page);
-                    $page_words = count($exp);
-                
+                  //  $page_words = count($exp);
+                    $page_words = array_count_values(str_word_count(strip_tags(strtolower($exp)), 1));
                     if ($page_words < 600) {
                         $less_page_words[] = $val;
                     }

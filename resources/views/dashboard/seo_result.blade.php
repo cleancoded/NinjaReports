@@ -267,7 +267,7 @@
                @if(!empty($iframe))
                     <p>You are using an Iframe on your page. Iframes can't be crawled by search engines and aren't good for SEO, in general.</p>
                 @else
-                  <p>No Iframes on the page</p>
+                  <p>No Iframes on the page.</p>
                 @endif
                 </div>
             </div>
@@ -287,7 +287,7 @@
                     @endif
                 </div>
                 <div class="col-md-9">
-                     {{$h1_tags}} H1 tags were found on your page
+                     {{$h1_tags}} H1 tags were found on your page.
                     <ol>
                     @foreach($h1 as $val)
                       <li>{{$val}}</li>
@@ -301,11 +301,11 @@
                     @if($h2_tags > 0)
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>H2 tags</h6>
                     @else
-                        <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-exclamation-triange" aria-hidden="true"></i></span>H2 tags</h6>
+                        <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>H2 tags</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
-                    {{$h2_tags}} H2 tags were found on your page
+                    {{$h2_tags}} H2 tags were found on your page.
                     <ol>
                     @foreach($h2 as $val)
                         <li>{{$val}}</li>
@@ -320,11 +320,11 @@
                     @if($h3_tags > 0)
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>H3 tags</h6>
                     @else
-                        <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-exclamation-triange" aria-hidden="true"></i></span>H3 tags</h6>
+                        <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>H3 tags</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
-                    {{$h3_tags}} H3 tags were found on your page
+                    {{$h3_tags}} H3 tags were found on your page.
                     <ol>
                     @foreach($h3 as $val)
                       <li>{{$val}}</li>
@@ -410,7 +410,7 @@
                     @endif
                 </div>
                 <div class="col-md-9">
-                        Page contain {{$page_words}} words
+                        Page contains {{$page_words}} words.
                     </p>
                 </div>
             </div>
@@ -521,9 +521,9 @@
                 </div>
                 <div class="col-md-9">
                    @if(!empty($cache))
-                        <p>Cache found on your page</p>
+                        <p>Cache found on your page.</p>
                    @else
-                        <p>Cache not found on your page</p>
+                        <p>Cache not found on your page.</p>
                    @endif
                 </div>
             </div>
@@ -543,9 +543,9 @@
                 </div>
                 <div class="col-md-9">
                     @if(!empty($internal_link))
-                        <p>Internal links found</p>
+                        <p>Internal links found.</p>
                     @else
-                        <p>Internal links not found</p>
+                        <p>Internal links not found.</p>
                     @endif
                 </div>
             </div>
@@ -588,7 +588,7 @@
                     @if(!empty($status404))
                         <p>You have broken links on your page. Those links are sending users to a page that does not exist.</p>
                     @else
-                        <p>No broken links found</p>
+                        <p>No broken links found.</p>
                     @endif
                 </div>
             </div>
@@ -624,9 +624,9 @@
                 </div>
                 <div class="col-md-9">
                   @if(!empty($ssl_certificate))
-                        <p>SSL certificate found</p>
+                        <p>SSL certificate found.</p>
                     @else
-                        <p>SSL certificate not found</p>
+                        <p>SSL certificate not found.</p>
                     @endif
                      
                 </div>
@@ -642,9 +642,9 @@
                 </div>
                 <div class="col-md-9">
                     @if(!empty($a_https) && !empty($link_https)  && !empty($script_https))
-                        <p>Links pointing to non-https pages found</p>
+                        <p>Links pointing to non-https pages found.</p>
                     @else
-                        <p>Links pointing to non-https pages not found</p>
+                        <p>Links pointing to non-https pages not found.</p>
                     @endif
                 </div>
             </div>
@@ -663,7 +663,7 @@
                     @endif
                 </div>
                 <div class="col-md-9">
-                    <p>{{$social_media_link ?? 'Link to social media profiles not found'}}</p>
+                    <p>{{$social_media_link ?? 'Link to social media profiles not found.'}}</p>
                 </div>
             </div>
             <hr>
@@ -677,9 +677,9 @@
                 </div>
                 <div class="col-md-9">
                     @if(!empty($social_schema))
-                        <p>Schema tags for social media profiles found</p>
+                        <p>Schema tags for social media profiles found.</p>
                     @else
-                    <p>Schema tags for social media profiles not found</p>
+                    <p>Schema tags for social media profiles not found.</p>
                     @endif
                 </div>
             </div>
