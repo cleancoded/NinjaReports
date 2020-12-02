@@ -10,7 +10,7 @@
     </div>
 
 </div>
-    <div class="row Analyze">
+    <div class="row Analyze audit-container">
         <div class="col-md-10">
             <input type="text" id="seo_audit" class="form-control" value="{{$_GET['url'] ?? ''}}" placeholder="Enter URL">
         </div>
@@ -209,8 +209,8 @@
                         $(this).find('.circle').circleProgress({
                             startAngle: -Math.PI / 2,
                             value: percent / 100,
-                            thickness: 15,
-                            size: 175,
+                            thickness: 13,
+                            size: 190,
                             lineCap: "round",
                             emptyFill: "#f2f2f2",
                             fill: {

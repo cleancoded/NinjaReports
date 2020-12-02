@@ -5,6 +5,7 @@ html {
 h1, h2, h3, h4, h5 ,h6, .nav a {font-family:Roboto;}
 .loginModal .modal-header {margin-top:5px;}
 .loginModal .google-btn{margin-top:30px;}
+.audit-container .circle div {top:74px;}
 .warning-box {background:#f9ede4;}
 .error-box {background:#f9e8e8;}
 .notice-box {background:#DCE8F7;}

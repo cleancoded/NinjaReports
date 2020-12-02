@@ -15,13 +15,11 @@
         <div class="row four-cols">
             <div class="col-md-3">
                 <h5>ON-PAGE SEO SCORE</h5>
-                <div class="blue" >
                     <div class="Progress" data-animate="false">
                         <div class="circle" data-percent="<?php echo round($health_score); ?>">
                             <div></div>
                         </div>
                     </div>
-                </div>
                 <h5 style="margin-top:15%;">{{$passed_pages < 0 ? 0 : $passed_pages}} URLs Passed</h5>
                 <h5>{{$errors}} Errors</h5>
                 <h5>{{$warning}} Warnings</h5>
@@ -37,7 +35,7 @@
                 @if(!empty($status500)) <li>  @endif  {{!empty($status500) ? '500 error found':''}} @if(!empty($status500)) </li>  @endif
                 @if(!empty($page_miss_title))  <li>  @endif  {{!empty($page_miss_title)? 'Title tag missing':''}} @if(!empty($page_miss_title))  </li>  @endif
                 @if(!empty($page_without_canonical)) <li>   @endif  {{!empty($page_without_canonical) ? 'Canonical tags missing on some pages':''}} @if(!empty($page_without_canonical)) </li>   @endif
-                @if(!empty($duplicate_meta_description)) <li>  @endif    {{!empty($duplicate_meta_description) ? 'Duplicate meta discriptions found' : ''}} @if(!empty($duplicate_meta_description)) </li>  @endif
+                @if(!empty($duplicate_meta_description)) <li>  @endif    {{!empty($duplicate_meta_description) ? 'Duplicate meta descriptions found' : ''}} @if(!empty($duplicate_meta_description)) </li>  @endif
                 @if(!empty($duplicate_title)) <li>   @endif  {{!empty($duplicate_title) ? 'Duplicate title tags found' : ''}} @if(!empty($duplicate_title)) </li>   @endif
             </ul>
                 @if($errors == 0)  <div class="clean"><i class="fa fa-check" aria-hidden="true"></i> Nice, no errors!</div> @endif
@@ -93,7 +91,6 @@
     </section>
 
     <section id="errors">
-   
             <div class="row errors-table">
                 <table class="table">
                     <h4 style="color: red;padding: 10px;">
@@ -321,7 +318,7 @@
                             @foreach($less_code_ratio as $less)
                                 <tr>
                                     <td><a href="{{$less}}" target="_blank">{{$less}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
-                                    <td>Your text-HTML ratio is off balance. Search engines need text to know what a page is about. You should shoot for a 25-70% text-HTML ratio.</td>
+                                    <td>Your text-HTML ratio is off balance. Search engines need text to know what a page is about. You should shoot for a 10% or greater text-HTML ratio.</td>
                                     <td>Add more relevant text to your page to bring the ratio back into balance.</td>
                                 </tr>
                             @endforeach
