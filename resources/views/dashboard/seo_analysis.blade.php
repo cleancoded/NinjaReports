@@ -253,9 +253,9 @@
                                 $("#image").append(image);
                                 //document.body.appendChild(image);
                             //console.log();
-                            var score = Math.round(lighthouse.categories.performance['score'] * 100);
+                          //  var score = Math.round(lighthouse.categories.performance['score'] * 100);
                             console.log(score);
-                            //console.log(lighthouse.audits['unminified-css']['numericValue']);
+                          //  //console.log(lighthouse.audits['unminified-css']['numericValue']);
                             var unminified_css = lighthouse.audits['unminified-css']['numericValue'];
                             var unminified_js = lighthouse.audits['unminified-javascript']['numericValue'];
                             //console.log(unminified_js);
@@ -316,11 +316,11 @@
                                 $("#passed_progress").css("width", add_vale + "%");
                                 $("#img_gzip").attr("class", "fa fa-check");
                             }
-                            $('.circle').attr('data-percent', score);
+                           // $('.circle').attr('data-percent', score);
                             animateElements();
                             //$(window).scroll(animateElements);
-                            $('#progressBar').css('width', 100 + '%').text(100 + '%');
-                            $(".progress-bar1").css("animation-play-state", "paused");
+                          // $('#progressBar').css('width', 100 + '%').text(100 + '%');
+                          //  $(".progress-bar1").css("animation-play-state", "paused");
                             $('#waiting').hide();
                         });
                 }

@@ -39,6 +39,27 @@ class analysisController extends Controller
             $create_analysis->save();
             
            // Browsershot::url($url)->save("images/screenshot.png");
+
+            //check backlinks
+
+            try{
+                $endpoint = "https://api.semrush.com/analytics/v1/";
+                $client = new \GuzzleHttp\Client();
+
+                $response = $client->request('GET', $endpoint, ['query' => [
+                    'type' => 'backlinks_overview', 
+                    'key' => 'c1e034dec2d230da542fae097853854a',
+                    'target' => $url,
+                    'target_type' => 'url',
+                    'export_columns' => 'domains_num,urls_num',
+                ]]);
+
+                $statusCode = $response->getStatusCode();
+                $backlinks_count = json_decode($response->getBody()->getContents());
+                $referring_domains = $backlinks_count->domains_num;
+                $referring_backlinks = $backlinks_count->urls_num;
+                
+            }catch(Exception $e){}
             //Mobile Friendly test
             try{
                 $urls = "https://searchconsole.googleapis.com/v1/urlTestingTools/mobileFriendlyTest:run?key={{ env('SEARCH_CONSOLE_KEY') }}";
@@ -641,13 +662,24 @@ class analysisController extends Controller
                 }
                 $notice_score = $val1_notice+$val2_notice+$val3_notice+$val4_notice+$val5_notice;
 
-                if($passed_score > 80){
-                $score_description = "Your page SEO is good!";
-                } elseif ($passed_score > 60) {
+                switch($passed_score) {
+                    case $passed_score >= 90 and $passed_score <= 100:
+                    $score_description = "Your page SEO is great!";
+                     break;
+                case $passed_score >= 80 and $passed_score <= 89:
+                    $score_description = "Your page SEO is good!";
+                    break;
+                case $passed_score >= 70 and $passed_score <= 79:
+                    $score_description = "Your page SEO needs work!";
+                    break;
+                case $passed_score <= 69:
+                    $score_description = "Your page SEO is bad!";
+                    break;
+                default:
                 $score_description = "Your page SEO needs work!";
-                } else {
-                  $score_description = "Your page SEO is bad!";  
                 }
+
+
             }catch(Exception $e){}
             //dd($notice_score);
             $view = view("dashboard/seo_result", compact(
@@ -663,7 +695,7 @@ class analysisController extends Controller
                 'social_media_link', 'robot', 'sitemap', 'schema',
                 'social_schema', 'passed_score', 'warning_score', 'error_score',
                 'img_data','favicon','mobile_friendly','ssl_certificate','notice_score',
-                'image','score_description'
+                'image','score_description','referring_backlinks','referring_domains'
 
             ));
             return $view;
@@ -1166,7 +1198,7 @@ class analysisController extends Controller
                 'page_miss_meta', 'duplicate_meta_description', 'page_incomplete_card', 'page_incomplete_graph', 'status301',
                 'status302', 'status404', 'status500', 'page_miss_title', 'duplicate_title','twitter',
                 'link_302','link_301','link_404','link_500','page_without_canonical','notices','warning','errors','passed_pages'
-                ,'health_score','pages'
+                ,'health_score','pages','referring_domains','referring_backlinks'
             ));
         }
     }

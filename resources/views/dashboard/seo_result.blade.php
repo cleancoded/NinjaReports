@@ -6,7 +6,7 @@
 
         </div>
         <div class="col-md-5 text-right">
-            <h5>{{$time}}</h5>
+            <h5>Last Crawled: {{$time}}</h5>
         </div>
     </div>
     
@@ -17,7 +17,7 @@
                 <div class="blue text-center">
                     <div class="score-wrapper">
                     <div class="Progress" id="score" data-animate="false">
-                        <div class="circle" data-percent="58">
+                        <div class="circle" data-percent="{{$passed_score ?? 'N/A'}}">
                             <div></div>
                         </div>
                     </div>
@@ -283,7 +283,7 @@
                     @if($h1_tags > 0)
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>H1 tag</h6>
                     @else
-                        <h6><span style="margin-right: 9px;color: #ff6600;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>H1 tags</h6>
+                        <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>H1 tags</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -543,9 +543,9 @@
                 </div>
                 <div class="col-md-9">
                     @if(!empty($internal_link))
-                        <p>Internal Links found</p>
+                        <p>Internal links found</p>
                     @else
-                        <p>Internal Links not found</p>
+                        <p>Internal links not found</p>
                     @endif
                 </div>
             </div>
@@ -555,16 +555,24 @@
                     <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Referring Domains</h6>
                 </div>
                 <div class="col-md-9">
-
+                    @if(!empty($referring_domains))
+                        <p>{{$referring_domains}}</p>
+                    @else
+                        <p>N/A</p>
+                    @endif
                 </div>
             </div>
             <hr>
             <div class="row">
                 <div class="col-md-3">
-                    <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Referring URLs </h6>
+                    <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Referring URLs</h6>
                 </div>
                 <div class="col-md-9">
-                    
+                     @if(!empty($referring_backlinks))
+                        <p>{{$referring_backlinks}}</p>
+                    @else
+                        <p>N/A</p>
+                    @endif
                 </div>
             </div>
             <hr>
