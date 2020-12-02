@@ -247,7 +247,7 @@
                     @if($url_seo_friendly == "SEO-Friendly")
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>SEO Friendly URL</h6>
                     @elseif($url_seo_friendly == "Unfriendly SEO URLs")
-                        <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-times" aria-hidden="true"></i></span>SEO Friendly URL</h6>
+                        <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>SEO Friendly URL</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -571,7 +571,7 @@
             <div class="row">
                 <div class="col-md-3">
                     @if(!empty($status404))
-                        <h6><span style="margin-right: 9px;color: red;"><i class="fa fa-times" aria-hidden="true"></i></span>Broken Links</h6>
+                        <h6><span style="margin-right: 9px;color: red;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Broken Links</h6>
                     @else
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Broken Links</h6>
                     @endif
@@ -595,7 +595,7 @@
                     @if($page_https == "Page using HTTPS")
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>HTTPS</h6>
                     @else
-                        <h6><span style="margin-right: 9px;color: red;"><i class="fa fa-times" aria-hidden="true"></i></span>HTTPS</h6>
+                        <h6><span style="margin-right: 9px;color: red;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>HTTPS</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -611,7 +611,7 @@
                     @if(!empty($ssl_certificate))
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>SSL Certificate</h6>
                     @else
-                        <h6><span style="margin-right: 9px;color: red;"><i class="fa fa-times" aria-hidden="true"></i></span>SSL Certificate</h6>
+                        <h6><span style="margin-right: 9px;color: red;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>SSL Certificate</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -627,7 +627,7 @@
             <div class="row">
                 <div class="col-md-3">
                     @if(!empty($a_https) && !empty($link_https) && !empty($script_https))
-                        <h6><span style="margin-right: 9px;color: red;"><i class="fa fa-times" aria-hidden="true"></i></span>Mixed Content Issues</h6>
+                        <h6><span style="margin-right: 9px;color: red;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Mixed Content Issues</h6>
                     @else
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Mixed Content Issues</h6>
                     @endif

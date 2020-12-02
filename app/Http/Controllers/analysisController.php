@@ -41,7 +41,7 @@ class analysisController extends Controller
            
             //Mobile Friendly test
             try{
-                $urls = "https://searchconsole.googleapis.com/v1/urlTestingTools/mobileFriendlyTest:run?key=AIzaSyBoWi8UVeIzrhXxxDhPm4G9OQT3lJuy1fc";
+                $urls = "https://searchconsole.googleapis.com/v1/urlTestingTools/mobileFriendlyTest:run?key={{ env('SEARCH_CONSOLE_KEY') }}";
 
                 $curl = curl_init($urls);
                 curl_setopt($curl, CURLOPT_URL, $urls);
@@ -168,7 +168,7 @@ class analysisController extends Controller
                 foreach ($link_to_social as $val) {
                     $path = parse_url($val, PHP_URL_PATH);
                     if (strpos($path, pathinfo($domain_url, PATHINFO_FILENAME))) {
-                        $social_media_link = 'Link to social media profiles found';
+                        $social_media_link = 'Links to social media profiles found';
                     }
                 }
 
@@ -539,14 +539,10 @@ class analysisController extends Controller
         
             //Page Score Warning
             try {
-                if ($title_length < 30) {$val1_warning = 3.7;} else {$val1_warning = 0;}
-                if ($meta_length < 50 || $meta_length > 160) {$val2_warning = 3.7;} else {$val2_warning = 0;}
+               
                 if (empty($canonical)) {$val3_warning = 3.7;} else {$val3_warning = 0;}
                 if (!empty($img_miss_alt)) {$val5_warning = 3.7;} else {$val5_warning = 0;}
                 if ($url_seo_friendly == "Seo Friendly") {$val6_warning = 0;} else {$val6_warning = 3.7;}
-                if (empty($iframe)) {$val7_warning = 0;} else {$val7_warning = 3.7;}
-                if (empty($word_count)) {$val8_warning = 3.7;} else {$val8_warning = 0;}
-                if ($page_words) {$val9_warning = 0;} else {$val9_warning = 3.7;}
                 if (!empty($cache)) {
                     $val10_warning = 0;
                 } else {
@@ -585,13 +581,18 @@ class analysisController extends Controller
 
                 if($page_text_ratio > 10){$val14_pass = 0;}else{$val14_pass = 3.7;}
 
-                $warning_score = $val1_warning + $val2_warning + $val3_warning + $val5_warning + $val6_warning + $val7_warning
-                    + $val8_warning + $val9_warning + $val10_warning + $val13_warning + $val14_warning
+                $warning_score = $val3_warning + $val5_warning + $val6_warning + $val10_warning + $val13_warning + $val14_warning
                     + $val15_warning  + $val18_warning + $val19_warning+$val20_pass+$val21_pass+$val13_pass+$val14_pass;
             } catch (Exception $e) {}
 
             //Page Score Error
             try {
+                 if ($title_length < 30) {$val4_error = 3.7;} else {$val4_error = 0;}
+                if ($meta_length < 50 || $meta_length > 160) {$val5_error = 3.7;} else {$val5_error = 0;}
+                if (empty($iframe)) {$val6_error = 0;} else {$val6_error = 3.7;}
+                if (empty($word_count)) {$val7_error = 3.7;} else {$val7_error = 0;}
+                if ($page_words) {$val8_error = 0;} else {$val8_error = 3.7;}
+
                 if (!empty($status404)) {
                     $val1_error = 3.7;
                 } else {
@@ -607,8 +608,9 @@ class analysisController extends Controller
                 } else {
                     $val3_error = 0;
                 }
-                $error_score = $val1_error + $val2_error + $val3_error;
+                $error_score = $val1_error + $val2_error + $val3_error + $val4_error + $val5_error + $val6_error + $val7_error + $val8_error;
             } catch (Exception $e) {}
+
             //page Notices
             try{
                 if (!empty($img_data)) {

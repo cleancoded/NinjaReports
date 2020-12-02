@@ -193,15 +193,15 @@
                                 success:function(data){
                                     //console.log(data);
                                     if(data == 'unsuccessfull'){
-                                        var msg = "<?php echo base64_encode('Please Subscribe plan');?>";
+                                        var msg = "<?php echo base64_encode('Please subscribe to a plan in order to perform that action.');?>";
                                         var url = '/subscription?success='+msg;
                                         window.location = url;
                                     }else if(data == 'Expired'){
-                                        var msg = "<?php echo base64_encode('Your Subscription Expired');?>";
+                                        var msg = "<?php echo base64_encode('Your subscription has expired.');?>";
                                         var url = '/account?success='+msg;
                                         window.location = url;
                                     }else if(data == 'acceded'){
-                                        var msg = "<?php echo base64_encode('You are acceded');?>";
+                                        var msg = "<?php echo base64_encode('You are now have access.');?>";
                                         var url = '/account?success='+msg;
                                         window.location = url;
                                     }
