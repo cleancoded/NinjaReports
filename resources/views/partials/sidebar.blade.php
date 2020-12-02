@@ -114,13 +114,13 @@ test
 
 					<!-- Modal body -->
 					<div class="modal-body" style="padding:20px;">
-						<h2>Upgrade for more analysis</h2>
-						</ul>
+						<h2>Whoops!</h2>
+						<p>You must upgrade in order to run more SEO analysis.
 					</div>
 
 					<!-- Modal footer -->
 					<div class="modal-footer" style="margin:auto;">
-						<button type="button" class="btn btn-success" href="/subscriptions">Upgrade</button>
+						<button type="button" class="btn btn-success" href="/subscription">Upgrade</button>
 					</div>
 
 				</div>

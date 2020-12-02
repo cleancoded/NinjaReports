@@ -873,10 +873,13 @@ class analysisController extends Controller
                     }
 
                     //page word count
-                    $page = strip_tags($crawler->html());
-                    $exp = explode(" ", $page);
-                  //  $page_words = count($exp);
-                    $page_words = array_count_values(str_word_count(strip_tags(strtolower($exp)), 1));
+
+                    $page = $crawler->html();
+                    $contents = preg_replace('/(<(script|style)\b[^>]*>).*?(<\/\2>)/is', "", $page);  
+                    $contents = preg_replace('#<style type="text/css">.*?</style>#s', '', $contents);
+                    $page_words = str_word_count(strip_tags($contents));
+
+
                     if ($page_words < 600) {
                         $less_page_words[] = $val;
                     }
