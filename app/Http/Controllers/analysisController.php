@@ -752,20 +752,25 @@ class analysisController extends Controller
         }
         //Link To Social Media Page
         try {
-            $social_link = array('facebook.com', 'linkedin.com', 'twitter.com', 'youtube.com', 'instagram.com');
+            $social_link = array('facebook', 'linkedin', 'twitter', 'youtube', 'instagram');
+        
+           
             foreach ($external_link as $ext) {
+                
                 foreach ($social_link as $social) {
                     if (strpos($ext, $social)) {
                         $link_to_social[] = $ext;
+                        $social_media_link = 'Link to social media profiles found';
                     }
                 }
             }
-            foreach ($link_to_social as $val) {
-                $path = parse_url($val, PHP_URL_PATH);
-                if (strpos($path, pathinfo($domain_url, PATHINFO_FILENAME))) {
-                    $social_media_link = 'Link to social media profiles found';
-                }
-            }
+            //dd($link_to_social,$external_link);
+            // foreach ($link_to_social as $val) {
+            //     $path = parse_url($val, PHP_URL_PATH);
+            //     if (strpos($path, pathinfo($domain_url, PATHINFO_FILENAME))) {
+            //         $social_media_link = 'Link to social media profiles found';
+            //     }
+            // }
 
         } catch (Exception $e) {}
 
@@ -815,19 +820,19 @@ class analysisController extends Controller
         try {
             $newUrl = $this->stripUrlPath($url);
             $get_robot = file_get_contents($newUrl . "/robots.txt");
-            $robots = explode(" ", (str_replace("\r\n", " ", $get_robot)));
+            $robots = explode(" ", (preg_replace("/\r|\n/", " ", $get_robot)));
             $robot_txt = array_chunk($robots, 1);
+            if (in_array("Sitemap:", $robots)) {
+                $sitemap = "found";
+            }
             foreach ($robot_txt as $val) {
                 $rob = $val;
                 foreach ($val as $data) {
-                    if(strpos($data,"sitemap") == true){
-                        $sitemap = $data;
-                    }
                     $robot[] = $data;
                 }
             }
         } catch (Exception $e) {}
-
+        //dd();
         //Check Broken Links
         try {
             foreach ($external as $ext) {
