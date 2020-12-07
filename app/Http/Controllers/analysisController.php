@@ -17,11 +17,13 @@ class analysisController extends Controller
         ini_set("allow_url_fopen", 1);
         $url = $request->input('url');
         $time = date('F d Y, h:i:s A');
+        
         try{
             
             $Payment = Payment::withCount('analysis')->where('user_id',auth()->user()->id)->where('status',1)->first();
             
         }catch(Exception $e){}
+
         if(empty($Payment)){
             $analysis = Analysis::where('user_id',auth()->user()->id)->whereDay('created_at', '=', date('d'))->latest()->first();
             if(empty($analysis)){
@@ -38,10 +40,8 @@ class analysisController extends Controller
         else
         {
            return  $this->get_seo($url,$Payment,$time);
-            
         }
     }
-
     public function get_audit_result(Request $request)
     {
         
@@ -878,7 +878,7 @@ class analysisController extends Controller
         $words = str_word_count(strtolower($contents),1);
         $t =preg_replace("/[^A-Za-z0-9 ]/", '', strip_tags($contents));
         $page_word = array_unique(array_filter(explode(" ",strtolower($t))));
-        $page_words = count(array_filter(explode(" ",strtolower($t))));
+        $page_w = array_filter(explode(" ",strtolower($t)));
         $stopWords = array('the','of','and','a','to','in','is','you'
         ,'that','it','he','was','for','on','are','as','with','his','they',
         'i','at','be','this','have','from','or','one','had','by','word','but','not','what',
@@ -892,10 +892,12 @@ class analysisController extends Controller
             return !is_numeric($value);
         });
         $word = count($result);
-       
-        //$result = array_filter($item, 'callback()');
-        //dd(array_filter(explode(" ",strtolower($t))));
 
+        $word_page  = array_filter($page_w, function ($value) use ($item) {
+            return !is_numeric($value);
+        });
+        $page_words = count($word_page);
+        
         //Text-HTML ratio
         $size = strlen(implode(' ', array_unique(explode(' ', $contents))));
         $page_size = round(strlen($crawler->html()) / 1024, 4);
@@ -1307,5 +1309,4 @@ class analysisController extends Controller
         $wordCountArr = array_slice($wordCountArr, 0, 10);
         return array($wordCountArr,$stopWords);
     }
-   
 }

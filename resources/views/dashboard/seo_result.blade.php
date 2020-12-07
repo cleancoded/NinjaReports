@@ -17,7 +17,7 @@
                 <div class="blue text-center">
                     <div class="score-wrapper">
                     <div class="Progress" id="score" data-animate="false">
-                        <div class="circle" data-percent="58">
+                        <div class="circle" data-percent="<?php echo round($passed_score) ?? 0; ?>">
                             <div></div>
                         </div>
                     </div>
@@ -101,12 +101,13 @@
 
             <div class="row">
                 <div class="col-md-3">
-                @if($title_length > 30 && $title_length < 70)
+                @if($title_length > 30 && $title_length <= 60)
                     <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Title Tag</h6>
                 @elseif($title_length <= 30)
                     <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Title Tag</h6>
                 @elseif($title_length > 60)
                     <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Title Tag</h6>
+
                 @endif
                 </div>
                 <div class="col-md-9">
@@ -121,7 +122,7 @@
 
                     <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Meta Description Tag</h6>
                 @else
-                <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Meta Description Tag</h6>
+                    <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Meta Description Tag</h6>
                 @endif
                 </div>
                 <div class="col-md-9">
@@ -178,7 +179,7 @@
                     @if($mobile_friendly === 'MOBILE_FRIENDLY')
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Mobile Friendly</h6>
                     @elseif($mobile_friendly === 'NOT_MOBILE_FRIENDLY')
-                        <h6><span style="margin-right: 9px;color: #ff6600;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>Mobile Friendly</h6>
+                    <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-times" aria-hidden="true"></i></span>Mobile Friendly</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -217,28 +218,34 @@
                 <hr>
             <div class="row">
                 <div class="col-md-3">
-                @if(empty($img_miss_alt))
-                <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Alt Tags</h6>
+                @if(empty($all_img_src))
+                    <h6><span style="margin-right: 9px;color:#0E6EEA;"><i class="fa fa-flag" aria-hidden="true"></i></span>Alt Tags</h6>
                 @else
-                <h6><span style="margin-right: 9px;color: #ff6600;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>Alt Tags</h6>
+                    @if(empty($img_miss_alt))
+                    <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Alt Tags</h6>
+                    @else
+                    <h6><span style="margin-right: 9px;color: #ff6600;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>Alt Tags</h6>
+                    @endif
                 @endif
-
                 </div>
                 <div class="col-md-9">
-                    @if(empty($img_miss_alt))
-                        <p>No images are missing alt tags. ({{$img_alt ?? 0}} images passed)</p>
+                    @if(empty($all_img_src))
+                        <p>NO Images Found</p>
                     @else
-                        <p>{{$img_miss_alt}} images are missing alt tags. ({{$img_alt}} images passed)</p>
-                    @endif
-
-                    @if(!empty($img_without_alt))
-                        @foreach($img_without_alt as $alt)
-                        <p style="margin-bottom: 0;">{{$alt}}</p>
-                    @endforeach
-                    @else
+                        @if(empty($img_miss_alt))
+                            <p>No images are missing alt tags.({{$img_miss_alt ?? 0}} images are missing alt tags</p>
+                            @else
+                            <p>{{$img_miss_alt}} images are missing alt tags.({{$img_alt}} images passed)</p>
+                        @endif
                     
+                        @if(!empty($img_without_alt))
+                            @foreach($img_without_alt as $alt)
+                            <p style="margin-bottom: 0;">{{$alt}}</p>
+                        @endforeach
+                        @else
+                        
+                        @endif
                     @endif
-
                 </div>
             </div>
                 <hr>
@@ -283,7 +290,7 @@
                     @if($h1_tags > 0)
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>H1 tag</h6>
                     @else
-                        <h6><span style="margin-right: 9px;color: #ff6600;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>H1 tags</h6>
+                        <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>H1 tags</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -301,7 +308,7 @@
                     @if($h2_tags > 0)
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>H2 tags</h6>
                     @else
-                        <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-exclamation-triange" aria-hidden="true"></i></span>H2 tags</h6>
+                        <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>H2 tags</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -320,7 +327,7 @@
                     @if($h3_tags > 0)
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>H3 tags</h6>
                     @else
-                        <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-exclamation-triange" aria-hidden="true"></i></span>H3 tags</h6>
+                        <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>H3 tags</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -359,11 +366,11 @@
                             <tbody>
                                 <?php $i = 1;?>
                                     @foreach ($word_count as $key => $val)
-                                        @if($i < 11 && strlen($key)>3)
+                                        @if($i < 11 && strlen($key)>2)
                                             <tr>
                                                 <th>{{$key}}</th>
                                                 <td>{{$val}}</td>
-                                                <td>{{number_format(($val / $page_words) * 100)}}%</td>
+                                                <td>{{number_format(($val / $word) * 100, 1)}}%</td>
                                                 @if(stripos($title, $key) !== false)
                                                     <td style="color:green;"><i class="fa fa-check" aria-hidden="true"></i></td>
                                                 @else
@@ -396,7 +403,7 @@
                             </tbody>
                         </table>
                         @else
-                            {{$density_message}}
+                           <p></p>
                         @endif
                 </div>
             </div>
@@ -471,33 +478,41 @@
             <hr>
             <div class="row">
                 <div class="col-md-3">
-                    @if(!empty($img_data))
-                        <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Image Size Analysis </h6>
-                    @else
+                    @if(empty($all_img_src))
                         <h6><span style="margin-right: 9px;color:#0E6EEA;"><i class="fa fa-flag" aria-hidden="true"></i></span>Image Size Analysis </h6>
-                    @endif    
+                    @else
+                        @if(!empty($img_data))
+                            <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Image Size Analysis </h6>
+                        @else
+                            <h6><span style="margin-right: 9px;color:#0E6EEA;"><i class="fa fa-flag" aria-hidden="true"></i></span>Image Size Analysis </h6>
+                        @endif
+                    @endif        
                 </div>
                 <div class="col-md-9">
-                    @if(!empty($img_data))
-                        <table class="table image-table">
-                            <thead class="thead-light">
-                                <tr>
-                                <th>Image Location</th>
-                                <th>Size</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($img_data as  $key => $val)
-                                    <tr>
-                                        <td><a target="_blank" href="{{substr($key,0,80)}}">{{substr($key,0,80)}}  <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
-                                        <td>{{number_format($val,1)}} kb</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                            </table>
+                    @if(empty($all_img_src))
+                        <p>NO Images Found</p>
                     @else
-                        <p>Error Found</p>
-                    @endif
+                        @if(!empty($img_data))
+                            <table class="table image-table">
+                                <thead class="thead-light">
+                                    <tr>
+                                    <th>Image Location</th>
+                                    <th>Size</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($img_data as  $key => $val)
+                                        <tr>
+                                            <td><a target="_blank" href="{{substr($key,0,80)}}">{{substr($key,0,80)}}  <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                                            <td>{{number_format($val,1)}} kb</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                </table>
+                        @else
+                            <p>Error Found</p>
+                        @endif
+                    @endif    
                 </div>
             </div>
             <hr>

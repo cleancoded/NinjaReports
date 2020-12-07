@@ -162,9 +162,10 @@
                                             $('#progress').css('width', 100 + '%').text(100 + '%'); 
                                             $('div#text-container').append(data);
                                             $('.audit-item').show();
-                                            animateElements();
                                             $(".progress-bar1").css("animation-play-state", "paused");
                                             $('#waiting').hide();
+                                            $('#analyse').removeAttr('disabled');
+                                            animateElements();
                                         }
                                     }
                                 });
@@ -177,7 +178,6 @@
                 }
 
             // var j$ = jQuery.noConflict();
-            
             // //console.log(loggedIn);
             // if (!loggedIn){
             //     $(".btn").click(function(){
@@ -192,16 +192,12 @@
             //         });
             //     });
             // }
-
-
-
-
             function animateElements() {
                 $('.Progress').each(function() {
                     var elementPos = $(this).offset().top;
                     var topOfWindow = $(window).scrollTop();
                     var percent = $(this).find('.circle').attr('data-percent');
-                    console.log(percent);
+                    //console.log(percent);
                     var percentage = parseInt(percent, 10) / parseInt(100, 10);
                     var animate = $(this).data('animate');
                     if (elementPos < topOfWindow + $(window).height() - 30 && !animate) {

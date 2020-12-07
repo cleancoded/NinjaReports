@@ -17,7 +17,7 @@
                 <h5>ON-PAGE SEO SCORE</h5>
                 <div class="blue" >
                     <div class="Progress" data-animate="false">
-                        <div class="circle" data-percent="<?php echo round($health_score); ?>">
+                        <div class="circle" data-percent="<?php echo round($health_score) ?? 0; ?>">
                             <div></div>
                         </div>
                     </div>
@@ -35,10 +35,15 @@
                 <ul class="found-list">
                 @if(!empty($status404)) <li> @endif  {{!empty($status404) ? 'Broken links found':''}} @if(!empty($status404)) </li> @endif
                 @if(!empty($status500)) <li>  @endif  {{!empty($status500) ? '500 error found':''}} @if(!empty($status500)) </li>  @endif
+                @if(!empty($links_empty_h1)) <li> @endif    {{!empty($links_empty_h1)    ? 'H1 tag missing':''}} @if(!empty($links_empty_h1)) </li> @endif
+                @if(!empty($page_miss_meta)) <li> @endif     {{!empty($page_miss_meta)    ? 'Some pages missing meta description tag':''}} @if(!empty($page_miss_meta)) </li> @endif
                 @if(!empty($page_miss_title))  <li>  @endif  {{!empty($page_miss_title)? 'Title tag missing':''}} @if(!empty($page_miss_title))  </li>  @endif
-                @if(!empty($page_without_canonical)) <li>   @endif  {{!empty($page_without_canonical) ? 'Canonical tags missing on some pages':''}} @if(!empty($page_without_canonical)) </li>   @endif
                 @if(!empty($duplicate_meta_description)) <li>  @endif    {{!empty($duplicate_meta_description) ? 'Duplicate meta discriptions found' : ''}} @if(!empty($duplicate_meta_description)) </li>  @endif
                 @if(!empty($duplicate_title)) <li>   @endif  {{!empty($duplicate_title) ? 'Duplicate title tags found' : ''}} @if(!empty($duplicate_title)) </li>   @endif
+                @if(!empty($short_title)) <li>   @endif    {{!empty($short_title) ? 'Title tag too short':''}} @if(!empty($short_title)) </li>   @endif
+                @if(!empty($long_title))   <li>  @endif  {{!empty($long_title)  ? 'Title tag too long' :''}} @if(!empty($long_title))  </li>  @endif 
+                @if(!empty($long_meta_description)) <li> @endif    {{!empty($long_meta_description) ? 'Long meta descriptions' : ''}} @if(!empty($long_meta_description)) </li> @endif
+                @if(!empty($short_meta_description)) <li> @endif    {{!empty($short_meta_description) ? 'Short meta descriptions' : ''}} @if(!empty($short_meta_description)) </li> @endif
             </ul>
                 @if($errors == 0)  <div class="clean"><i class="fa fa-check" aria-hidden="true"></i> Nice, no errors!</div> @endif
                 <div class="link-div text-right view-more">
@@ -48,17 +53,16 @@
 
             <div class="col-md-3 warning-box">
                 <h5 style="color:#ff6600;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> WARNINGS</h5>
-                <h5 class="number-error">{{$warning}}</h5>
+                <h5 class="number-error">{{$warning ?? 0}}</h5>
                       <p class="description">Warnings have less impact on your SEO performance but should not be overlooked.</p>
                       <ul class="found-list">
                 @if(!empty($less_page_words)) <li>  @endif {{!empty($less_page_words)   ? 'Low word count':''}} @if(!empty($less_page_words)) </li>  @endif
-                @if(!empty($links_empty_h1)) <li> @endif    {{!empty($links_empty_h1)    ? 'H1 tag missing':''}} @if(!empty($links_empty_h1)) </li> @endif
+                @if(!empty($page_without_canonical)) <li>   @endif  {{!empty($page_without_canonical) ? 'Canonical tags missing on some pages':''}} @if(!empty($page_without_canonical)) </li>   @endif
                 @if(!empty($duplicate_h1))  <li>  @endif    {{!empty($duplicate_h1) ? 'Duplicate h1 tags':''}} @if(!empty($duplicate_h1))  </li>  @endif
-                @if(!empty($page_miss_meta)) <li> @endif     {{!empty($page_miss_meta)    ? 'Some pages missing meta description tag':''}} @if(!empty($page_miss_meta)) </li> @endif
                 @if(!empty($page_incomplete_card)) <li> @endif     {{!empty($page_incomplete_card)  ? 'Twitter card incomplete' :''}} @if(!empty($page_incomplete_card)) </li> @endif
-                @if(!empty($page_incomplete_graph)) <li> @endif  {{!empty($page_incomplete_graph) ? 'Open Graph tags incomplete':''}} @if(!empty($page_incomplete_graph)) </li> @endif
                 @if(!empty($status301))   <li> @endif  {{!empty($status301)     ? '301 redirects found':''}} @if(!empty($status301)) </li> @endif
                 @if(!empty($status302)) <li> @endif {{!empty($status302) ? '302 redirects found':''}} @if(!empty($status302)) </li> @endif
+                @if(!empty($less_code_ratio)) <li> @endif {{!empty($less_code_ratio) ? 'HTML to text ratio < 10% found': ''}} @if(!empty($less_code_ratio)) </li> @endif
                </ul>
                  @if($warning == 0)  <div class="clean"><i class="fa fa-check" aria-hidden="true"></i> Nice, no warnings!</div> @endif
                 <div class="link-div text-right view-more">
@@ -73,15 +77,11 @@
                 @if(!empty($page_h1_less)) <li> @endif      {{!empty($page_h1_less)    ? 'h1 tag too short':''}} @if(!empty($page_h1_less)) </li> @endif
                 @if(!empty($page_h1_greater)) <li>  @endif   {{!empty($page_h1_greater)  ? 'h1 tag too long'    :''}} @if(!empty($page_h1_greater)) </li>  @endif
                 @if(!empty($links_more_h1)) <li> @endif  {{!empty($links_more_h1) ? 'Multiple h1 tags found':''}} @if(!empty($links_more_h1)) </li> @endif 
-                @if(!empty($short_title)) <li>   @endif    {{!empty($short_title) ? 'Title tag too short':''}} @if(!empty($short_title)) </li>   @endif
-                @if(!empty($long_title))   <li>  @endif  {{!empty($long_title)  ? 'Title tag too long' :''}} @if(!empty($long_title))  </li>  @endif 
                 @if(!empty($url_length)) <li>  @endif  {{!empty($url_length)  ?  'Longs URLs':''}} @if(!empty($url_length)) </li>  @endif 
                 @if(empty($twitter)) <li> @endif   {{!empty($twitter) ? '' :'Twitter card missing'}} @if(empty($twitter)) </li> @endif
                 @if(empty($graph_data)) <li>  @endif   {{!empty($graph_data) ? '' :'Open graph tags missing'}} @if(empty($graph_data)) </li>  @endif
-                @if(!empty($less_code_ratio)) <li> @endif {{!empty($less_code_ratio) ? 'HTML to text ratio < 10% found': ''}} @if(!empty($less_code_ratio)) </li> @endif
-                @if(!empty($long_meta_description)) <li> @endif    {{!empty($long_meta_description) ? 'Long meta descriptions' : ''}} @if(!empty($long_meta_description)) </li> @endif
-                @if(!empty($short_meta_description)) <li> @endif    {{!empty($short_meta_description) ? 'Short meta descriptions' : ''}} @if(!empty($short_meta_description)) </li> @endif
-                @if(!empty($robot)) <li> @endif  {{!empty($robot) ? 'Robot.txt missing' : ''}} @if(!empty($robot)) </li> @endif
+                @if(!empty($page_incomplete_graph)) <li> @endif  {{!empty($page_incomplete_graph) ? 'Open Graph tags incomplete':''}} @if(!empty($page_incomplete_graph)) </li> @endif
+                @if(empty($robot)) <li> @endif  {{empty($robot) ? 'Robot.txt missing' : ''}} @if(empty($robot)) </li> @endif
             </ul>
                 @if($notices == 0)  <div class="clean"><i class="fa fa-check" aria-hidden="true"></i> Nice, no notices!</div> @endif
                 <div class="link-div text-right view-more">
@@ -107,15 +107,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @if(!empty($page_without_canonical))
-                        @foreach($page_without_canonical as $val)
-                            <tr>
-                                <td><a href="{{$val}}" target="_blank">{{$val}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
-                                <td>Your canonical tag is missing. Canonical tags are important because they tell search engines what the correct URL of the page should be.</td>
-                                <td>Add a canonical tag to your website pages.</td>
-                            </tr>
-                        @endforeach    
-                    @endif
+                    
+                    @if(!empty($links_empty_h1))
+                            @foreach($links_empty_h1 as $link)
+                                <tr>
+                                    <td><a href="{{$link}}" target="_blank">{{$link}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                                    <td>Your page is not using heading tags appropriately. Heading tags are the section titles of your content. They should be structured correctly.</td>
+                                    <td>Make sure the page has one H1 tag to signal the most important topic of the page and descending tags to show other topics.</td>
+                                </tr>
+                            @endforeach    
+                        @endif
+
+                    @if(!empty($page_miss_meta))
+                            @foreach($page_miss_meta as $val)
+                                <tr>
+                                    <td><a href="{{$val}}" target="_blank">{{$val}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                                    <td>Your meta description is missing. Meta descriptions are important for your CTR, which is a ranking factor for search engines.</td>
+                                    <td>Add a meta description (between 150-160 characters) that describes what your page is about.</td>
+                                </tr>
+                            @endforeach    
+                        @endif
 
                     @if(!empty($duplicate_title))
                         @foreach($duplicate_title as $key => $val)
@@ -156,6 +167,44 @@
                             </tr>
                         @endforeach    
                     @endif
+                    @if(!empty($long_title))
+                            @foreach($long_title as $long)
+                                <tr>
+                                    <td><a href="{{$long}}" target="_blank">{{$long}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                                    <td>You have a meta title but it is not the optimal length. It needs to be between 50-60 characters to fit inside Google's recommended length.</td>
+                                    <td>Update your meta title to be between 50-60 characters in length.</td>
+                                </tr>
+                            @endforeach
+                        @endif
+
+                        @if(!empty($short_title))
+                            @foreach($short_title as $short)
+                                <tr>
+                                    <td><a href="{{$short}}" target="_blank">{{$short}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                                    <td>Title tag too short</td>
+                                    <td>The title tag length should be between 50 and 60 characters.</td>
+                                </tr>
+                            @endforeach
+                        @endif
+                        @if(!empty($long_meta_description))
+                            @foreach($long_meta_description as $long_meta)
+                                <tr>
+                                    <td><a href="{{$long_meta}}" target="_blank">{{$long_meta}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                                    <td>You have a meta description but it is not the optimal length. It needs to be around 160 characters to fit inside Google's recommended length.</td>
+                                    <td>Update your meta description to be between 150-160 characters in length.</td>
+                                </tr>
+                            @endforeach
+                        @endif
+
+                        @if(!empty($short_meta_description))
+                            @foreach($short_meta_description as $short_meta)
+                                <tr>
+                                    <td><a href="{{$short_meta}}" target="_blank">{{$short_meta}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                                    <td>The meta description is not the optimal length.</td>
+                                    <td>Create a unique meta description of 150 to 160 characters in length.</td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                     </table>
             </div>
@@ -175,15 +224,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if(!empty($links_empty_h1))
-                            @foreach($links_empty_h1 as $link)
+                    @if(!empty($page_without_canonical))
+                        @foreach($page_without_canonical as $val)
+                            <tr>
+                                <td><a href="{{$val}}" target="_blank">{{$val}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                                <td>Your canonical tag is missing. Canonical tags are important because they tell search engines what the correct URL of the page should be.</td>
+                                <td>Add a canonical tag to your website pages.</td>
+                            </tr>
+                        @endforeach    
+                    @endif
+
+                    @if(!empty($less_code_ratio))
+                        @foreach($less_code_ratio as $less)
                                 <tr>
-                                    <td><a href="{{$link}}" target="_blank">{{$link}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
-                                    <td>Your page is not using heading tags appropriately. Heading tags are the section titles of your content. They should be structured correctly.</td>
-                                    <td>Make sure the page has one H1 tag to signal the most important topic of the page and descending tags to show other topics.</td>
+                                    <td><a href="{{$less}}" target="_blank">{{$less}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                                    <td>Your text-HTML ratio is off balance. Search engines need text to know what a page is about. You should shoot for a 25-70% text-HTML ratio.</td>
+                                    <td>Add more relevant text to your page to bring the ratio back into balance.</td>
                                 </tr>
-                            @endforeach    
-                        @endif
+                            @endforeach
+                    @endif
+
 
                         @if(!empty($less_page_words))
                             @foreach($less_page_words as $val)
@@ -194,17 +254,6 @@
                                 </tr>
                             @endforeach    
                         @endif
-
-                        @if(!empty($page_miss_meta))
-                            @foreach($page_miss_meta as $val)
-                                <tr>
-                                    <td><a href="{{$val}}" target="_blank">{{$val}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
-                                    <td>Your meta description is missing. Meta descriptions are important for your CTR, which is a ranking factor for search engines.</td>
-                                    <td>Add a meta description (between 150-160 characters) that describes what your page is about.</td>
-                                </tr>
-                            @endforeach    
-                        @endif
-                        
                         @if(!empty($link_302))
                             @foreach($link_302 as $val)
                                 <tr>
@@ -237,17 +286,7 @@
                             @endforeach    
                         @endif
 
-                        @if(!empty($page_incomplete_graph))
-                            @foreach($page_incomplete_graph as $val)
-                                @if(strpos($val,"facebook") == false && strpos($val,"twitter") == false && strpos($val,"linkedin") == false && strpos($val,"instagram") == false)
-                                    <tr>
-                                        <td><a href="{{$val}}" target="_blank">{{$val}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
-                                        <td>Your site is missing open graph tags. These are tags that allow you to control what content shows when a webpage is shared on social media.</td>
-                                        <td>Add open graph tags to fix this issue.</td>
-                                    </tr>
-                                @endif
-                            @endforeach    
-                        @endif
+                        
                     </tbody>
                     </table>
             </div>
@@ -296,57 +335,6 @@
                                 </tr>
                             @endforeach
                         @endif
-
-                        @if(!empty($long_title))
-                            @foreach($long_title as $long)
-                                <tr>
-                                    <td><a href="{{$long}}" target="_blank">{{$long}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
-                                    <td>You have a meta title but it is not the optimal length. It needs to be between 50-60 characters to fit inside Google's recommended length.</td>
-                                    <td>Update your meta title to be between 50-60 characters in length.</td>
-                                </tr>
-                            @endforeach
-                        @endif
-
-                        @if(!empty($short_title))
-                            @foreach($short_title as $short)
-                                <tr>
-                                    <td><a href="{{$short}}" target="_blank">{{$short}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
-                                    <td>Title tag too short</td>
-                                    <td>The title tag length should be between 50 and 60 characters.</td>
-                                </tr>
-                            @endforeach
-                        @endif
-
-                        @if(!empty($less_code_ratio))
-                            @foreach($less_code_ratio as $less)
-                                <tr>
-                                    <td><a href="{{$less}}" target="_blank">{{$less}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
-                                    <td>Your text-HTML ratio is off balance. Search engines need text to know what a page is about. You should shoot for a 25-70% text-HTML ratio.</td>
-                                    <td>Add more relevant text to your page to bring the ratio back into balance.</td>
-                                </tr>
-                            @endforeach
-                        @endif
-
-                        @if(!empty($long_meta_description))
-                            @foreach($long_meta_description as $long_meta)
-                                <tr>
-                                    <td><a href="{{$long_meta}}" target="_blank">{{$long_meta}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
-                                    <td>You have a meta description but it is not the optimal length. It needs to be around 160 characters to fit inside Google's recommended length.</td>
-                                    <td>Update your meta description to be between 150-160 characters in length.</td>
-                                </tr>
-                            @endforeach
-                        @endif
-
-                        @if(!empty($short_meta_description))
-                            @foreach($short_meta_description as $short_meta)
-                                <tr>
-                                    <td><a href="{{$short_meta}}" target="_blank">{{$short_meta}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
-                                    <td>The meta description is not the optimal length.</td>
-                                    <td>Create a unique meta description of 150 to 160 characters in length.</td>
-                                </tr>
-                            @endforeach
-                        @endif
-
                         @if(!empty($page_twitter_missing))
                             @foreach($page_twitter_missing as $val)
                                 <tr>
@@ -375,6 +363,18 @@
                                     <td>A site's URL structure should be as simple as possible and include the pages keyword.</td>
                                 </tr>
                             @endforeach
+                        @endif
+
+                        @if(!empty($page_incomplete_graph))
+                            @foreach($page_incomplete_graph as $val)
+                                @if(strpos($val,"facebook") == false && strpos($val,"twitter") == false && strpos($val,"linkedin") == false && strpos($val,"instagram") == false)
+                                    <tr>
+                                        <td><a href="{{$val}}" target="_blank">{{$val}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                                        <td>Your site is missing open graph tags. These are tags that allow you to control what content shows when a webpage is shared on social media.</td>
+                                        <td>Add open graph tags to fix this issue.</td>
+                                    </tr>
+                                @endif
+                            @endforeach    
                         @endif
                     </tbody>
                     </table>

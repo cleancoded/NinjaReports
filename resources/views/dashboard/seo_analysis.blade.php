@@ -118,8 +118,8 @@
                 }
 
                 // Show animated elements
-                animateElements();
-               // $(window).scroll(animateElements);
+                
+               //$(window).scroll(animateElements);
 
                // <!------------------------------------------Animation Script ProgressBar End----------------------------------------------------->
 
@@ -204,14 +204,18 @@
                                         var msg = "<?php echo base64_encode('You are acceded');?>";
                                         var url = '/account?success='+msg;
                                         window.location = url;
+                                    }else if(data == 'upgrade'){
+                                        $('#waiting').hide();
+                                        $('#myModal').show();
+                                        //alert('upgrade for more analysis');
                                     }
                                     else{
                                         $('div#text-container').append(data);
-                                        $('#waiting').hide();
                                         $('.analysis_section').show();
                                         $('#progressBar').css('width', 80 + '%').text(80 + '%');
                                         runPagespeed();
                                         $('#analyse').removeAttr('disabled');
+                                        animateElements();
                                         
                                     }
                                     
@@ -243,23 +247,14 @@
                     fetch(url)
                         .then(response => response.json())
                         .then(json => {
-                            // See https://developers.google.com/speed/docs/insights/v5/reference/pagespeedapi/runpagespeed#response
-                            // to learn more about each of the properties in the response object.
-                            //showInitialContent(json.id);
-                            //showCruxContent(cruxMetrics);
                             const lighthouse = json.lighthouseResult;
                             var image = new Image();
                                 image.src = lighthouse.audits['final-screenshot']['details']['data'];
-                                $("#image").append(image);
-                                //document.body.appendChild(image);
-                            //console.log();
+                                $("#image").append(image); 
                             var score = Math.round(lighthouse.categories.performance['score'] * 100);
                             console.log(score);
-                            //console.log(lighthouse.audits['unminified-css']['numericValue']);
                             var unminified_css = lighthouse.audits['unminified-css']['numericValue'];
                             var unminified_js = lighthouse.audits['unminified-javascript']['numericValue'];
-                            //console.log(unminified_js);
-
                             try {
                                 var wastBytes_css = lighthouse.audits['unminified-css']['details']['items'][1]['wastedBytes'];
                                 if(wastBytes_css){
@@ -316,8 +311,8 @@
                                 $("#passed_progress").css("width", add_vale + "%");
                                 $("#img_gzip").attr("class", "fa fa-check");
                             }
-                            $('.circle').attr('data-percent', score);
-                            animateElements();
+                            //$('.circle').attr('data-percent', score);
+                            // animateElements();
                             //$(window).scroll(animateElements);
                             $('#progressBar').css('width', 100 + '%').text(100 + '%');
                             $(".progress-bar1").css("animation-play-state", "paused");
