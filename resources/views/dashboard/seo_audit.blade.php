@@ -2,12 +2,20 @@
 @section('title', 'SEO Audit')
 @section('content')
 <div class="col-md-10  overview">
-    <div class="row Analyze">
+       <div id="tool-desc" class="row">
+
+        <div class="col-md-12">
+        <h3>SEO Audit</h3>
+        <p>Enter your domain into the toolbar including https:// or http:// and Ninja Reports will scan your entire website and check over 55+ SEO factors and tell you know how to fix them and rank higher.</p>
+    </div>
+
+</div>
+    <div class="row Analyze audit-container">
         <div class="col-md-10">
-            <input type="text" id="seo_audit" class="form-control" value="{{$_GET['url'] ?? ''}}" placeholder="Analyze">
+            <input type="text" id="seo_audit" class="form-control" value="{{$_GET['url'] ?? ''}}" placeholder="Enter URL">
         </div>
         <div class="col-md-2">
-            <button class="btn">Analyze</button>
+            <button class="btn" id="analyse">CRAWL</button>
         </div>
     </div>
     <div class="row progressbar">
@@ -21,6 +29,13 @@
                 Crawling Pages...
                 </div>
             </div> -->
+        </div>
+    </div>
+        <div id="waiting" style="display:none;">
+        <div class="loading-box">
+            <img src="{{asset('images/806.gif')}}" alt="loading"/>
+            <h4>Crawling...</h4>
+            <p>Please wait while we crawl your pages. This process can take a few minutes.</p>
         </div>
     </div>
     <div id="text-container"></div>
@@ -90,7 +105,7 @@
                     var url =  $("#seo_audit").val();
                     if(loggedIn){
                         !!url && insertParam('url', url);
-                        get_audit();
+                        //get_audit();
                     }else{
                         var j$ = jQuery.noConflict();
                         j$("#loginModal").modal("show");
@@ -117,6 +132,9 @@
                                             if (e.lengthComputable) {
                                                 var percent = Math.round((e.loaded / e.total) * 100)-60;
                                                 //console.log(percent);
+                                                $('#waiting').show();
+                                                $('#tool-desc').slideUp();
+                                                $('#analyse').attr('disabled','disabled');
                                                 $('#progress').attr('aria-valuenow', percent).css('width', percent + '%').text(percent + '%');
                                             }
                                         });
@@ -127,11 +145,18 @@
                                     data:{url:url},
                                     
                                     success:function(data){
-                                        $('#progress').css('width', 100 + '%').text(100 + '%'); 
-                                        $('div#text-container').append(data);
-                                        $('.audit-item').show();
-                                        animateElements();
-                                        $(".progress-bar1").css("animation-play-state", "paused");
+                                        if(data == 'notsuccessful' || data == 'Expired' || data == 'exceeded' ){
+                                            $('#waiting').hide();
+                                            $('#myModal').show();
+                                        }else{
+                                            $('#progress').css('width', 100 + '%').text(100 + '%'); 
+                                            $('div#text-container').append(data);
+                                            $('.audit-item').show();
+                                            $(".progress-bar1").css("animation-play-state", "paused");
+                                            $('#waiting').hide();
+                                            $('#analyse').removeAttr('disabled');
+                                            animateElements();
+                                        }
                                     }
                                 });
                         }else{
@@ -143,7 +168,6 @@
                 }
 
             // var j$ = jQuery.noConflict();
-            
             // //console.log(loggedIn);
             // if (!loggedIn){
             //     $(".btn").click(function(){
@@ -158,16 +182,12 @@
             //         });
             //     });
             // }
-
-
-
-
             function animateElements() {
                 $('.Progress').each(function() {
                     var elementPos = $(this).offset().top;
                     var topOfWindow = $(window).scrollTop();
                     var percent = $(this).find('.circle').attr('data-percent');
-                    console.log(percent);
+                    //console.log(percent);
                     var percentage = parseInt(percent, 10) / parseInt(100, 10);
                     var animate = $(this).data('animate');
                     if (elementPos < topOfWindow + $(window).height() - 30 && !animate) {
@@ -175,7 +195,10 @@
                         $(this).find('.circle').circleProgress({
                             startAngle: -Math.PI / 2,
                             value: percent / 100,
-                            thickness: 10,
+                            thickness: 13,
+                            size: 190,
+                            lineCap: "round",
+                            emptyFill: "#f2f2f2",
                             fill: {
                             color: '#1B58B8'
                             }
