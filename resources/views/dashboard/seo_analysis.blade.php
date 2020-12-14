@@ -192,24 +192,11 @@
                                 data:{url:url},
                                 success:function(data){
                                     //console.log(data);
-                                    if(data == 'unsuccessfull'){
-                                        var msg = "<?php echo base64_encode('Please Subscribe plan');?>";
-                                        var url = '/subscription?success='+msg;
-                                        window.location = url;
-                                    }else if(data == 'Expired'){
-                                        var msg = "<?php echo base64_encode('Your Subscription Expired');?>";
-                                        var url = '/account?success='+msg;
-                                        window.location = url;
-                                    }else if(data == 'acceded'){
-                                        var msg = "<?php echo base64_encode('You are acceded');?>";
-                                        var url = '/account?success='+msg;
-                                        window.location = url;
-                                    }else if(data == 'upgrade'){
+                                    if(data == 'notsuccessful' || data == 'Expired' || data == 'exceeded' || data == 'upgrade' ){
                                         $('#waiting').hide();
                                         $('#myModal').show();
-                                        //alert('upgrade for more analysis');
-                                    }
-                                    else{
+                                    }else{
+                                        $('#waiting').hide();
                                         $('div#text-container').append(data);
                                         $('.analysis_section').show();
                                         $('#progressBar').css('width', 80 + '%').text(80 + '%');
@@ -316,7 +303,7 @@
                             //$(window).scroll(animateElements);
                             $('#progressBar').css('width', 100 + '%').text(100 + '%');
                             $(".progress-bar1").css("animation-play-state", "paused");
-                            $('#waiting').hide();
+                            
                         });
                 }
 

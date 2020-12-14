@@ -167,7 +167,7 @@
                 </div>
                 <div class="col-md-9 favicon">
                     @if(!empty($favicon))
-                       <img src="{{$favicon}}" alt="" class="fav-icon"> <p class="fav">Your site using favicon</p>
+                       <img src="{{$favicon}}" alt="" class="fav-icon"> <p class="fav">Your site using favicon.</p>
                     @else
                         <p>Your site is missing it's favicon. Favicons are important for brand visability and SEO.</p>
                     @endif
@@ -179,7 +179,7 @@
                     @if($mobile_friendly === 'MOBILE_FRIENDLY')
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Mobile Friendly</h6>
                     @elseif($mobile_friendly === 'NOT_MOBILE_FRIENDLY')
-                    <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-times" aria-hidden="true"></i></span>Mobile Friendly</h6>
+                    <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Mobile Friendly</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -207,7 +207,7 @@
                 </div>
                 <div class="col-md-9">
                     @if(!empty($schema))
-                        <p>Schema tags found on your page</p>
+                        <p>Schema tags found on your page.</p>
                     @else
                         <p>Your page is missing schema tags. Schema tags help crawlers determine certain information about a website, business, products or videos. </p>
                     @endif
@@ -254,7 +254,7 @@
                     @if($url_seo_friendly == "SEO-Friendly")
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>SEO Friendly URL</h6>
                     @elseif($url_seo_friendly == "Unfriendly SEO URLs")
-                        <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-times" aria-hidden="true"></i></span>SEO Friendly URL</h6>
+                        <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>SEO Friendly URL</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -274,7 +274,7 @@
                @if(!empty($iframe))
                     <p>You are using an Iframe on your page. Iframes can't be crawled by search engines and aren't good for SEO, in general.</p>
                 @else
-                  <p>No Iframes on the page</p>
+                  <p>No Iframes on the page.</p>
                 @endif
                 </div>
             </div>
@@ -294,7 +294,7 @@
                     @endif
                 </div>
                 <div class="col-md-9">
-                     {{$h1_tags}} H1 tags were found on your page
+                     {{$h1_tags}} H1 tags were found on your page.
                     <ol>
                     @foreach($h1 as $val)
                       <li>{{$val}}</li>
@@ -312,7 +312,7 @@
                     @endif
                 </div>
                 <div class="col-md-9">
-                    {{$h2_tags}} H2 tags were found on your page
+                    {{$h2_tags}} H2 tags were found on your page.
                     <ol>
                     @foreach($h2 as $val)
                         <li>{{$val}}</li>
@@ -331,7 +331,7 @@
                     @endif
                 </div>
                 <div class="col-md-9">
-                    {{$h3_tags}} H3 tags were found on your page
+                    {{$h3_tags}} H3 tags were found on your page.
                     <ol>
                     @foreach($h3 as $val)
                       <li>{{$val}}</li>
@@ -417,7 +417,7 @@
                     @endif
                 </div>
                 <div class="col-md-9">
-                        Page contain {{$page_words}} words
+                        Page contains {{$page_words}} words.
                     </p>
                 </div>
             </div>
@@ -536,9 +536,9 @@
                 </div>
                 <div class="col-md-9">
                    @if(!empty($cache))
-                        <p>Cache found on your page</p>
+                        <p>Cache found on your page.</p>
                    @else
-                        <p>Cache not found on your page</p>
+                        <p>Cache not found on your page.</p>
                    @endif
                 </div>
             </div>
@@ -558,9 +558,9 @@
                 </div>
                 <div class="col-md-9">
                     @if(!empty($internal_link))
-                        <p>Internal Links found</p>
+                        <p>Internal Links found.</p>
                     @else
-                        <p>Internal Links not found</p>
+                        <p>Internal Links not found.</p>
                     @endif
                 </div>
             </div>
@@ -586,7 +586,7 @@
             <div class="row">
                 <div class="col-md-3">
                     @if(!empty($status404))
-                        <h6><span style="margin-right: 9px;color: red;"><i class="fa fa-times" aria-hidden="true"></i></span>Broken Links</h6>
+                        <h6><span style="margin-right: 9px;color: red;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Broken Links</h6>
                     @else
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Broken Links</h6>
                     @endif
@@ -595,7 +595,7 @@
                     @if(!empty($status404))
                         <p>You have broken links on your page. Those links are sending users to a page that does not exist.</p>
                     @else
-                        <p>No broken links found</p>
+                        <p>No broken links found.</p>
                     @endif
                 </div>
             </div>
@@ -610,7 +610,7 @@
                     @if($page_https == "Page using HTTPS")
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>HTTPS</h6>
                     @else
-                        <h6><span style="margin-right: 9px;color: red;"><i class="fa fa-times" aria-hidden="true"></i></span>HTTPS</h6>
+                        <h6><span style="margin-right: 9px;color: red;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>HTTPS</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
@@ -626,14 +626,14 @@
                     @if(!empty($ssl_certificate))
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>SSL Certificate</h6>
                     @else
-                        <h6><span style="margin-right: 9px;color: red;"><i class="fa fa-times" aria-hidden="true"></i></span>SSL Certificate</h6>
+                        <h6><span style="margin-right: 9px;color: red;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>SSL Certificate</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
                   @if(!empty($ssl_certificate))
-                        <p>SSL certificate found</p>
+                        <p>SSL certificate found.</p>
                     @else
-                        <p>SSL certificate not found</p>
+                        <p>SSL certificate not found.</p>
                     @endif
                      
                 </div>
@@ -642,16 +642,16 @@
             <div class="row">
                 <div class="col-md-3">
                     @if(!empty($a_https) && !empty($link_https) && !empty($script_https))
-                        <h6><span style="margin-right: 9px;color: red;"><i class="fa fa-times" aria-hidden="true"></i></span>Mixed Content Issues</h6>
+                        <h6><span style="margin-right: 9px;color: red;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Mixed Content Issues</h6>
                     @else
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Mixed Content Issues</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
                     @if(!empty($a_https) && !empty($link_https)  && !empty($script_https))
-                        <p>Links pointing to non-https pages found</p>
+                        <p>Links pointing to non-https pages found.</p>
                     @else
-                        <p>Links pointing to non-https pages not found</p>
+                        <p>Links pointing to non-https pages not found.</p>
                     @endif
                 </div>
             </div>
@@ -684,9 +684,9 @@
                 </div>
                 <div class="col-md-9">
                     @if(!empty($social_schema))
-                        <p>Schema tags for social media profiles found</p>
+                        <p>Schema tags for social media profiles found.</p>
                     @else
-                    <p>Schema tags for social media profiles not found</p>
+                    <p>Schema tags for social media profiles not found.</p>
                     @endif
                 </div>
             </div>
@@ -707,7 +707,7 @@
                 </div>
                 <div class="col-md-9">
                     @if(!empty($robot) && $robot[0] !== '<!doctype')
-                        <p>Robots.txt file found</p>
+                        <p>Robots.txt file found.</p>
                     @else
                         <p>Your site is missing its robots.txt file. This file tells search engine bots how to most appropriately crawl your site and which pages not to crawl and index.</p>
                     @endif

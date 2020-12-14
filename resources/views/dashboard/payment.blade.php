@@ -1,21 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title></title>
-</head>
+@extends('layouts.master')
+@section('title', 'Stripe Checkout')
+@section('content')
 <style>
 		/**
 	* The CSS shown here will not be introduced in the Quickstart guide, but shows
 	* how you can use CSS to style your Element's container.
 	*/
-	body{
+	/* body{
 		background-color: #eee;
-	}
+	} */
 	.StripeElement {
 	box-sizing: border-box;
-
+	width: 98%;
 	height: 40px;
 
 	padding: 10px 12px;
@@ -23,7 +19,7 @@
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	background-color: white;
-
+	margin-left: 4px;
 	box-shadow: 0 1px 3px 0 #e6ebf1;
 	-webkit-transition: box-shadow 150ms ease;
 	transition: box-shadow 150ms ease;
@@ -44,7 +40,7 @@
 	}
 	.container{	
 		margin: 0;
-		background-color: #fff;
+		background-color: #eee;
 		position: absolute;
 		top: 50%;
 		left: 50%;
@@ -72,49 +68,50 @@
 	.label{
 		width: 100% !important;
 		background: #6cadad;
-		padding: 8px 40% 10px 37%;
+		padding: 7px 30% 10px 37%;
 		border-radius: 3px;
+		margin-bottom: -10px;
+
 	}
 	#payment-form{
 		margin-top:12px;
 	}
 	h1{
-		margin-left: 29%;
+		margin-left: 16%;
 	}
 </style>
-<body>
+
 <script src="https://js.stripe.com/v3/"></script>
-<div class="container">
-	
-	<div class="pay">
-		<h1>Stripe Checkout</h1>
-			<label for="card-element" class="label label-primary">
-				Credit or debit card
-			</label>
-			<form action="/stripe/{{$id}}" method="post" id="payment-form">
-			@csrf
-			<input type="hidden" value="{{$id}}">
-			<div class="form-row">
-				
-				<div id="card-element">
-				<!-- A Stripe Element will be inserted here. -->
+<div class="col-md-10  overview">
+	<div class="container">
+		<div class="pay">
+			<h1>Stripe Checkout</h1>
+				<label for="card-element" class="label label-primary">
+					Credit or debit card
+				</label>
+				<form action="/stripe/{{$id}}" method="post" id="payment-form">
+				@csrf
+				<input type="hidden" value="{{$id}}">
+				<div class="form-row">
+					
+					<div id="card-element">
+					<!-- A Stripe Element will be inserted here. -->
+					</div>
+
+					<!-- Used to display form errors. -->
+					<div id="card-errors" role="alert"></div>
 				</div>
 
-				<!-- Used to display form errors. -->
-				<div id="card-errors" role="alert"></div>
-			</div>
-
-			<button class="btn">Submit Payment</button>
-		</form>
-		
+				<button class="btn">Submit Payment</button>
+			</form>
+			
+		</div>
 	</div>
 </div>
-</body>
-</html>
 <script src="https://js.stripe.com/v3/"></script>
 <script>
 	// Create a Stripe client.
-	var stripe = Stripe('pk_test_51HoNAJJ6zlhCKixlq6PFXRVd9iKFwIa6xXJKWeS9bi7O2qqy25stwBEh5B4iD2ssVD9T2rZbVGJiFAIDOO9WCgkc00P51hwNrV');
+	var stripe = Stripe('sk_test_R5yp5YcSzHXQFP41vvKCSh9v');
 
 	// Create an instance of Elements.
 	var elements = stripe.elements();
@@ -183,3 +180,4 @@
 	form.submit();
 	}
 </script>
+@endsection

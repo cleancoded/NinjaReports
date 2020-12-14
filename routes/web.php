@@ -6,7 +6,6 @@ Route::get('/', function () {
 
 Route::group([], function () {
     Route::get('/home', 'DashboardController@home');
-    Route::get('/pricing', 'DashboardController@pricing');
     Route::get('/audit', 'DashboardController@seo_audit')->name('audit');
     Route::get('/analysis', 'DashboardController@seo_analysis')->name('analysis');
     Route::get('/destroy/{id}','DashboardController@destroy');
@@ -18,6 +17,7 @@ Route::group(['middleware' => ['auth']],function(){
     Route::get('/cancel','DashboardController@cancelSubscription')->name('cancel');
     Route::get('payment/{id}', 'PaymentController@payment')->name('payment');
     Route::post('/stripe/{id}', 'PaymentController@stripePost')->name('stripe.post');
+    Route::get('/pricing', 'DashboardController@pricing');
 });
 
 Route::post('/seo', 'analysisController@get_seo_result')->name('seo');

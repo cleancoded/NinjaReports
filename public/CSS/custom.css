@@ -5,6 +5,7 @@ html {
 h1, h2, h3, h4, h5 ,h6, .nav a {font-family:Roboto;}
 .loginModal .modal-header {margin-top:5px;}
 .loginModal .google-btn{margin-top:30px;}
+.audit-container .circle div {top:74px;}
 .warning-box {background:#f9ede4;}
 .error-box {background:#f9e8e8;}
 .notice-box {background:#DCE8F7;}
@@ -36,8 +37,8 @@ h1, h2, h3, h4, h5 ,h6, .nav a {font-family:Roboto;}
 .side-col {min-height: calc(100vh - 0px);}
 .side-bar .footer {
     position: absolute;
-    bottom: 0;
-    width:100%;
+    bottom: 5px;
+    width: 100%;
 }
 .side-bar .footer ul {list-style-type:none;padding: 0;}
 .side-bar .footer ul li {text-transform:uppercase;font-size:14px;}
@@ -50,6 +51,7 @@ clear:both;    margin: 0;}
     float: left;
     font-size: 11px;
 }
+.btn-orange {background:#ff6600;color:#fff;}
 .guide-box {
    max-width: 45%;
     margin-left: 3%;
@@ -71,7 +73,12 @@ table.detailed-pricing {margin:30px 0 100px 0;}
     color: #FFF;}
     .detailed-pricing tr th:first-child {background:none;border-top:none;}
 .detailed-pricing td {font-size:16px;padding: 10px 0px;}
-.nav .active {background:#fff;color:#0e6eea;}
+.nav .active {    background: #fff;
+    color: #0e6eea;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+    border-top: 1px solid #ddd;
+    right: -1px;}
 .google-preview {max-width:650px;}
 .google-preview p {font-size:.9rem;}
 .row.audit-text .col-md-5 {padding-left:0;}
@@ -105,7 +112,7 @@ table.detailed-pricing {margin:30px 0 100px 0;}
 .score-box h4 {
     text-transform: uppercase;
     font-size: 18px;
-    color: #999;
+    color: #666;
 }
 .overview .progressbar .col-md-12 {
     padding:0px;
@@ -205,11 +212,12 @@ p.match {
 }
 @media screen and (min-width: 768px) {
 .side-bar {
-    height: 90%;
+       height: 100%;
     width: 100%;
+    background: #eee;
     left: 0;
-    top: 65px;
-    position: absolute;
+    top: 50px;
+    border-right: 1px solid #ddd;
 }
 .row.top-bar {
     position: fixed;
@@ -341,3 +349,38 @@ input#seo_audit {
 }
 
 
+/* mobile CDSS */
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+/* Styles */
+.three-cols .col-md-4{width:100%;max-width: initial;}
+table.detailed-pricing {overflow: scroll;
+    max-width: 325px;
+    display: block;}
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen and (min-width : 321px) {
+/* Styles */
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width : 320px) {
+/* Styles */
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+/* Styles */
+}
+
+/* iPads (landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+/* Styles */
+}
+
+/* iPads (portrait) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+/* Styles */
+}

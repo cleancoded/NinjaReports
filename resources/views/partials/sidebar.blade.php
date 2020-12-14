@@ -48,26 +48,26 @@
 			</div>
 		</div>
 		<!--The Model-->
-		<div class="modal" id="myModal">
+		<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal" aria-hidden="true" style="margin-top:10%;">
 			<div class="modal-dialog">
 				<div class="modal-content">
-test
+					
 					<!-- Modal Header -->
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<button type="button" class="close" data-dismiss="modal" id="close">&times;</button>
 					</div>
 
 					<!-- Modal body -->
 					<div class="modal-body" style="padding:20px;">
-						<h2>Coming Soon</h2>
-						<h5>we dont have that feature yeT</h5>
+						<h2>Whoops!</h2>
+						<p>You must upgrade in order to run more SEO analysis.</p>
 						
 						</ul>
 					</div>
 
 					<!-- Modal footer -->
 					<div class="modal-footer" style="margin:auto;">
-						<button type="button" class="btn btn-warning" disabled href="#">View Plans</button>
+					<a class="btn-warning" href="{{route('subscription')}}" id='paybtn' style='padding:7px;text-decoration:none;'>View Plans</a>
 					</div>
 
 				</div>
@@ -114,16 +114,20 @@ test
 
 					<!-- Modal body -->
 					<div class="modal-body" style="padding:20px;">
-						<h2>Upgrade for more analysis</h2>
+					<h2>Whoops!</h2>
+						<p>You must upgrade in order to run more SEO analysis.</p>
+						<a type="button" class="btn btn-warning" href="{{route('subscription')}}">Upgrade</a>
 						</ul>
 					</div>
 
 					<!-- Modal footer -->
 					<div class="modal-footer" style="margin:auto;">
-						<button type="button" class="btn btn-warning" href="#">Upgrade</button>
+						
 					</div>
 
 				</div>
 			</div>
 		</div>
+
+
 	</div>

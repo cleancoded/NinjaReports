@@ -10,7 +10,7 @@
     </div>
 
 </div>
-    <div class="row Analyze">
+    <div class="row Analyze audit-container">
         <div class="col-md-10">
             <input type="text" id="seo_audit" class="form-control" value="{{$_GET['url'] ?? ''}}" placeholder="Enter URL">
         </div>
@@ -145,20 +145,10 @@
                                     data:{url:url},
                                     
                                     success:function(data){
-                                        if(data == 'unsuccessfull'){
-                                            var msg = "<?php echo base64_encode('Please Subscribe plan');?>";
-                                            var url = '/subscription?success='+msg;
-                                            window.location = url;
-                                        }else if(data == 'Expired'){
-                                            var msg = "<?php echo base64_encode('Your Subscription Expired');?>";
-                                            var url = '/account?success='+msg;
-                                            window.location = url;
-                                        }else if(data == 'acceded'){
-                                            var msg = "<?php echo base64_encode('You are acceded');?>";
-                                            var url = '/account?success='+msg;
-                                            window.location = url;
-                                        }
-                                        else{
+                                        if(data == 'notsuccessful' || data == 'Expired' || data == 'exceeded' ){
+                                            $('#waiting').hide();
+                                            $('#myModal').show();
+                                        }else{
                                             $('#progress').css('width', 100 + '%').text(100 + '%'); 
                                             $('div#text-container').append(data);
                                             $('.audit-item').show();
@@ -205,8 +195,8 @@
                         $(this).find('.circle').circleProgress({
                             startAngle: -Math.PI / 2,
                             value: percent / 100,
-                            thickness: 15,
-                            size: 175,
+                            thickness: 13,
+                            size: 190,
                             lineCap: "round",
                             emptyFill: "#f2f2f2",
                             fill: {

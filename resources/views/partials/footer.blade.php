@@ -8,6 +8,9 @@
 
 <script>
 $(document).ready(function($){
+    $('#close').click(function(e){
+        $('#myModal').hide();
+    });
     $("#login_button").click(function(e){
         var url = window.location.href;
         window.location ="/login?page="+url;

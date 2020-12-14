@@ -61,7 +61,7 @@
             <span>{{ Auth::user()->email }}</span></li>
            <li> <label>Plan:</label>
                 @if(!empty($product) && $status == 1)
-                    <span>{{$product->name}} plan</span>
+                    <span>{{$product->name}}</span>
                 @else
                     <span>Free plan</span>
                 @endif 

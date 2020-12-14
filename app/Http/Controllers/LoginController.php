@@ -21,9 +21,7 @@ class LoginController extends Controller
         $intended = $request->request->get('page');
         $url = $request->request->get('url');
         $payment_page =  url()->previous();
-        
-        $key = 'payment'; 
-        if (strpos($payment_page, $key) !== false) {
+        if ($payment_page) {
             Session::put('pay', $payment_page);
         }else{
             if ($intended) {
@@ -36,11 +34,6 @@ class LoginController extends Controller
         return Socialite::driver('google')->redirect();
     }
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function handleGoogleCallback()
     {
         
@@ -51,7 +44,7 @@ class LoginController extends Controller
             $user = Socialite::driver('google')->user();
            
             $finduser = User::where('google_id', $user->id)->first();
-
+            
             if ($finduser){
 
                 Auth::login($finduser);

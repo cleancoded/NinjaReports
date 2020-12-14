@@ -33,9 +33,9 @@ class analysisController extends Controller
             }
         }
         else if($Payment->status == 0){
-            return 'unsuccessfull';
+            return 'notsuccessful';
         }else if ($Payment->plan_id== 1 && $Payment->no_allowed_analysis <= $Payment->analysis_count ){
-            return 'acceded';
+            return 'exceeded';
         }
         else
         {
@@ -53,15 +53,15 @@ class analysisController extends Controller
         }catch(Exception $e){}
       
         if(empty($Payment) || $Payment->status == 0){
-            return 'unsuccessfull';
+            return 'notsuccessful';
         }else if ($Payment->plan_id == 1 && $Payment->no_allowed_audits <= $Payment->audit_count ){
-            return 'acceded';
+            return 'exceeded';
         }
         else if ($Payment->plan_id == 2 && $Payment->no_allowed_audits <= $Payment->audit_count ){
-            return 'acceded';
+            return 'exceeded';
         }
         else if ($Payment->plan_id== 3 && $Payment->no_allowed_audits <= $Payment->audit_count ){
-            return 'acceded';
+            return 'exceeded';
         }
         else
         {
@@ -83,6 +83,7 @@ class analysisController extends Controller
                     //extract Domain
                     $domain = parse_url($url, PHP_URL_HOST);
                     $domain_url = str_replace('www.', '', $domain);
+                    //dd($domain_url);
                     foreach ($a_links as $lnk) {
                         if (strpos($lnk, $domain_url) !== false) {
                             $internal_link[] = $lnk;
@@ -109,7 +110,8 @@ class analysisController extends Controller
                     $a = '/';
                     $pages = array();
                     foreach ($internal_pages as $val){
-                        if(strpos($val,"facebook") == false && strpos($val,"twitter") == false && strpos($val,"linkedin") == false && strpos($val,"instagram") == false && strpos($val, '#') == false){
+                        
+                        if(strpos($val,"facebook") == false && strpos($val,"twitter") == false && strpos($val,"linkedin") == false && strpos($val,"instagram") == false && strpos($val, '#') == false && strpos(parse_url($val)['host'],$domain_url) !== false){
                             if(empty(parse_url($val)['path'])){
                             array_push($pages, $val .= $a);
                                 }else{
@@ -472,7 +474,6 @@ class analysisController extends Controller
 
                 
             }catch(Exception $e){
-                
             }
            // dd($short_title_count);
             $warning = $less_page_words_count + $duplicate_h1_count + $page_incomplete_card_count
@@ -760,7 +761,7 @@ class analysisController extends Controller
                 foreach ($social_link as $social) {
                     if (strpos($ext, $social)) {
                         $link_to_social[] = $ext;
-                        $social_media_link = 'Link to social media profiles found';
+                        $social_media_link = 'Links to social media profiles found';
                     }
                 }
             }
@@ -1009,7 +1010,7 @@ class analysisController extends Controller
         
         //Page Score Passed
         try {
-            if ($title_length > 30 && $title_length < 70) {
+            if ($title_length > 30 && $title_length < 61) {
                 $val1_pass = 3.7;
             } else {
                 $val1_pass = 0;
@@ -1208,14 +1209,14 @@ class analysisController extends Controller
             } else {
                 $val6_error = 3.7;
             }
-            if ($title_length < 30) {$val7_error = 3.7;} else {$val7_error = 0;}
+            if ($title_length < 30 || $title_length > 60) {$val7_error = 3.7;} else {$val7_error = 0;}
             if ($meta_length < 50 || $meta_length > 160) {$val8_error = 3.7;} else {$val8_error = 0;}
             if (empty($iframe)) {$val9_error = 0;} else {$val9_error = 3.7;}
             if($mobile_friendly === 'MOBILE_FRIENDLY'){$val10_error = 0;}elseif($mobile_friendly === 'NOT_MOBILE_FRIENDLY'){$val10_error = 3;}
             $error_score = $val1_error + $val2_error + $val3_error + $val4_error + $val5_error
                             + $val6_error + $val7_error +$val8_error +$val9_error +$val10_error;
         } catch (Exception $e) {}
-        //dd($error_score);
+       
         //page Notices
         try{
             if (!empty($img_data)) {
@@ -1255,7 +1256,7 @@ class analysisController extends Controller
             } elseif ($passed_score > 60) {
             $score_description = "Your page SEO needs work!";
             } else {
-              $score_description = "Your page SEO is bad!";  
+              $score_description = "Your page SEO is weak!";  
             }
         }catch(Exception $e){}
         //dd($notice_score);

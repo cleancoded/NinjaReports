@@ -13,11 +13,11 @@
             <h3>QUICK ANALYSIS</h3>
             <p>Enter your URL to start a quick SEO analysis of your page. Ninja Reports scans your website for 50+ SEO factors and tells you how to fix them.</p>
                 <div class="row">
-                    <div class="col-md-10">
+                    <div class="col-md-8">
                         <input type="text" class="form-control url" placeholder="Enter URL">
                     </div>
                     <div class="col-md-2">
-                        <button class="btn btn-primary" class="analyze" id='analsis'>Analyze URL</button>
+                        <button class="btn btn-orange" class="analyze" id='analsis'>Analyze URL</button>
                     </div>
                 </div>
         </div>
@@ -59,8 +59,6 @@
     $(document).ready(function($){
         var loggedIn = {{ auth()->check() ? 'true' : 'false' }};
 
-
-     
         $("#analsis").click(function(e){
             var j$ = jQuery.noConflict();
             e . preventDefault();

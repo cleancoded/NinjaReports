@@ -38,7 +38,7 @@
                 @if(!empty($links_empty_h1)) <li> @endif    {{!empty($links_empty_h1)    ? 'H1 tag missing':''}} @if(!empty($links_empty_h1)) </li> @endif
                 @if(!empty($page_miss_meta)) <li> @endif     {{!empty($page_miss_meta)    ? 'Some pages missing meta description tag':''}} @if(!empty($page_miss_meta)) </li> @endif
                 @if(!empty($page_miss_title))  <li>  @endif  {{!empty($page_miss_title)? 'Title tag missing':''}} @if(!empty($page_miss_title))  </li>  @endif
-                @if(!empty($duplicate_meta_description)) <li>  @endif    {{!empty($duplicate_meta_description) ? 'Duplicate meta discriptions found' : ''}} @if(!empty($duplicate_meta_description)) </li>  @endif
+                @if(!empty($duplicate_meta_description)) <li>  @endif    {{!empty($duplicate_meta_description) ? 'Duplicate meta descriptions found' : ''}} @if(!empty($duplicate_meta_description)) </li>  @endif
                 @if(!empty($duplicate_title)) <li>   @endif  {{!empty($duplicate_title) ? 'Duplicate title tags found' : ''}} @if(!empty($duplicate_title)) </li>   @endif
                 @if(!empty($short_title)) <li>   @endif    {{!empty($short_title) ? 'Title tag too short':''}} @if(!empty($short_title)) </li>   @endif
                 @if(!empty($long_title))   <li>  @endif  {{!empty($long_title)  ? 'Title tag too long' :''}} @if(!empty($long_title))  </li>  @endif 
@@ -238,7 +238,7 @@
                         @foreach($less_code_ratio as $less)
                                 <tr>
                                     <td><a href="{{$less}}" target="_blank">{{$less}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
-                                    <td>Your text-HTML ratio is off balance. Search engines need text to know what a page is about. You should shoot for a 25-70% text-HTML ratio.</td>
+                                    <td>Your text-HTML ratio is off balance. Search engines need text to know what a page is about. You should shoot for a 10% or greater text-HTML ratio.</td>
                                     <td>Add more relevant text to your page to bring the ratio back into balance.</td>
                                 </tr>
                             @endforeach

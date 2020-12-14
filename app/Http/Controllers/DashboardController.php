@@ -10,6 +10,7 @@ use App\Payment;
 class DashboardController extends Controller
 {
     public function home(){
+        // dd(session()->all());
         return view('dashboard/home');
     }
 
@@ -22,7 +23,7 @@ class DashboardController extends Controller
     }
     public function account(){
         
-        $Payment=Payment::where('user_id',auth()->user()->id)->first();
+        $Payment=Payment::where('user_id',auth()->user()->id)->where('status',1)->first();
         if($Payment['product_id']){
             $stripe = new \Stripe\StripeClient(
                 'sk_test_R5yp5YcSzHXQFP41vvKCSh9v'
@@ -49,7 +50,7 @@ class DashboardController extends Controller
     }
 
     public function cancelSubscription(){
-        $Payment=Payment::where('user_id',auth()->user()->id)->first();
+        $Payment=Payment::where('user_id',auth()->user()->id)->where('status',1)->first();
         //dd($Payment['subscription_id']);
         if($Payment){
             $stripe = new \Stripe\StripeClient(
