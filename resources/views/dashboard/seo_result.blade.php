@@ -233,7 +233,7 @@
                         <p>NO Images Found</p>
                     @else
                         @if(empty($img_miss_alt))
-                            <p>No images are missing alt tags.({{$img_miss_alt ?? 0}} images are missing alt tags</p>
+                            <p>No images are missing alt tags.</p>
                             @else
                             <p>{{$img_miss_alt}} images are missing alt tags.({{$img_alt}} images passed)</p>
                         @endif
@@ -503,7 +503,7 @@
                                 <tbody>
                                     @foreach($img_data as  $key => $val)
                                         <tr>
-                                            <td><a target="_blank" href="{{substr($key,0,80)}}">{{substr($key,0,80)}}  <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                                            <td><a target="_blank" href="{{$key}}">{{substr($key,0,80)}}  <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
                                             <td>{{number_format($val,1)}} kb</td>
                                         </tr>
                                     @endforeach

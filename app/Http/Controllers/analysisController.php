@@ -869,10 +869,11 @@ class analysisController extends Controller
             }
         } catch (Exception $e) {
         }
-
+        //dd($url);
         //page word count
-        $str = file_get_contents($url);
-
+        
+        $str = $crawler->html();
+        
         $search = array('@<script[^>]*?>.*?</script>@si',  
         '@<head>.*?</head>@siU',            
         '@<style[^>]*?>.*?</style>@siU',    
@@ -880,6 +881,8 @@ class analysisController extends Controller
         );
 
         $contents = preg_replace($search," ", $str);
+
+        
         $word_count = $this->extractKeyWords(strip_tags($contents))[0];
         $words = str_word_count(strtolower($contents),1);
         $t =preg_replace("/[^A-Za-z0-9 ]/", '', strip_tags($contents));
@@ -898,6 +901,8 @@ class analysisController extends Controller
             return !is_numeric($value);
         });
         $word = count($result);
+
+
 
         $word_page  = array_filter($page_w, function ($value) use ($item) {
             return !is_numeric($value);
@@ -1007,7 +1012,6 @@ class analysisController extends Controller
         } catch (Exception $e) {
         }
        
-        
         //Page Score Passed
         try {
             if ($title_length > 30 && $title_length < 61) {
@@ -1291,7 +1295,8 @@ class analysisController extends Controller
         $string = trim($string); // trim the string
         $string = preg_replace('/[^a-zA-Z0-9 -]/', '', $string); // only take alphanumerical characters, but keep the spaces and dashes too…
         $string = strtolower($string); // make it lowercase
-   
+        $string = preg_replace('/(?=[^ ]*[^A-Za-z \'-])([^ ]*)(?:\\s+|$)/', '', $string);
+        //dd($string);
         preg_match_all('/\b.*?\b/i', $string, $matchWords);
         $matchWords = $matchWords[0];
    
@@ -1303,6 +1308,7 @@ class analysisController extends Controller
         $wordCountArr = array();
         if ( is_array($matchWords) ) {
             foreach ( $matchWords as $key => $val ) {
+                
                 $val = strtolower($val);
                 if ( isset($wordCountArr[$val]) ) {
                     $wordCountArr[$val]++;
@@ -1315,4 +1321,6 @@ class analysisController extends Controller
         $wordCountArr = array_slice($wordCountArr, 0, 10);
         return array($wordCountArr,$stopWords);
     }
+    
+    
 }
