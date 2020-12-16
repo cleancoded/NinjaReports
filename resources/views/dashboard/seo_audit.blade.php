@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('title', 'SEO Audit')
 @section('content')
-<div class="col-md-10  overview">
+<div class="col-md-10 overview">
        <div id="tool-desc" class="row">
 
         <div class="col-md-12">
@@ -10,7 +10,7 @@
     </div>
 
 </div>
-    <div class="row Analyze audit-container">
+    <div class="row Analyze ">
         <div class="col-md-10">
             <input type="text" id="seo_audit" class="form-control" value="{{$_GET['url'] ?? ''}}" placeholder="Enter URL">
         </div>
@@ -38,7 +38,7 @@
             <p>Please wait while we crawl your pages. This process can take a few minutes.</p>
         </div>
     </div>
-    <div id="text-container"></div>
+    <div id="text-container" class="audit-container"></div>
      <!------------------------------------------Animation Script ProgressBarStart----------------------------------------------------->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>

@@ -67,7 +67,7 @@
 	}
 	.label{
 		width: 100% !important;
-		background: #6cadad;
+		background: #eee;
 		padding: 7px 30% 10px 37%;
 		border-radius: 3px;
 		margin-bottom: -10px;
@@ -76,16 +76,15 @@
 	#payment-form{
 		margin-top:12px;
 	}
-	h1{
-		margin-left: 16%;
-	}
+
 </style>
 
 <script src="https://js.stripe.com/v3/"></script>
-<div class="col-md-10  overview">
-	<div class="container">
-		<div class="pay">
-			<h1>Stripe Checkout</h1>
+<div class="col-md-10 overview">
+	<div class="row" style="margin-top:50px;">
+	<div class="col-md-6">
+
+			<h1>Checkout <img src="../images/powered by stripe.png" alt="stripe" style="max-width:130px"/></h1>
 				<label for="card-element" class="label label-primary">
 					Credit or debit card
 				</label>
@@ -101,17 +100,68 @@
 					<!-- Used to display form errors. -->
 					<div id="card-errors" role="alert"></div>
 				</div>
-
-				<button class="btn">Submit Payment</button>
+				<div><input type="checkbox" id="policy" name="policy" checked="checked"> <label for="policy" style="font-size:13px;padding-top:7px;color:#999">I have read and I agree to the <a target="_blank" href="https://www.ninjareports.com/terms-conditions/">Terms of Use</a>.</label></div>
+				<button class="btn btn-warning">JOIN NOW</button>
 			</form>
 			
-		</div>
+	</div>
+	<div class="col-md-4" style="padding:50px 10px 10px 10px;">
+		
+		<h3>Subscription Details</h3>
+		
+		<label>Free Trial Length</label>: <strong>7 Days</strong>
+	</br>
+		<label>After-Trial Price</label>:
+				@if($id == '1')
+					<strong>$29/month</strong>
+				@endif
+				@if($id == '2')
+					<strong>$49/month</strong>
+				@endif
+				@if($id == '3')
+					<strong>$99/month</strong>
+				@endif
+		</strong>
+		</br>
+		<label>First Billing Date</label>: <strong>{{$trial_end}}</strong>
+		</br>
+		<div style="border-top:1px solid #ddd;padding:5px;background:#eee">
+		<label style="font-size:19px;margin:0">Today's Charge</label>: <strong style="font-size:19px;color:green">$0.00</strong>
+	</div>
+		<p style="font-size:13px;color:#666;padding:3px;margin-top:5px;"><i class="fa fa-info-circle" aria-hidden="true"></i> You can cancel anytime in the <a href="/account">My Account</a> area.</p>
 	</div>
 </div>
+
+<div class="row text-center" style="padding:30px 0">
+	<div class="col-md-12">
+		<strong style="display:block;text-align:center;font-size:12px;color:#ccc">FEATURED ON</strong>
+	<img src="https://www.ninjareports.com/wp-content/uploads/2020/07/as-seen-on.png" alt="seen on"/>
+	<hr/>
+</div>
+</div>
+
+	     <div class="row testimonials Audit-image-text" style="padding:25px;margin-top:50px;">
+          <div class="col-md-6">
+            <img src="../images/brandon.jpeg" style="float:left;margin-right:10px;" alt=""/>
+            <h4>Great SEO Tool</h4>
+            <p>I save a lot of time using this product. Weekly reports of my website audit in my inbox are a dream come true for any SEO agency or marketer!</p>
+            <label style="font-weight:bold;text-align:right;display:block;">Brandon S.</label>
+          </div>
+           <div class="col-md-6">
+             <img src="../images/megan.jpeg" style="float:left;margin-right:10px;" lt=""/>
+            <h4>Great All Around Tool</h4>
+            <p>Makes audit reporting much faster than it was before with other tools. I estimate I save 10-20 minutes per report with this tool.</p>
+            <label style="font-weight:bold;text-align:right;display:block;">Megan R.</label>
+          </div>
+    </div>
+
+
+	</div>
 <script src="https://js.stripe.com/v3/"></script>
 <script>
 	// Create a Stripe client.
-	var stripe = Stripe('sk_test_R5yp5YcSzHXQFP41vvKCSh9v');
+	var key = '{{ env('STRIPE_PUBLISHABLE_KEY') }}';
+	var stripe = Stripe(key);
 
 	// Create an instance of Elements.
 	var elements = stripe.elements();

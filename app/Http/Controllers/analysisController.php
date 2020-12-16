@@ -9,6 +9,7 @@ use App\Analysis;
 use App\User;
 use App\Payment;
 use App\Audit;
+ini_set('max_execution_time', '300');
 class analysisController extends Controller
 {
 
@@ -645,15 +646,40 @@ class analysisController extends Controller
         $create_analysis->site_url = $url;
         $create_analysis->payment_id = $Payment->id ?? Null;
         $create_analysis->save();
-        
-       
+               //backlink count
+        try{
+            $semrush = "https://api.semrush.com/analytics/v1/?key=c1e034dec2d230da542fae097853854a&type=backlinks_overview&target=".$url."&target_type=root_domain&export_columns=domains_num,urls_num";
+
+            $curl = curl_init($semrush);
+            curl_setopt($curl, CURLOPT_URL, $semrush);
+            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+            //for debug only!
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            
+            $resp = curl_exec($curl);
+            curl_close($curl);
+
+            // split names & values
+            list($names,$values) = preg_split("/[\s,][\d]/",$resp);// <= set here your regex according your response 
+            $names = str_replace(' ','_',trim($names)); 
+            $names = explode(';',$names);
+            $values = explode(';',$values);
+            $SEMrush_data = array_combine($names,$values);   
+            $domains_num =  $SEMrush_data['domains_num'];
+            $urls_num = $SEMrush_data['urls_num'];
+
+        }catch(Exception $e){}
+
         //Mobile Friendly test
         try{
             $urls = "https://searchconsole.googleapis.com/v1/urlTestingTools/mobileFriendlyTest:run?key=AIzaSyBoWi8UVeIzrhXxxDhPm4G9OQT3lJuy1fc";
 
             $curl = curl_init($urls);
             curl_setopt($curl, CURLOPT_URL, $urls);
-            curl_setopt($curl, CURLOPT_POST, true);;
+            curl_setopt($curl, CURLOPT_POST, true);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             
             $headers = array();
@@ -694,7 +720,7 @@ class analysisController extends Controller
                     $pat_error[] = $img->getAttribute('src');
                 }
             }
-            $img_data = array_combine($location, $image_size);
+            $img_data = arsort(array_combine($location, $image_size));
         } catch (Exception $e) {}
        
         //Schema
@@ -749,8 +775,7 @@ class analysisController extends Controller
                     $external_link[] = $lnk;
                 }
             }
-        } catch (Exception $e) {
-        }
+        } catch (Exception $e) {}
         //Link To Social Media Page
         try {
             $social_link = array('facebook', 'linkedin', 'twitter', 'youtube', 'instagram');
@@ -999,7 +1024,11 @@ class analysisController extends Controller
             }
             $img_without_alt = array();
             foreach ($crawler->filter('img[alt=""]') as $img) {
+                //remove non http urls
+               if(substr( $string_n, 0, 4 ) === "http")
+               {
                 $img_without_alt[] = $img->getAttribute('src');
+            }
             }
 
             $img_alt = count($all_img_src) - count($img_without_alt);
@@ -1014,12 +1043,12 @@ class analysisController extends Controller
        
         //Page Score Passed
         try {
-            if ($title_length > 30 && $title_length < 61) {
+            if ($title_length > 50 && $title_length <= 60) {
                 $val1_pass = 3.7;
             } else {
                 $val1_pass = 0;
             }
-            if ($meta_length > 50 && $meta_length < 160) {
+            if ($meta_length >= 120 && $meta_length <= 160) {
                 $val2_pass = 3.7;
             } else {
                 $val2_pass = 0;
@@ -1141,14 +1170,32 @@ class analysisController extends Controller
             }else{
                 $val26_pass = 0;
             }
-            if(!empty($internal_link)){ $val27_pass = 3;}else{ $val27_pass = 0;}
-            if($page_text_ratio > 10){$val28_pass = 3;}else{$val28_pass = 0;}   
+            if(!empty($internal_link)){ 
+                $val27_pass = 3;
+            }else{ 
+                $val27_pass = 0;
+            }
+            if($page_text_ratio > 10){
+                $val28_pass = 3;
+            }else{
+                $val28_pass = 0;
+            }   
             $text_html_ration = 3.7;
             $http_rquest = 3.7;
+
             $passed_score = $val1_pass + $val2_pass + $val3_pass + $val4_pass + $val5_pass + $val6_pass + $val7_pass + $val8_pass + $val9_pass
                 + $val10_pass + $val11_pass + $val12_pass + $val13_pass + $val14_pass + $val15_pass + $val16_pass + $val17_pass
                 + $val18_pass + $val20_pass + $val21_pass + $val22_pass + $val23_pass + $val24_pass +
-                $text_html_ration + $http_rquest +$val25_pass+$val26_pass+$val27_pass+$val28_pass;
+                $text_html_ration + $http_rquest + $val25_pass + $val26_pass + $val27_pass + $val28_pass;
+             $passed_score = round($passed_score);
+            
+            if($passed_score > 80){
+            $score_description = "Your page SEO is good!";
+            } elseif ($passed_score > 60) {
+            $score_description = "Your page SEO needs work!";
+            } else {
+              $score_description = "Your page SEO is weak!";  
+            }
         } catch (Exception $e) {}
     
         //Page Score Warning
@@ -1183,6 +1230,7 @@ class analysisController extends Controller
 
         //Page Score Error
         try {
+
             if (!empty($status404)) {
                 $val1_error = 3.7;
             } else {
@@ -1213,10 +1261,11 @@ class analysisController extends Controller
             } else {
                 $val6_error = 3.7;
             }
-            if ($title_length < 30 || $title_length > 60) {$val7_error = 3.7;} else {$val7_error = 0;}
-            if ($meta_length < 50 || $meta_length > 160) {$val8_error = 3.7;} else {$val8_error = 0;}
+            if ($title_length < 50 || $title_length > 60) {$val7_error = 3.7;} else {$val7_error = 0;}
+            if ($meta_length < 120 || $meta_length > 160) {$val8_error = 3.7;} else {$val8_error = 0;}
             if (empty($iframe)) {$val9_error = 0;} else {$val9_error = 3.7;}
             if($mobile_friendly === 'MOBILE_FRIENDLY'){$val10_error = 0;}elseif($mobile_friendly === 'NOT_MOBILE_FRIENDLY'){$val10_error = 3;}
+
             $error_score = $val1_error + $val2_error + $val3_error + $val4_error + $val5_error
                             + $val6_error + $val7_error +$val8_error +$val9_error +$val10_error;
         } catch (Exception $e) {}
@@ -1254,33 +1303,64 @@ class analysisController extends Controller
                 $val6_notice = 0;
             }
             $notice_score = $val1_notice+$val2_notice+$val3_notice+$val4_notice+$val5_notice+$val6_notice;
-
-            if($passed_score > 80){
-            $score_description = "Your page SEO is good!";
-            } elseif ($passed_score > 60) {
-            $score_description = "Your page SEO needs work!";
-            } else {
-              $score_description = "Your page SEO is weak!";  
-            }
+            $notice_score = round($notice_score);
         }catch(Exception $e){}
         //dd($notice_score);
-        $view = view("dashboard/seo_result", compact(
-            'url', 'title', 'title_length', 'meta',
-            'meta_length', 'img_alt', 'img_miss_alt',
-            'iframe', 'all_img_src', 'canonical',
-            'time', 'img_without_alt', 'url_seo_friendly',
-            'h1', 'h1_tags', 'h2', 'h2_tags', 'h3', 'h3_tags',
-            'word_count', 'numWords', 'density_message',
-            'keyword_title', 'page_words', 'page_size', 'page_text_ratio',
-            'page_words_size', 'http', 'cache', 'page_https',
-            'status404', 'internal_link', 'a_https', 'link_https', 'script_https',
-            'social_media_link', 'robot', 'sitemap', 'schema',
-            'social_schema', 'passed_score', 'warning_score', 'error_score',
-            'img_data','favicon','mobile_friendly','ssl_certificate','notice_score',
-            'image','score_description','word'
+         return view("dashboard/seo_result", compact(
+            'url',
+            'title',
+            'title_length',
+            'meta',
+            'meta_length',
+            'img_alt',
+            'img_miss_alt',
+            'iframe',
+            'all_img_src',
+            'canonical',
+            'time',
+            'img_without_alt',
+            'url_seo_friendly',
+            'h1',
+            'h1_tags',
+            'h2',
+            'h2_tags',
+            'h3',
+            'h3_tags',
+            'word_count',
+            'numWords',
+            'density_message',
+            'keyword_title',
+            'page_words',
+            'page_size',
+            'page_text_ratio',
+            'page_words_size',
+            'http',
+            'cache',
+            'page_https',
+            'status404',
+            'internal_link',
+            'a_https',
+            'link_https',
+            'script_https',
+            'social_media_link',
+            'robot',
+            'sitemap',
+            'schema',
+            'social_schema',
+            'passed_score',
+            'warning_score',
+            'error_score',
+            'img_data',
+            'favicon',
+            'mobile_friendly',
+            'ssl_certificate',
+            'notice_score',
+            'image',
+            'score_description',
+            'word',
+            'domains_num',
+            'urls_num'));
 
-        ));
-        return $view;
     }
 
     public function stripUrlPath($url){

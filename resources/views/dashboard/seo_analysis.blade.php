@@ -18,7 +18,7 @@
 
             </div>
             <div class="col-md-2">
-                <button class="btn" id='analyse'>Analyze</button>
+                <button class="btn" id='analyse'>CRAWL</button>
             </div>
         </div>
     </form>
@@ -209,7 +209,7 @@
                                 }
                             });
                         }else{
-                            alert("The link doesn't have http or https");
+                            alert("The link doesn't have http:// or https://");
                         }
                     }else{
                         alert('add url');

@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use Session;
 use Stripe;
 use App\User;
-use App\Payment;   
+use App\Payment;  
+use Auth; 
 class DashboardController extends Controller
 {
     public function home(){
@@ -22,26 +23,44 @@ class DashboardController extends Controller
         return view('dashboard/seo_analysis');
     }
     public function account(){
-        
         $Payment=Payment::where('user_id',auth()->user()->id)->where('status',1)->first();
         if($Payment['product_id']){
             $stripe = new \Stripe\StripeClient(
-                'sk_test_R5yp5YcSzHXQFP41vvKCSh9v'
+                env('STRIPE_SECRET_KEY')
             );
             $product = $stripe->products->retrieve(
                 $Payment['product_id'],
                 []
             );
             $status = $Payment['status'];
+
         }else{
-            $product = '';
-            $status = '';
+            $product = 'N/A';
+            $status = 'N/A';
         }
         return view('dashboard/account',compact('product','status'));
     }
     public function subscription(){
-       
-        return view('dashboard/subscription');
+        if(!empty(auth()->user()->id)) {
+        $Payment=Payment::where('user_id',auth()->user()->id)->where('status',1)->first();
+        if($Payment['product_id']){
+            $stripe = new \Stripe\StripeClient(
+                env('STRIPE_SECRET_KEY')
+            );
+            $product = $stripe->products->retrieve(
+                $Payment['product_id'],
+                []
+            );
+            $status = $Payment['status'];
+
+        }else{
+            $product = 'N/A';
+            $status = 'N/A';
+        }
+    } else {
+        $status = 0;
+    }
+        return view('dashboard/subscription',compact('product','status'));
     }
     public function destroy($id){
         $user=User::findOrFail($id);
@@ -54,7 +73,7 @@ class DashboardController extends Controller
         //dd($Payment['subscription_id']);
         if($Payment){
             $stripe = new \Stripe\StripeClient(
-                'sk_test_R5yp5YcSzHXQFP41vvKCSh9v'
+                env('STRIPE_SECRET_KEY')
             );
             $stripe->subscriptions->cancel(
                 $Payment['subscription_id'],
@@ -63,7 +82,7 @@ class DashboardController extends Controller
         }
         $Payment->status = 0;
         $Payment->save();
-        return redirect('/account')->with('message', 'Subscription Cancel  Successfully');
+        return redirect('/account')->with('message', 'Subscription cancelled successfully.');
     }
     public function pricing(){
         return view('dashboard/pricing');

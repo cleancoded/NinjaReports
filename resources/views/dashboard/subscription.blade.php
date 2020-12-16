@@ -12,23 +12,35 @@
     <div class="container">
             <div class="row three-cols pricing-boxes" style="margin-top:10%;">
                 <div class="col-md-4 text-center Webmaster-col">
-                    <h6></h6>
                     <h3>Webmaster</h3>
-                    <p>Affordable Package for webmasters or small businesses wanting to enhance their SEO.
-</p>
+                    <p>Affordable Package for webmasters or small businesses wanting to enhance their SEO.</p>               
                     <h5><strong>$29</strong></h5>
                     <h6>per month</h6>
-                    <h4><a href="{{route('payment',['id' => 1])}}" class="btn btn-primary btn-lg">FREE TRIAL</a></h4>
+                         @if($status == 1 && $product->id == 'prod_IQ583lkkZ3Ctwr')
+                       <h4><a href="javascript:void(0)" class="btn btn-secondary btn-lg" style="pointer-events: none;">CURRENT PLAN</a></h4>
+                         @elseif($status == 1)
+                        <h4><a href="{{route('payment',['id' => 1])}}" class="btn btn-primary btn-lg">UPGRADE</a></h4>
+                         @endif
+                        @if($status == 0)
+                       <h4><a href="{{route('payment',['id' => 1])}}" class="btn btn-primary btn-lg">FREE 7-DAY TRIAL</a></h4>
+                         @endif
                     <a href="#detailed">Learn More</a>
                 </div>
                 <div class="col-md-4 text-center Business-col" style="padding-top: 0px;">
                     <h6 style="color: white;background-color: #ff6600;position: relative;top:-27px;padding:3px;">MOST POPULAR</h6>
                     <h3>Business</h3>
-                    <p>Our most popular package, perfect for businesses with multiple sites or clients looking to grow their traffic.
-</p>
+                    <p>Our most popular package, perfect for businesses with multiple sites or clients looking to grow their traffic.</p>
                     <h5><strong>$49</strong></h5>
                     <h6>per month</h6>
-                    <h4><a href="{{route('payment',['id' => 2])}}" class="btn btn-warning btn-lg" style="background:#ff6600;color:#fff">FREE TRIAL</a></h4>
+                        @if($status == 1 && $product->id == 'prod_IQ59BGbdGnCcmw')
+                       <h4><a href="javascript:void(0)" class="btn btn-secondary btn-lg" style="pointer-events: none;">CURRENT PLAN</a></h4>
+                         @elseif($status == 1)
+                        <h4><a href="{{route('payment',['id' => 2])}}" class="btn btn-warning btn-lg">UPGRADE</a></h4>
+                         @endif
+                        @if($status == 0)
+                       <h4><a href="{{route('payment',['id' => 2])}}" class="btn btn-warning btn-lg">FREE 7-DAY TRIAL</a></h4>
+                         @endif
+
                     <a href="#detailed">Learn More</a>
                 </div>
                 <div class="col-md-4 text-center Agency-col">
@@ -37,7 +49,14 @@
 </p>
                     <h5><strong>$99</strong></h5>
                     <h6>per month</h6>
-                    <h4><a  href="{{route('payment',['id' => 3])}}" class="btn btn-primary btn-lg">FREE TRIAL</a></h4>
+                    @if($status == 1 && $product->id == 'prod_IQ5AeQ7uec9djJ')
+                       <h4><a href="javascript:void(0)" class="btn btn-secondary btn-lg" style="pointer-events: none;">CURRENT PLAN</a></h4>
+                         @elseif($status == 1)
+                        <h4><a href="{{route('payment',['id' => 3])}}" class="btn btn-primary btn-lg">UPGRADE</a></h4>
+                         @endif
+                        @if($status == 0)
+                       <h4><a href="{{route('payment',['id' => 3])}}" class="btn btn-primary btn-lg">FREE 7-DAY TRIAL</a></h4>
+                         @endif
                     <a href="#detailed">Learn More</a>
                 </div>
             </div>
