@@ -8,7 +8,6 @@ use Exception;
 use Illuminate\Http\Request;
 use Session;
 use Socialite;
-
 class LoginController extends Controller
 {
     /**
@@ -21,51 +20,51 @@ class LoginController extends Controller
         
         $intended = $request->request->get('page');
         $url = $request->request->get('url');
-
-        //dd($request);
-        if ($intended) {
-            Session::put('page_url', $intended);
-        }
-        if($url){
-            Session::put('url', $url);
-        }
-
+        $payment_page =  url()->previous();
+        if ($payment_page) {
+            Session::put('pay', $payment_page);
+        }else{
+            if ($intended) {
+                Session::put('page_url', $intended);
+            }
+            if($url){
+                Session::put('url', $url);
+            }
+        } 
         return Socialite::driver('google')->redirect();
-
-        // $intended = url()->previous();
-        // Session::put('page_url', $intended);
-
     }
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function handleGoogleCallback()
     {
+        
         try {
             $redirect = Session::get('page_url');
             $url = Session::get('url');
-
+           
             $user = Socialite::driver('google')->user();
+           
             $finduser = User::where('google_id', $user->id)->first();
-
+            
             if ($finduser){
 
                 Auth::login($finduser);
-                if($redirect != null && $url != null){
-                    return redirect($redirect.'?url='.$url);
-                }
-                elseif ($redirect != null && $url == null) {
-                    return redirect($redirect);
+                if(Session::get('pay') !=null){
+                    //dd('working');
+                    return redirect(Session::get('pay'));
                 }else{
-                    return redirect('/home');
 
+                    if($redirect != null && $url != null){
+                        return redirect($redirect.'?url='.$url);
+                    }
+                    elseif ($redirect != null && $url == null) {
+                        return redirect($redirect);
+                    }else{
+                        return redirect('/home');
+                    }
                 }
-
             } else {
-                if ($user->user['verified_email']) {
+                if ($user->user['verified_email'] !== false) {
+                  
                     $newUser = $newUser = User::create([
                         'name' => $user->name,
                         'email' => $user->email,
@@ -89,7 +88,7 @@ class LoginController extends Controller
                     dd($err);
                 }
             }
-
+            
         } catch (Exception $e) {
             dd($e->getMessage());
         }
@@ -98,6 +97,7 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
+        Session::flush();
         return redirect('/home');
     }
 }
