@@ -9,7 +9,7 @@ use App\Analysis;
 use App\User;
 use App\Payment;
 use App\Audit;
-
+ini_set('max_execution_time', '300');
 class analysisController extends Controller
 {
 
