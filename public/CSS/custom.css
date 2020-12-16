@@ -9,6 +9,7 @@ h1, h2, h3, h4, h5 ,h6, .nav a {font-family:Roboto;}
 .warning-box {background:#f9ede4;}
 .error-box {background:#f9e8e8;}
 .notice-box {background:#DCE8F7;}
+body .btn-warning {background:#f60;color:#fff;border-color:#f60;}
 .table .thead-light th {    color: #fff;
     background-color: #3f3f3f;
     padding: .5rem;}
@@ -17,6 +18,8 @@ h1, h2, h3, h4, h5 ,h6, .nav a {font-family:Roboto;}
 .export-tools {margin-top:30px;}
 .export-tools a {display:block;background:#0E6EEA;border-color:#0E6EEA;}
 #tool-desc .col-md-12 {padding:5px 0;}
+.side-bar UL.NAV {position: fixed;
+    width: 316PX;}
 .Welcome-two-cols {margin-bottom:50px;}
 .notice-bo h4, .error-box h4, .warning-box h4 {
     border-bottom: 1px solid #fff;
@@ -34,6 +37,8 @@ h1, h2, h3, h4, h5 ,h6, .nav a {font-family:Roboto;}
     margin-bottom:15px;
     color:#3f3f3f;
 }
+.audit-container .table th:first-child, .audit-container .table td:first-child {min-width:300px;}
+.audit-container .table th:nth-child(2) , .audit-container .table td:nth-child(2)  {min-width:250px;}
 .side-col {min-height: calc(100vh - 0px);}
 .side-bar .footer {
     position: absolute;
@@ -122,8 +127,8 @@ table.detailed-pricing {margin:30px 0 100px 0;}
     background-color: #fff;
 }
 .pricing-page {margin-top:40px;}
-.pricing-page .testimonials label {text-align:right;font-weight:bold;display:block;}
-.pricing-page .testimonials img {border:1px solid #ccc;padding: 3px;}
+ .testimonials label {text-align:right;font-weight:bold;display:block;}
+ .testimonials img {border:1px solid #ccc;padding: 3px;}
 img.most {
     margin-right: 3px;
     height: 24px;
@@ -358,6 +363,7 @@ input#seo_audit {
 table.detailed-pricing {overflow: scroll;
     max-width: 325px;
     display: block;}
+    .audit-container .table th:first-child, .audit-container .table td:first-child {min-width:100px;}
 }
 
 /* Smartphones (landscape) ----------- */

@@ -6,7 +6,7 @@
 
         </div>
         <div class="col-md-5 text-right">
-            <h5>{{$time}}</h5>
+            <h5>{{ $time }}</h5>
         </div>
     </div>
     
@@ -17,7 +17,7 @@
                 <div class="blue text-center">
                     <div class="score-wrapper">
                     <div class="Progress" id="score" data-animate="false">
-                        <div class="circle" data-percent="<?php echo round($passed_score) ?? 0; ?>">
+                        <div class="circle" data-percent="<?php echo $passed_score ?? 0; ?>">
                             <div></div>
                         </div>
                     </div>
@@ -118,7 +118,7 @@
                 <hr>
             <div class="row">
                 <div class="col-md-3">
-                @if($meta_length > 60 && $meta_length < 160)
+                @if($meta_length >= 120 && $meta_length <= 160)
 
                     <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Meta Description Tag</h6>
                 @else
@@ -127,7 +127,7 @@
                 </div>
                 <div class="col-md-9">
                     <p>{{$meta}}</p>
-                    <p>Length: {{$meta_length}} Characters (Recommended: 60-160 characters)</p>
+                    <p>Length: {{$meta_length}} Characters (Recommended: 120-160 characters)</p>
                 </div>
             </div>
                 <hr>
@@ -178,15 +178,15 @@
                 <div class="col-md-3">
                     @if($mobile_friendly === 'MOBILE_FRIENDLY')
                         <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Mobile Friendly</h6>
-                    @elseif($mobile_friendly === 'NOT_MOBILE_FRIENDLY')
+                    @elseif(!empty($mobile_friendly) && $mobile_friendly === 'NOT_MOBILE_FRIENDLY')
                     <h6><span style="margin-right: 9px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Mobile Friendly</h6>
                     @endif
                 </div>
                 <div class="col-md-9">
                     @if($mobile_friendly === 'MOBILE_FRIENDLY')
-                        <p>Your website is Mobile Friendly</p>
+                        <p>Your website is Mobile-Friendly.</p>
                     @elseif($mobile_friendly === 'NOT_MOBILE_FRIENDLY')
-                        <p>Your website is not mobile responsive. With a mobile responsive website, you will rank better in the mobile index.</p>
+                        <p>Your website is not mobile responsive.</p>
                     @endif
                 </div>
             </div>
@@ -209,7 +209,7 @@
                     @if(!empty($schema))
                         <p>Schema tags found on your page.</p>
                     @else
-                        <p>Your page is missing schema tags. Schema tags help crawlers determine certain information about a website, business, products or videos. </p>
+                        <p>Your page is missing schema tags.</p>
                     @endif
                     <!-- <h6>Organisation, Service</h6>
                     <p>No Schema Errors</p> -->
@@ -272,9 +272,9 @@
                 </div>
                 <div class="col-md-9">
                @if(!empty($iframe))
-                    <p>You are using an Iframe on your page. Iframes can't be crawled by search engines and aren't good for SEO, in general.</p>
+                    <p>You are using an Iframe on your page.</p>
                 @else
-                  <p>No Iframes on the page.</p>
+                  <p>No Iframes found on the page.</p>
                 @endif
                 </div>
             </div>
@@ -355,7 +355,7 @@
                                 <tr>
                                     <th>Keyword</th>
                                     <th>SHOWN</th>
-                                    <th>DENSiTY</th>
+                                    <th>DENSITY</th>
                                     <th>TITLE</th>
                                     <th>DESC</th>
                                     <th>H1</th>
@@ -490,7 +490,7 @@
                 </div>
                 <div class="col-md-9">
                     @if(empty($all_img_src))
-                        <p>NO Images Found</p>
+                        <p>No Images Found</p>
                     @else
                         @if(!empty($img_data))
                             <table class="table image-table">
@@ -510,7 +510,7 @@
                                 </tbody>
                                 </table>
                         @else
-                            <p>Error Found</p>
+                            <p>Error Fetching Images</p>
                         @endif
                     @endif    
                 </div>
@@ -536,9 +536,9 @@
                 </div>
                 <div class="col-md-9">
                    @if(!empty($cache))
-                        <p>Cache found on your page.</p>
+                        <p>Your page has cached installed.</p>
                    @else
-                        <p>Cache not found on your page.</p>
+                        <p>Cacheing was not found on your page.</p>
                    @endif
                 </div>
             </div>
@@ -558,9 +558,9 @@
                 </div>
                 <div class="col-md-9">
                     @if(!empty($internal_link))
-                        <p>Internal Links found.</p>
+                        <p>Internal links were found on your page.</p>
                     @else
-                        <p>Internal Links not found.</p>
+                        <p>Internal links were not found on your page.</p>
                     @endif
                 </div>
             </div>
@@ -570,7 +570,11 @@
                     <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Referring Domains</h6>
                 </div>
                 <div class="col-md-9">
-
+                    @if(!empty($domains_num))
+                        <p>{{$domains_num}} Referring domains.</p>
+                    @else
+                        <p>N/A</p>
+                    @endif
                 </div>
             </div>
             <hr>
@@ -579,7 +583,11 @@
                     <h6><span style="margin-right: 9px;color: green;"><i class="fa fa-check" aria-hidden="true"></i></span>Referring URLs </h6>
                 </div>
                 <div class="col-md-9">
-                    
+                         @if(!empty($urls_num))
+                        <p>{{$urls_num}} Referring URLs.</p>
+                    @else
+                        <p>N/A</p>
+                    @endif
                 </div>
             </div>
             <hr>
@@ -615,7 +623,7 @@
                 </div>
                 <div class="col-md-9">
                    @if(!empty($page_https))
-                        <p>{{$page_https}}</p><br>
+                        <p>Your page is using HTTPS SSL.</p><br>
                     @endif    
                     
                 </div>
@@ -631,9 +639,9 @@
                 </div>
                 <div class="col-md-9">
                   @if(!empty($ssl_certificate))
-                        <p>SSL certificate found.</p>
+                        <p>An SSL certificate was found on your domain.</p>
                     @else
-                        <p>SSL certificate not found.</p>
+                        <p>An SSL certificate was not found on your domain.</p>
                     @endif
                      
                 </div>
@@ -649,9 +657,9 @@
                 </div>
                 <div class="col-md-9">
                     @if(!empty($a_https) && !empty($link_https)  && !empty($script_https))
-                        <p>Links pointing to non-https pages found.</p>
+                        <p>Links pointing to non-HTTPS URLs found on your page.</p>
                     @else
-                        <p>Links pointing to non-https pages not found.</p>
+                        <p>Links pointing to non-HTTPS URLs not found on your page.</p>
                     @endif
                 </div>
             </div>
@@ -670,7 +678,7 @@
                     @endif
                 </div>
                 <div class="col-md-9">
-                    <p>{{$social_media_link ?? 'Link to social media profiles not found'}}</p>
+                    <p>{{$social_media_link ?? 'Link to social media profiles not found.'}}</p>
                 </div>
             </div>
             <hr>
@@ -707,9 +715,9 @@
                 </div>
                 <div class="col-md-9">
                     @if(!empty($robot) && $robot[0] !== '<!doctype')
-                        <p>Robots.txt file found.</p>
+                        <p>A robots.txt file was found.</p>
                     @else
-                        <p>Your site is missing its robots.txt file. This file tells search engine bots how to most appropriately crawl your site and which pages not to crawl and index.</p>
+                        <p>We could not find a robots.txt file on your domain.</p>
                     @endif
 
                 </div>
@@ -729,9 +737,9 @@
                 </div>
                 <div class="col-md-9">
                     @if(!empty($sitemap))
-                        <p>XML sitemap found</p>
+                        <p>Your website has an XML sitemap.</p>
                     @else
-                        <p>We cannot seem to find your website's sitemap.xml file. This helps search engines better index your website and get found online.</p>
+                        <p>We cannot seem to find your website's sitemap.xml file.</p>
                     @endif
                 </div>
             </div>

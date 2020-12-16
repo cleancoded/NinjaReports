@@ -97,12 +97,13 @@
             <div class="row errors-table">
                 <table class="table">
                     <h4 style="color: red;padding: 10px;">
-                        Errors {{$errors}}
+                        Errors ({{$errors}})
                     </h4>
                     <thead>
                         <tr>
                         <th>URL</th>
                         <th>Error</th>
+                        <th>Description</th>
                         <th>How to Fix</th>
                         </tr>
                     </thead>
@@ -112,6 +113,7 @@
                             @foreach($links_empty_h1 as $link)
                                 <tr>
                                     <td><a href="{{$link}}" target="_blank">{{$link}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                                    <td><span style="margin-right: 5px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Heading Tag Issues</td>
                                     <td>Your page is not using heading tags appropriately. Heading tags are the section titles of your content. They should be structured correctly.</td>
                                     <td>Make sure the page has one H1 tag to signal the most important topic of the page and descending tags to show other topics.</td>
                                 </tr>
@@ -122,6 +124,7 @@
                             @foreach($page_miss_meta as $val)
                                 <tr>
                                     <td><a href="{{$val}}" target="_blank">{{$val}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                                    <td><span style="margin-right: 5px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Meta Description Missing</td>
                                     <td>Your meta description is missing. Meta descriptions are important for your CTR, which is a ranking factor for search engines.</td>
                                     <td>Add a meta description (between 150-160 characters) that describes what your page is about.</td>
                                 </tr>
@@ -132,6 +135,7 @@
                         @foreach($duplicate_title as $key => $val)
                             <tr>
                                 <td><a href="{{$key}}" target="_blank">{{$key}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                                <td><span style="margin-right: 5px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Identical Title Tags</td>
                                 <td>One or more pages have identical title tags.</td>
                                 <td>Make sure to rewrite duplicate title tags where needed so that every page on your site has a unique title tag.</td>
                             </tr>
@@ -142,6 +146,7 @@
                         @foreach($duplicate_meta_description as $key => $val)
                             <tr>
                                 <td><a href="{{$key}}" target="_blank">{{$key}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                                <td><span style="margin-right: 5px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Identical Meta Descriptions</td>
                                 <td>One or more pages have identical meta description tags.</td>
                                 <td>Each URL/page should have a unique meta description tag.</td>
                             </tr>
@@ -152,6 +157,7 @@
                         @foreach($link_500 as  $val)
                             <tr>
                                 <td><a href="{{$val}}" target="_blank">{{$val}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                                <td><span style="margin-right: 5px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>500 Error</td>
                                 <td>Your page has 500 error</td>
                                 <td>Find the link or links that are broken and change it to the correct page or take the link off.</td>
                             </tr>
@@ -162,6 +168,7 @@
                         @foreach($link_404 as  $val)
                             <tr>
                                 <td><a href="{{$val}}" target="_blank">{{$val}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                                <td><span style="margin-right: 5px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Broken Links Found</td>
                                 <td>You have broken links on your page. Those links are sending users to a page that does not exist.</td>
                                 <td>Find the link or links that are broken and change it to the correct page or take the link off.</td>
                             </tr>
@@ -171,8 +178,9 @@
                             @foreach($long_title as $long)
                                 <tr>
                                     <td><a href="{{$long}}" target="_blank">{{$long}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                                    <td><span style="margin-right: 5px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Meta Title Length</td>
                                     <td>You have a meta title but it is not the optimal length. It needs to be between 50-60 characters to fit inside Google's recommended length.</td>
-                                    <td>Update your meta title to be between 50-60 characters in length.</td>
+                                    <td>Update the meta title for this page to be between 50-60 characters in length.</td>
                                 </tr>
                             @endforeach
                         @endif
@@ -181,8 +189,9 @@
                             @foreach($short_title as $short)
                                 <tr>
                                     <td><a href="{{$short}}" target="_blank">{{$short}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
-                                    <td>Title tag too short</td>
-                                    <td>The title tag length should be between 50 and 60 characters.</td>
+                                    <td><span style="margin-right: 5px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Short Title Tag</td>
+                                    <td>The title tag is too short on this page. The reccommneed title tag length is between 50-60 characters.</td>
+                                    <td>Update the meta title for this page to be between 50-60 characters in length.</td>
                                 </tr>
                             @endforeach
                         @endif
@@ -190,6 +199,7 @@
                             @foreach($long_meta_description as $long_meta)
                                 <tr>
                                     <td><a href="{{$long_meta}}" target="_blank">{{$long_meta}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                                    <td><span style="margin-right: 5px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Meta Description Too Long</td>
                                     <td>You have a meta description but it is not the optimal length. It needs to be around 160 characters to fit inside Google's recommended length.</td>
                                     <td>Update your meta description to be between 150-160 characters in length.</td>
                                 </tr>
@@ -200,8 +210,9 @@
                             @foreach($short_meta_description as $short_meta)
                                 <tr>
                                     <td><a href="{{$short_meta}}" target="_blank">{{$short_meta}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
-                                    <td>The meta description is not the optimal length.</td>
-                                    <td>Create a unique meta description of 150 to 160 characters in length.</td>
+                                    <td><span style="margin-right: 5px;color: #ff0000;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>Meta Description Too Short</td>
+                                    <td>You have a meta description but it is not the optimal length. It needs to be around 160 characters to fit inside Google's recommended length.</td>
+                                    <td>Update your meta description to be between 150-160 characters in length.</td>
                                 </tr>
                             @endforeach
                         @endif
@@ -214,12 +225,13 @@
         <div class="row errors-table">
                 <table class="table">
                     <h4 style="color: orange;padding: 10px;">
-                        WARNINGS {{$warning}}
+                        WARNINGS ({{$warning}})
                     </h4>
                     <thead>
                         <tr>
                         <th>URL</th>
                         <th>Error</th>
+                        <td>Description</td>
                         <th>How to Fix</th>
                         </tr>
                     </thead>
@@ -228,6 +240,7 @@
                         @foreach($page_without_canonical as $val)
                             <tr>
                                 <td><a href="{{$val}}" target="_blank">{{$val}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                                <td><span style="margin-right:5px;color: #ff6600;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>Canonical Tag Missing</td>
                                 <td>Your canonical tag is missing. Canonical tags are important because they tell search engines what the correct URL of the page should be.</td>
                                 <td>Add a canonical tag to your website pages.</td>
                             </tr>
@@ -238,8 +251,9 @@
                         @foreach($less_code_ratio as $less)
                                 <tr>
                                     <td><a href="{{$less}}" target="_blank">{{$less}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
-                                    <td>Your text-HTML ratio is off balance. Search engines need text to know what a page is about. You should shoot for a 10% or greater text-HTML ratio.</td>
-                                    <td>Add more relevant text to your page to bring the ratio back into balance.</td>
+                                    <td><span style="margin-right: 5px;color: #ff6600;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>Low Text-HTML Ratio</td>
+                                    <td>Your text-HTML ratio is too low. Search engines need text to know what a page is about. You should shoot for a 10% or greater text-HTML ratio.</td>
+                                    <td>Add more relevant text content to your page to increase the text to HTML ratio to over 10%.</td>
                                 </tr>
                             @endforeach
                     @endif
@@ -249,6 +263,7 @@
                             @foreach($less_page_words as $val)
                                 <tr>
                                     <td><a href="{{$val}}" target="_blank">{{$val}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                                    <td><span style="margin-right: 5px;color: #ff6600;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>Thin Content</td>
                                     <td>There are less than 600 words of content on this page. It is recommended to add more quality text to this page to rank well.</td>
                                     <td>Try adding more content and main keywords to your page so search engines know what it is about.</td>
                                 </tr>
@@ -258,7 +273,8 @@
                             @foreach($link_302 as $val)
                                 <tr>
                                     <td><a href="{{$val}}" target="_blank">{{$val}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
-                                    <td>302 redirects</td>
+                                    <td><span style="margin-right: 5px;color: #ff6600;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>302 Redirect</td>
+                                    <td>Your page has a 302 redirect to an internal link.</td>
                                     <td>Your page has a 302 redirect. Link directly to the redirected page or remove the 302 redirect.</td>
                                 </tr>
                             @endforeach    
@@ -268,7 +284,8 @@
                             @foreach($link_301 as $val)
                                 <tr>
                                     <td><a href="{{$val}}" target="_blank">{{$val}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
-                                    <td>301 redirects</td>
+                                    <td><span style="margin-right: 5px;color: #ff6600;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>301 redirect</td>
+                                    <td>Your page has a 301 redirect to an internal link.</td>
                                     <td>Your page has a 301 redirect. Link directly to the redirected page or remove the 301 redirect.</td>
                                 </tr>
                             @endforeach    
@@ -279,6 +296,7 @@
                                 @if(strpos($val,"facebook") == false && strpos($val,"twitter") == false && strpos($val,"linkedin") == false && strpos($val,"instagram") == false)
                                     <tr>
                                         <td><a href="{{$val}}" target="_blank">{{$val}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                                        <td><span style="margin-right: 5px;color: #ff6600;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>Twitter Card Issue</td>
                                         <td>Your site is missing open Twitter card tags. These are tags that allow you to control what content shows when a webpage is shared on social media.</td>
                                         <td>Add Twitter Card to fix this issue.</td>
                                     </tr>
@@ -295,13 +313,14 @@
     <section id="notices">
         <div class="row errors-table">
                 <table class="table">
-                    <h4 style="color: lightblue;padding: 10px;">
-                        NOTICES {{$notices}}
+                    <h4 style="color: #0E6EEA;padding: 10px;">
+                        NOTICES ({{$notices}})
                     </h4>
                     <thead>
                         <tr>
                         <th>URL</th>
                         <th>Error</th>
+                        <th>Description</th>
                         <th>How to Fix</th>
                         </tr>
                     </thead>
@@ -310,6 +329,7 @@
                             @foreach($links_more_h1 as $link)
                                 <tr>
                                     <td><a href="{{$link}}" target="_blank">{{$link}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                                    <td><span style="margin-right: 5px;color:#0E6EEA;"><i class="fa fa-flag" aria-hidden="true"></i></span>Multiple h1 Tags</td>
                                     <td>Multiple h1 tags found on your page.</td>
                                     <td>Make sure you have only one h1 tag on each page and it includes the main keywords for that page.</td>
                                 </tr>
@@ -320,6 +340,7 @@
                             @foreach($page_h1_greater as $greater)
                                 <tr>
                                     <td><a href="{{$greater}}" target="_blank">{{$greater}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                                    <td><span style="margin-right: 5px;color:#0E6EEA;"><i class="fa fa-flag" aria-hidden="true"></i></span>H1 Tag Too Long</td>
                                     <td>H1 too long found</td>
                                     <td>Edit h1 tags so that they have 20-70 characters in length, as recommended.</td>
                                 </tr>
@@ -330,7 +351,8 @@
                             @foreach($page_h1_less as $less_h1)
                                 <tr>
                                     <td><a href="{{$less_h1}}" target="_blank">{{$less_h1}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
-                                    <td>H1 too short found</td>
+                                    <td><span style="margin-right: 5px;color:#0E6EEA;"><i class="fa fa-flag" aria-hidden="true"></i></span>H1 Tag Too Short</td>
+                                    <td>The h1 tag on this page is too short and should contain more keywords.</td>
                                     <td>Edit or rewrite the h1 tag so that it includes all the necessary targeted keywords, while also closely describing the content of the page.</td>
                                 </tr>
                             @endforeach
@@ -339,6 +361,7 @@
                             @foreach($page_twitter_missing as $val)
                                 <tr>
                                     <td><a href="{{$val}}" target="_blank">{{$val}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                                    <td><span style="margin-right: 5px;color:#0E6EEA;"><i class="fa fa-flag" aria-hidden="true"></i></span>Twitter Card Missing</td>
                                     <td>Twitter card missing</td>
                                     <td>Add Twitter card to your page headers.</td>
                                 </tr>
@@ -349,8 +372,9 @@
                             @foreach($page_open_graph as $val)
                                 <tr>
                                     <td><a href="{{$val}}" target="_blank">{{$val}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                                    <td><span style="margin-right: 5px;color:#0E6EEA;"><i class="fa fa-flag" aria-hidden="true"></i></span>Open Graph Tags Missing</td>
                                     <td>Your site is missing open graph tags. These are tags that allow you to control what content shows when a webpage is shared on social media.</td>
-                                    <td>Add open graph tags to fix this issue.</td>
+                                    <td>Add open graph tags to to your page to fix the issue.</td>
                                 </tr>
                             @endforeach
                         @endif
@@ -359,8 +383,9 @@
                             @foreach($url_length as $val)
                                 <tr>
                                     <td><a href="{{$val}}" target="_blank">{{$val}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
-                                    <td>Longs URL found</td>
-                                    <td>A site's URL structure should be as simple as possible and include the pages keyword.</td>
+                                    <td><span style="margin-right: 5px;color:#0E6EEA;"><i class="fa fa-flag" aria-hidden="true"></i></span>Unfriendly URLs</td>
+                                    <td>This page has long and unfriendly SEO URLs.</td>
+                                    <td>A site's URL structure should be as simple as possible and include the pages main keywords.</td>
                                 </tr>
                             @endforeach
                         @endif
@@ -370,7 +395,8 @@
                                 @if(strpos($val,"facebook") == false && strpos($val,"twitter") == false && strpos($val,"linkedin") == false && strpos($val,"instagram") == false)
                                     <tr>
                                         <td><a href="{{$val}}" target="_blank">{{$val}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
-                                        <td>Your site is missing open graph tags. These are tags that allow you to control what content shows when a webpage is shared on social media.</td>
+                                        <td><span style="margin-right: 5px;color:#0E6EEA;"><i class="fa fa-flag" aria-hidden="true"></i></span>Open Graph Tags Incomplete</td>
+                                        <td>Your site is missing some open graph tags. These are tags that allow you to control what content shows when a webpage is shared on social media.</td>
                                         <td>Add open graph tags to fix this issue.</td>
                                     </tr>
                                 @endif
