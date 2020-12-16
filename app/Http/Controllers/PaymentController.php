@@ -16,7 +16,9 @@ class PaymentController extends Controller
     public function payment($id)
     {
         $id = $id;
-        return view('dashboard/payment',compact('id'));
+        $date = strtotime("+7 day");
+        $trial_end = date('M d, Y', $date);
+        return view('dashboard/payment',compact('id','trial_end'));
     }
   
     public function stripePost(Request $request,$id)
@@ -24,14 +26,14 @@ class PaymentController extends Controller
         $Payment=Payment::where('user_id',auth()->user()->id)->where('status',1)->first();
         
         $stripe = new \Stripe\StripeClient(
-            'sk_test_R5yp5YcSzHXQFP41vvKCSh9v'
+         env('STRIPE_SECRET_KEY')
           );
 
         if(!empty($Payment->subscription_id) && $Payment->status == 1){
             
             if($id == 1){
                 if($Payment->plan_id ==1){
-                    return redirect('/account')->with('message', 'You already subscribe this plan.');
+                    return redirect('/account')->with('message', 'You are already subscribed this plan.');
                 }else{
                     $plan_id = '1';
                     $no_allowed_site = '300';
@@ -48,7 +50,7 @@ class PaymentController extends Controller
                             'items' => [
                                 [
                                 'id' => $retrive->items->data[0]->id,
-                                'price' => 'Enter Webmaster product price ID.',
+                                'price' => 'price_1HpEyRADkh50BMLMBoqrNe62',
                                 ],
                             ],
                         ]);
@@ -69,11 +71,11 @@ class PaymentController extends Controller
                             'status'  => 1
                         );
                         Payment::where('user_id',auth()->user()->id)->where('status',1)->update($subscribe);
-                        return redirect('/account')->with('message', 'Subscription Updated successfully.');    
+                        return redirect('/account')->with('message', 'Subscription updated successfully.');    
                 }   
             }else if($id == 2){
                 if($Payment->plan_id ==2){
-                    return redirect('/account')->with('message', 'You already subscribe this plan.');
+                    return redirect('/account')->with('message', 'You are already subscribed this plan.');
                 }else{
                     $plan_id = '2';
                     $no_allowed_site = '500';
@@ -89,7 +91,7 @@ class PaymentController extends Controller
                             'items' => [
                                 [
                                 'id' => $retrive->items->data[0]->id,
-                                'price' => 'Enter Business product price ID.',
+                                'price' => 'price_1HpEzcADkh50BMLMoY8STLxJ',
                                 ],
                             ],
                         ]);
@@ -110,11 +112,11 @@ class PaymentController extends Controller
                             'status'  => 1
                         );
                         Payment::where('user_id',auth()->user()->id)->where('status',1)->update($subscribe);
-                        return redirect('/account')->with('message', 'Subscription Updated successfully.');  
+                        return redirect('/account')->with('message', 'Subscription updated successfully.');  
                 }  
             }else if($id == 3){
                 if($Payment->plan_id == 3){
-                    return redirect('/account')->with('message', 'You already subscribe this plan.');
+                    return redirect('/account')->with('message', 'You are already subscribed to this plan.');
                 }else{
                     $plan_id = '3';
                     $no_allowed_site = '500';
@@ -131,7 +133,7 @@ class PaymentController extends Controller
                             'items' => [
                                 [
                                 'id' => $retrive->items->data[0]->id,
-                                'price' => 'Enter Agency product price ID.',
+                                'price' => 'price_1HpEzxADkh50BMLMxpzIEwfn',
                                 ],
                             ],
                         ]);
@@ -152,7 +154,7 @@ class PaymentController extends Controller
                             'status'  => 1
                         );
                         Payment::where('user_id',auth()->user()->id)->where('status',1)->update($subscribe);
-                        return redirect('/account')->with('message', 'Subscription Updated successfully.'); 
+                        return redirect('/account')->with('message', 'Subscription updated successfully.'); 
                 }       
             }
            
@@ -169,7 +171,7 @@ class PaymentController extends Controller
                         "customer" => $customer->id,
                         "trial_period_days" => 7,
                         'items' => [
-                            ['price' => 'Enter Webmaster product price ID.'],
+                            ['price' => 'price_1HpEyRADkh50BMLMBoqrNe62'],
                         ],
                     
                 ]);
@@ -187,7 +189,7 @@ class PaymentController extends Controller
                         "customer" => $customer->id,
                         "trial_period_days" => 7,
                         'items' => [
-                            ['price' => 'Enter Business product price ID.'],
+                            ['price' => 'price_1HpEzcADkh50BMLMoY8STLxJ'],
                         ],
                     
                 ]);
@@ -205,7 +207,7 @@ class PaymentController extends Controller
                         "customer" => $customer->id,
                         "trial_period_days" => 7,
                         'items' => [
-                            ['price' => 'Enter Agency product price ID.'],
+                            ['price' => 'price_1HpEzxADkh50BMLMxpzIEwfn'],
                         ],
                     
                 ]);
@@ -230,7 +232,7 @@ class PaymentController extends Controller
             $create_user->status = '1';
             $create_user->save();
         }
-        return redirect('/account')->with('message', 'Payment Success');
+        return redirect('/account')->with('message', 'Payment success');
         // dd($charge);
     }
     

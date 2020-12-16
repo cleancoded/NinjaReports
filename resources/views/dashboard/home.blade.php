@@ -13,22 +13,21 @@
             <h3>QUICK ANALYSIS</h3>
             <p>Enter your URL to start a quick SEO analysis of your page. Ninja Reports scans your website for 50+ SEO factors and tells you how to fix them.</p>
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-9">
                         <input type="text" class="form-control url" placeholder="Enter URL">
                     </div>
                     <div class="col-md-2">
-                        <button class="btn btn-orange" class="analyze" id='analsis'>Analyze URL</button>
+                        <button class="btn btn-primary" class="analyze" id='analsis'>ANALYZE</button>
                     </div>
                 </div>
         </div>
         <div class="col-md-6 plan-col">
             <h6><span>Plan: </span><span>
-             @if(!empty($product) && $status == 1)
-                    <span>{{$product->name}} plan</span>
+             @if(!empty($product))
+                    <span>{{$product->name}}</span>
                 @else
                     <span>Free plan</span>
                 @endif</span></h6>
-            <h6><span>Next Billing Date: </span><span>N/A</span></h6>
             <a href="{{route('subscription')}}" class="btn btn-warning">Upgrade</a>
         </div>
     </div>
