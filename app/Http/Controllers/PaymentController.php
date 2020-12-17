@@ -50,7 +50,7 @@ class PaymentController extends Controller
                             'items' => [
                                 [
                                 'id' => $retrive->items->data[0]->id,
-                                'price' => 'price_1HpEyRADkh50BMLMBoqrNe62',
+                                'price' => env('WEBMASTER_PRICE'),
                                 ],
                             ],
                         ]);
@@ -91,7 +91,7 @@ class PaymentController extends Controller
                             'items' => [
                                 [
                                 'id' => $retrive->items->data[0]->id,
-                                'price' => 'price_1HpEzcADkh50BMLMoY8STLxJ',
+                                'price' => env('BUSINESS_PRICE'),
                                 ],
                             ],
                         ]);
@@ -133,7 +133,7 @@ class PaymentController extends Controller
                             'items' => [
                                 [
                                 'id' => $retrive->items->data[0]->id,
-                                'price' => 'price_1HpEzxADkh50BMLMxpzIEwfn',
+                                'price' => env('AGENCY_PRICE'),
                                 ],
                             ],
                         ]);
@@ -171,7 +171,7 @@ class PaymentController extends Controller
                         "customer" => $customer->id,
                         "trial_period_days" => 7,
                         'items' => [
-                            ['price' => 'price_1HpEyRADkh50BMLMBoqrNe62'],
+                            ['price' => env('WEBMASTER_PRICE')],
                         ],
                     
                 ]);
@@ -189,7 +189,7 @@ class PaymentController extends Controller
                         "customer" => $customer->id,
                         "trial_period_days" => 7,
                         'items' => [
-                            ['price' => 'price_1HpEzcADkh50BMLMoY8STLxJ'],
+                            ['price' => env('BUSINESS_PRICE')],
                         ],
                     
                 ]);
@@ -207,7 +207,7 @@ class PaymentController extends Controller
                         "customer" => $customer->id,
                         "trial_period_days" => 7,
                         'items' => [
-                            ['price' => 'price_1HpEzxADkh50BMLMxpzIEwfn'],
+                            ['price' => env('AGENCY_PRICE')],
                         ],
                     
                 ]);
@@ -232,7 +232,7 @@ class PaymentController extends Controller
             $create_user->status = '1';
             $create_user->save();
         }
-        return redirect('/account')->with('message', 'Payment success');
+        return redirect('/account')->with('message', 'You are now subscribed!');
         // dd($charge);
     }
     

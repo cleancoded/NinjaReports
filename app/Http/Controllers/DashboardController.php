@@ -7,12 +7,32 @@ use Session;
 use Stripe;
 use App\User;
 use App\Payment;  
-use Auth; 
+use Auth;
+use DB; 
 class DashboardController extends Controller
 {
     public function home(){
-        // dd(session()->all());
-        return view('dashboard/home');
+        if(!empty(auth()->user()->id)) {
+        $Payment=Payment::where('user_id',auth()->user()->id)->where('status',1)->first();
+        if($Payment['product_id']){
+            $stripe = new \Stripe\StripeClient(
+                env('STRIPE_SECRET_KEY')
+            );
+            $product = $stripe->products->retrieve(
+                $Payment['product_id'],
+                []
+            );
+                $productname = $product->name;
+                $created = date("F j, Y", $product->created); 
+        }else{
+            $productname = 'Free';
+            $created = 'N/A';
+        }
+    } else{
+        $productname = 'Guest';
+         $created = 'N/A';
+    }
+         return view('dashboard/home',compact('productname','created'));
     }
 
     public function seo_audit(){
@@ -38,7 +58,7 @@ class DashboardController extends Controller
             $product = 'N/A';
             $status = 'N/A';
         }
-        return view('dashboard/account',compact('product','status'));
+;        return view('dashboard/account',compact('product','status','audit_count'));
     }
     public function subscription(){
         if(!empty(auth()->user()->id)) {

@@ -118,6 +118,8 @@
                             }
                         });
                     }
+                    //send analytics event
+                      ga('send', 'event', 'audit', 'click', url);
                 });
                 function get_audit(){
                     var url =  $("#seo_audit").val();
@@ -160,7 +162,7 @@
                                     }
                                 });
                         }else{
-                            alert("The link doesn't have http or https");
+                            alert("The link doesn't have http:// or https://");
                         }
                     }else{
                         alert('add url');
