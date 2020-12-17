@@ -48,7 +48,7 @@
 			</div>
 		</div>
 		<!--The Model-->
-		<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal" aria-hidden="true" style="margin-top:10%;">
+		<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					
@@ -60,14 +60,13 @@
 					<!-- Modal body -->
 					<div class="modal-body" style="padding:20px;">
 						<h2>Whoops!</h2>
-						<p>You must upgrade in order to run more SEO analysis.</p>
-						
-						</ul>
+						<p>You must upgrade in order to run a website audit. View our affordable plans below to see all of the SEO errors on your website.
+
 					</div>
 
 					<!-- Modal footer -->
 					<div class="modal-footer" style="margin:auto;">
-					<a class="btn-warning" href="{{route('subscription')}}" id='paybtn' style='padding:7px;text-decoration:none;'>View Plans</a>
+					<a class="btn-warning btn-md" href="{{route('subscription')}}" id='paybtn' style='padding:7px;text-decoration:none;'>VIEW PLANS</a>
 					</div>
 
 				</div>
@@ -115,14 +114,13 @@
 					<!-- Modal body -->
 					<div class="modal-body" style="padding:20px;">
 					<h2>Whoops!</h2>
-						<p>You must upgrade in order to run more SEO analysis.</p>
-						<a type="button" class="btn btn-warning" href="{{route('subscription')}}">Upgrade</a>
-						</ul>
+						<p>Free accounts can only run 1 SEO analysis per 24 hour period. Come back in 24 hours or try our <a style="text-decoration:underline" href="{{route('subscription')}}">free trial</a> to run more SEO analysis!</p>
+						
 					</div>
 
 					<!-- Modal footer -->
 					<div class="modal-footer" style="margin:auto;">
-						
+					<a class="btn-warning btn-md" href="{{route('subscription')}}" id='paybtn' style='padding:7px;text-decoration:none;'>VIEW PLANS</a>
 					</div>
 
 				</div>

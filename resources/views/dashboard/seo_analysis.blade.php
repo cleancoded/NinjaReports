@@ -162,6 +162,8 @@
                             }
                         });
                     }
+                    //send analytics event
+                      ga('send', 'event', 'analyze', 'click', url);
                 });
 
                 function analyzeURL(){
@@ -194,7 +196,7 @@
                                     //console.log(data);
                                     if(data == 'notsuccessful' || data == 'Expired' || data == 'exceeded' || data == 'upgrade' ){
                                         $('#waiting').hide();
-                                        $('#myModal').show();
+                                        $('#upgradeModel').show();
                                     }else{
                                         $('#waiting').hide();
                                         $('div#text-container').append(data);

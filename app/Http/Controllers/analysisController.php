@@ -9,7 +9,7 @@ use App\Analysis;
 use App\User;
 use App\Payment;
 use App\Audit;
-ini_set('max_execution_time', '300');
+
 class analysisController extends Controller
 {
 
@@ -573,6 +573,13 @@ class analysisController extends Controller
                 $health_score = (1-($data))*100;
                 $pages = count($pages);
                 $passed_pages = $pages - count($page_with_errors);
+                 if($health_score > 80){
+            $audit_description = "Your website SEO is good!";
+            } elseif ($health_score > 60) {
+            $audit_description = "Your website SEO needs work!";
+            } else {
+              $audit_description = "Your website SEO is weak!";  
+            }
             }catch(Exception $e){}
             return view("dashboard/audit_result",
             compact('url', 'time', 'page_h1_greater', 'page_h1_less', 'long_title', 'short_title','url_length',
@@ -581,7 +588,7 @@ class analysisController extends Controller
                 'page_miss_meta', 'duplicate_meta_description', 'page_incomplete_card', 'page_incomplete_graph', 'status301',
                 'status302', 'status404', 'status500', 'page_miss_title', 'duplicate_title','twitter',
                 'link_302','link_301','link_404','link_500','page_without_canonical','notices','warning','errors','passed_pages'
-                ,'health_score','pages'
+                ,'health_score','pages','audit_description'
             ));
         }
     }

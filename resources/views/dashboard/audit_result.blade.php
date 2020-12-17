@@ -15,14 +15,16 @@
         <div class="row four-cols">
             <div class="col-md-3">
                 <h5>ON-PAGE SEO SCORE</h5>
-                <div class="blue" >
+             <div class="graph-container">
                     <div class="Progress" data-animate="false">
                         <div class="circle" data-percent="<?php echo round($health_score) ?? 0; ?>">
                             <div></div>
                         </div>
                     </div>
+                    <h4 style="text-align:center">{{$audit_description}}</h4>
                 </div>
-                <h5 style="margin-top:15%;">{{$passed_pages < 0 ? 0 : $passed_pages}} URLs Passed</h5>
+             <hr/>
+                <h5 style="margin-top:10%;">{{$passed_pages < 0 ? 0 : $passed_pages}} URLs Passed</h5>
                 <h5>{{$errors}} Errors</h5>
                 <h5>{{$warning}} Warnings</h5>
                 <h5>{{$notices}} Notices</h5>
@@ -33,17 +35,17 @@
                 <h5 class="number-error">{{$errors}}</h5>
                 <p class="description">Errors are SEO issues that have the highest impact on your website's SEO performance.</p>
                 <ul class="found-list">
-                @if(!empty($status404)) <li> @endif  {{!empty($status404) ? 'Broken links found':''}} @if(!empty($status404)) </li> @endif
-                @if(!empty($status500)) <li>  @endif  {{!empty($status500) ? '500 error found':''}} @if(!empty($status500)) </li>  @endif
-                @if(!empty($links_empty_h1)) <li> @endif    {{!empty($links_empty_h1)    ? 'H1 tag missing':''}} @if(!empty($links_empty_h1)) </li> @endif
-                @if(!empty($page_miss_meta)) <li> @endif     {{!empty($page_miss_meta)    ? 'Some pages missing meta description tag':''}} @if(!empty($page_miss_meta)) </li> @endif
+                @if(!empty($status404)) <li> @endif  {{!empty($status404) ? 'Broken link':''}} @if(!empty($status404)) </li> @endif
+                @if(!empty($status500)) <li>  @endif  {{!empty($status500) ? '500 error':''}} @if(!empty($status500)) </li>  @endif
+                @if(!empty($links_empty_h1)) <li> @endif    {{!empty($links_empty_h1)    ? 'H1 tag missing':''}}  @if(!empty($links_empty_h1)) </li> @endif
+                @if(!empty($page_miss_meta)) <li> @endif     {{!empty($page_miss_meta)    ? 'Missing meta description':''}} @if(!empty($page_miss_meta)) </li> @endif
                 @if(!empty($page_miss_title))  <li>  @endif  {{!empty($page_miss_title)? 'Title tag missing':''}} @if(!empty($page_miss_title))  </li>  @endif
-                @if(!empty($duplicate_meta_description)) <li>  @endif    {{!empty($duplicate_meta_description) ? 'Duplicate meta descriptions found' : ''}} @if(!empty($duplicate_meta_description)) </li>  @endif
-                @if(!empty($duplicate_title)) <li>   @endif  {{!empty($duplicate_title) ? 'Duplicate title tags found' : ''}} @if(!empty($duplicate_title)) </li>   @endif
+                @if(!empty($duplicate_meta_description)) <li>  @endif    {{!empty($duplicate_meta_description) ? 'Duplicate meta description' : ''}} @if(!empty($duplicate_meta_description)) </li>  @endif
+                @if(!empty($duplicate_title)) <li>   @endif  {{!empty($duplicate_title) ? 'Duplicate title tag' : ''}} @if(!empty($duplicate_title)) </li>   @endif
                 @if(!empty($short_title)) <li>   @endif    {{!empty($short_title) ? 'Title tag too short':''}} @if(!empty($short_title)) </li>   @endif
                 @if(!empty($long_title))   <li>  @endif  {{!empty($long_title)  ? 'Title tag too long' :''}} @if(!empty($long_title))  </li>  @endif 
-                @if(!empty($long_meta_description)) <li> @endif    {{!empty($long_meta_description) ? 'Long meta descriptions' : ''}} @if(!empty($long_meta_description)) </li> @endif
-                @if(!empty($short_meta_description)) <li> @endif    {{!empty($short_meta_description) ? 'Short meta descriptions' : ''}} @if(!empty($short_meta_description)) </li> @endif
+                @if(!empty($long_meta_description)) <li> @endif    {{!empty($long_meta_description) ? 'Long meta description' : ''}} @if(!empty($long_meta_description)) </li> @endif
+                @if(!empty($short_meta_description)) <li> @endif    {{!empty($short_meta_description) ? 'Short meta description' : ''}} @if(!empty($short_meta_description)) </li> @endif
             </ul>
                 @if($errors == 0)  <div class="clean"><i class="fa fa-check" aria-hidden="true"></i> Nice, no errors!</div> @endif
                 <div class="link-div text-right view-more">
@@ -57,12 +59,12 @@
                       <p class="description">Warnings have less impact on your SEO performance but should not be overlooked.</p>
                       <ul class="found-list">
                 @if(!empty($less_page_words)) <li>  @endif {{!empty($less_page_words)   ? 'Low word count':''}} @if(!empty($less_page_words)) </li>  @endif
-                @if(!empty($page_without_canonical)) <li>   @endif  {{!empty($page_without_canonical) ? 'Canonical tags missing on some pages':''}} @if(!empty($page_without_canonical)) </li>   @endif
+                @if(!empty($page_without_canonical)) <li>   @endif  {{!empty($page_without_canonical) ? 'Canonical tag missing':''}} @if(!empty($page_without_canonical)) </li>   @endif
                 @if(!empty($duplicate_h1))  <li>  @endif    {{!empty($duplicate_h1) ? 'Duplicate h1 tags':''}} @if(!empty($duplicate_h1))  </li>  @endif
                 @if(!empty($page_incomplete_card)) <li> @endif     {{!empty($page_incomplete_card)  ? 'Twitter card incomplete' :''}} @if(!empty($page_incomplete_card)) </li> @endif
                 @if(!empty($status301))   <li> @endif  {{!empty($status301)     ? '301 redirects found':''}} @if(!empty($status301)) </li> @endif
                 @if(!empty($status302)) <li> @endif {{!empty($status302) ? '302 redirects found':''}} @if(!empty($status302)) </li> @endif
-                @if(!empty($less_code_ratio)) <li> @endif {{!empty($less_code_ratio) ? 'HTML to text ratio < 10% found': ''}} @if(!empty($less_code_ratio)) </li> @endif
+                @if(!empty($less_code_ratio)) <li> @endif {{!empty($less_code_ratio) ? 'Text-to-HTML ratio < 10%': ''}} @if(!empty($less_code_ratio)) </li> @endif
                </ul>
                  @if($warning == 0)  <div class="clean"><i class="fa fa-check" aria-hidden="true"></i> Nice, no warnings!</div> @endif
                 <div class="link-div text-right view-more">
@@ -77,10 +79,10 @@
                 @if(!empty($page_h1_less)) <li> @endif      {{!empty($page_h1_less)    ? 'h1 tag too short':''}} @if(!empty($page_h1_less)) </li> @endif
                 @if(!empty($page_h1_greater)) <li>  @endif   {{!empty($page_h1_greater)  ? 'h1 tag too long'    :''}} @if(!empty($page_h1_greater)) </li>  @endif
                 @if(!empty($links_more_h1)) <li> @endif  {{!empty($links_more_h1) ? 'Multiple h1 tags found':''}} @if(!empty($links_more_h1)) </li> @endif 
-                @if(!empty($url_length)) <li>  @endif  {{!empty($url_length)  ?  'Longs URLs':''}} @if(!empty($url_length)) </li>  @endif 
+                @if(!empty($url_length)) <li>  @endif  {{!empty($url_length)  ?  'Longs URL':''}} @if(!empty($url_length)) </li>  @endif 
                 @if(empty($twitter)) <li> @endif   {{!empty($twitter) ? '' :'Twitter card missing'}} @if(empty($twitter)) </li> @endif
-                @if(empty($graph_data)) <li>  @endif   {{!empty($graph_data) ? '' :'Open graph tags missing'}} @if(empty($graph_data)) </li>  @endif
-                @if(!empty($page_incomplete_graph)) <li> @endif  {{!empty($page_incomplete_graph) ? 'Open Graph tags incomplete':''}} @if(!empty($page_incomplete_graph)) </li> @endif
+                @if(empty($graph_data)) <li>  @endif   {{!empty($graph_data) ? '' :'Open graph tag missing'}} @if(empty($graph_data)) </li>  @endif
+                @if(!empty($page_incomplete_graph)) <li> @endif  {{!empty($page_incomplete_graph) ? 'Open Graph tag incomplete':''}} @if(!empty($page_incomplete_graph)) </li> @endif
                 @if(empty($robot)) <li> @endif  {{empty($robot) ? 'Robot.txt missing' : ''}} @if(empty($robot)) </li> @endif
             </ul>
                 @if($notices == 0)  <div class="clean"><i class="fa fa-check" aria-hidden="true"></i> Nice, no notices!</div> @endif

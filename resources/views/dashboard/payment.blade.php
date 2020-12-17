@@ -100,8 +100,8 @@
 					<!-- Used to display form errors. -->
 					<div id="card-errors" role="alert"></div>
 				</div>
-				<div><input type="checkbox" id="policy" name="policy" checked="checked"> <label for="policy" style="font-size:13px;padding-top:7px;color:#999">I have read and I agree to the <a target="_blank" href="https://www.ninjareports.com/terms-conditions/">Terms of Use</a>.</label></div>
-				<button class="btn btn-warning">JOIN NOW</button>
+				<div style="text-align:center;"><input type="checkbox" id="policy" name="policy" checked="checked"> <label for="policy" style="font-size:13px;padding-top:7px;color:#999">I have read and I agree to the <a target="_blank" href="https://www.ninjareports.com/terms-conditions/">Terms of Use</a>.</label></div>
+				<button class="btn btn-lg btn-warning" style="font-weight:bold;font-size:21px;">JOIN NOW &nbsp;<i class="fa fa-caret-right" aria-hidden="true"></i></button>
 			</form>
 			
 	</div>
