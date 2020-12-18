@@ -19,12 +19,16 @@ class PaymentController extends Controller
         $date = strtotime("+7 day");
         $trial_end = date('M d, Y', $date);
         $next_billing = strtotime("+30 day");
+        if(!empty(auth()->user()->id)){
         $Payment=Payment::where('user_id',auth()->user()->id)->where('status',1)->first();
-        $status = $Payment->status;
-        if($Payment->status == 1) {
+        if(!empty($Payment) && $Payment->status == 1) {
             $next_billing = date('M d', $next_billing);
+            $status = 1;
         } else {
             $next_billing = '';
+            $status = 0;
+        } else {
+
         }
 
         return view('dashboard/payment',compact('id','trial_end','status','next_billing'));
