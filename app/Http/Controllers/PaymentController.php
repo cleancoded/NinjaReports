@@ -18,7 +18,16 @@ class PaymentController extends Controller
         $id = $id;
         $date = strtotime("+7 day");
         $trial_end = date('M d, Y', $date);
-        return view('dashboard/payment',compact('id','trial_end'));
+        $next_billing = strtotime("+30 day");
+        $Payment=Payment::where('user_id',auth()->user()->id)->where('status',1)->first();
+        $status = $Payment->status;
+        if($Payment->status == 1) {
+            $next_billing = date('M d', $next_billing);
+        } else {
+            $next_billing = '';
+        }
+
+        return view('dashboard/payment',compact('id','trial_end','status','next_billing'));
     }
   
     public function stripePost(Request $request,$id)

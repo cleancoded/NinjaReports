@@ -101,14 +101,14 @@
 					<div id="card-errors" role="alert"></div>
 				</div>
 				<div style="text-align:center;"><input type="checkbox" id="policy" name="policy" checked="checked"> <label for="policy" style="font-size:13px;padding-top:7px;color:#999">I have read and I agree to the <a target="_blank" href="https://www.ninjareports.com/terms-conditions/">Terms of Use</a>.</label></div>
-				<button class="btn btn-lg btn-warning" style="font-weight:bold;font-size:21px;">JOIN NOW &nbsp;<i class="fa fa-caret-right" aria-hidden="true"></i></button>
+				<button class="btn btn-lg btn-warning" style="font-weight:bold;font-size:21px;">SUBSCRIBE &nbsp;<i class="fa fa-caret-right" aria-hidden="true"></i></button>
 			</form>
 			
 	</div>
 	<div class="col-md-4" style="padding:50px 10px 10px 10px;">
 		
 		<h3>Subscription Details</h3>
-		
+		@if($status == 0)
 		<label>Free Trial Length</label>: <strong>7 Days</strong>
 	</br>
 		<label>After-Trial Price</label>:
@@ -121,13 +121,40 @@
 				@if($id == '3')
 					<strong>$99/month</strong>
 				@endif
-		</strong>
 		</br>
 		<label>First Billing Date</label>: <strong>{{$trial_end}}</strong>
 		</br>
 		<div style="border-top:1px solid #ddd;padding:5px;background:#eee">
 		<label style="font-size:19px;margin:0">Today's Charge</label>: <strong style="font-size:19px;color:green">$0.00</strong>
 	</div>
+	@else
+<label>Billing Cycle</label>: <strong>{{$next_billing}}</strong>
+</br>
+<label>Package</label>:
+		@if($id == '1')
+					<strong>Webmaster</strong>
+				@endif
+				@if($id == '2')
+					<strong>Business</strong>
+				@endif
+				@if($id == '3')
+					<strong>Agency</strong>
+				@endif
+
+	<div style="border-top:1px solid #ddd;padding:5px;background:#eee">
+		<label style="font-size:18px;margin:0">Today's Charge</label>:
+			@if($id == '1')
+					<strong style="font-size:18px;color:green">$29/month</strong>
+				@endif
+				@if($id == '2')
+					<strong style="font-size:18px;color:green">$49/month</strong>
+				@endif
+				@if($id == '3')
+					<strong style="font-size:18px;color:green">$99/month</strong>
+				@endif
+	</div>
+
+	@endif
 		<p style="font-size:13px;color:#666;padding:3px;margin-top:5px;"><i class="fa fa-info-circle" aria-hidden="true"></i> You can cancel anytime in the <a href="/account">My Account</a> area.</p>
 	</div>
 </div>
