@@ -18,6 +18,8 @@ class PaymentController extends Controller
         $id = $id;
         $date = strtotime("+7 day");
         $trial_end = date('M d, Y', $date);
+        $next_billing = strtotime("+30 day");
+
         $Payment=Payment::where('user_id',auth()->user()->id)->where('status',1)->first();
         if(!empty($Payment) && $Payment->status == 1) {
             $next_billing = date('M d', $next_billing);
